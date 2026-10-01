@@ -10,7 +10,6 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
-  Maximize2,
   Sparkles,
 } from 'lucide-react';
 import { images } from '@/data/images';
@@ -18,11 +17,9 @@ import { images } from '@/data/images';
 /*
  * Impact Section — «El Cuadro de Mando del Impacto: Parallax Horizontal»
  *
- * Experiencia inmersiva de scroll horizontal guiada por el scroll vertical en desktop,
- * con parallax multidimensional (desfase entre foto y tipografía) y adaptación
- * táctil nativa (touch-snap) en dispositivos móviles.
- *
- * Diseño editorial contemporáneo (inspiración: The New Yorker interactive / Monocle).
+ * Experiencia inmersiva con scroll horizontal guiado por el scroll vertical en desktop,
+ * profundidad visual en fotos y adaptación táctil nativa en móvil.
+ * Tarjetas con dimensiones estrictamente calibradas para evitar cualquier corte vertical u horizontal.
  */
 
 interface MetricSlide {
@@ -109,16 +106,27 @@ export function Impact() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [maxScrollDistance, setMaxScrollDistance] = useState(0);
 
-  // Detección de viewport desktop vs móvil
-  useEffect(() => {
-    const checkIsDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    checkIsDesktop();
-    window.addEventListener('resize', checkIsDesktop);
-    return () => window.removeEventListener('resize', checkIsDesktop);
+  // Medir distancias reales para que el desplazamiento horizontal sea exacto sin cortar tarjetas
+  const calculateMetrics = useCallback(() => {
+    const desktopMode = window.innerWidth >= 1024;
+    setIsDesktop(desktopMode);
+
+    if (trackRef.current && desktopMode) {
+      const scrollWidth = trackRef.current.scrollWidth;
+      const clientWidth = window.innerWidth;
+      // Margen de seguridad para que la última tarjeta respire holgadamente en el borde derecho
+      const distance = Math.max(scrollWidth - clientWidth + 80, 0);
+      setMaxScrollDistance(distance);
+    }
   }, []);
+
+  useEffect(() => {
+    calculateMetrics();
+    window.addEventListener('resize', calculateMetrics);
+    return () => window.removeEventListener('resize', calculateMetrics);
+  }, [calculateMetrics]);
 
   // Parallax Scroll Listener para Desktop
   useEffect(() => {
@@ -135,13 +143,13 @@ export function Impact() {
 
           if (totalScroll <= 0) return;
 
-          // Progreso de 0 a 1 normalizado
+          // Progreso normalizado de 0 a 1
           const progress = Math.min(Math.max(-rect.top / totalScroll, 0), 1);
           setScrollProgress(progress);
 
-          // Índice del slide activo (de 0 a SLIDES.length)
+          // Índice del slide activo
           const slideIndex = Math.min(
-            Math.floor(progress * (SLIDES.length + 0.99)),
+            Math.floor(progress * (SLIDES.length + 0.9)),
             SLIDES.length - 1
           );
           setActiveSlide(slideIndex);
@@ -158,7 +166,7 @@ export function Impact() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isDesktop]);
 
-  // Navegación manual mediante botones
+  // Navegación mediante botones prev/next
   const scrollToSlide = useCallback((index: number) => {
     if (isDesktop && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
@@ -174,25 +182,24 @@ export function Impact() {
     }
   }, [isDesktop]);
 
-  // Cálculo de transformación horizontal en desktop
-  // Máximo desplazamiento porcentual para recorrer todo el track
-  const horizontalTranslate = isDesktop ? scrollProgress * -72 : 0;
+  // Cálculo en píxeles exactos del desplazamiento horizontal en desktop
+  const horizontalTranslatePx = isDesktop ? -scrollProgress * maxScrollDistance : 0;
 
   return (
     <section
       ref={containerRef}
       id="impacto"
-      className="relative w-full bg-[var(--paper)] text-[var(--ink)] lg:h-[300vh]"
+      className="relative w-full bg-[var(--paper)] text-[var(--ink)] lg:h-[280vh]"
       aria-labelledby="impacto-heading"
     >
-      {/* ── Contenedor Sticky para Desktop / Bloque Normal en Móvil ── */}
-      <div className="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden flex flex-col justify-between py-12 lg:py-10">
+      {/* ── Contenedor Sticky en Desktop (centrado vertical para evitar cortes) ── */}
+      <div className="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden flex flex-col justify-center py-10 lg:py-6">
         
-        {/* ── Cabecera Superior Fija con Control de Avance ── */}
-        <div className="container-page mb-6 lg:mb-8 shrink-0">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[var(--border)] pb-4">
+        {/* ── Cabecera Superior con Control de Avance ── */}
+        <div className="container-page mb-5 lg:mb-6 shrink-0">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[var(--border)] pb-3.5">
             <div>
-              <div className="flex items-center gap-2.5 mb-2">
+              <div className="flex items-center gap-2 mb-1.5">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--forest)] opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--forest)]" />
@@ -205,25 +212,27 @@ export function Impact() {
               <h2
                 id="impacto-heading"
                 style={{ fontFamily: 'var(--font-editorial)' }}
-                className="text-2xl sm:text-3xl lg:text-4xl text-[var(--ink)] font-normal tracking-[-0.02em] leading-tight"
+                className="text-2xl sm:text-3xl lg:text-3.5xl text-[var(--ink)] font-normal tracking-[-0.02em] leading-tight"
               >
                 La certeza de lo que permanece sobre el terreno.
               </h2>
             </div>
 
             {/* Controles de Navegación y Progreso */}
-            <div className="flex items-center gap-5 shrink-0">
+            <div className="flex items-center gap-4 shrink-0">
               {/* Barra de progreso de micro-escala */}
-              <div className="hidden sm:flex flex-col items-end gap-1.5">
-                <div className="flex items-center gap-2 text-xs font-mono font-medium text-[var(--text-secondary)]">
+              <div className="hidden sm:flex flex-col items-end gap-1">
+                <div className="flex items-center gap-1.5 text-xs font-mono font-medium text-[var(--text-secondary)]">
                   <span className="text-[var(--ink)] font-bold">0{activeSlide + 1}</span>
                   <span className="text-[var(--border)]">/</span>
                   <span>0{SLIDES.length}</span>
                 </div>
-                <div className="w-28 h-1 bg-[var(--border)] rounded-full overflow-hidden">
+                <div className="w-24 h-1 bg-[var(--border)] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-[var(--forest)] rounded-full transition-all duration-300 ease-out"
-                    style={{ width: `${isDesktop ? Math.max((scrollProgress) * 100, 10) : ((activeSlide + 1) / SLIDES.length) * 100}%` }}
+                    style={{
+                      width: `${isDesktop ? Math.max(scrollProgress * 100, 10) : ((activeSlide + 1) / SLIDES.length) * 100}%`,
+                    }}
                   />
                 </div>
               </div>
@@ -234,7 +243,7 @@ export function Impact() {
                   type="button"
                   onClick={() => scrollToSlide(Math.max(activeSlide - 1, 0))}
                   disabled={activeSlide === 0}
-                  className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--ivory)] flex items-center justify-center text-[var(--ink)] hover:border-[var(--forest)] hover:bg-[var(--paper)] disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-95 shadow-sm"
+                  className="w-8.5 h-8.5 rounded-full border border-[var(--border)] bg-[var(--ivory)] flex items-center justify-center text-[var(--ink)] hover:border-[var(--forest)] hover:bg-[var(--paper)] disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-95 shadow-xs"
                   aria-label="Métrica anterior"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -243,7 +252,7 @@ export function Impact() {
                   type="button"
                   onClick={() => scrollToSlide(Math.min(activeSlide + 1, SLIDES.length - 1))}
                   disabled={activeSlide === SLIDES.length - 1}
-                  className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--ivory)] flex items-center justify-center text-[var(--ink)] hover:border-[var(--forest)] hover:bg-[var(--paper)] disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-95 shadow-sm"
+                  className="w-8.5 h-8.5 rounded-full border border-[var(--border)] bg-[var(--ivory)] flex items-center justify-center text-[var(--ink)] hover:border-[var(--forest)] hover:bg-[var(--paper)] disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-95 shadow-xs"
                   aria-label="Siguiente métrica"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -253,31 +262,30 @@ export function Impact() {
           </div>
         </div>
 
-        {/* ── Track Horizontal con Parallax ── */}
-        <div className="w-full overflow-hidden px-4 sm:px-6 lg:px-12">
+        {/* ── Track Horizontal con Parallax (con py para asegurar visibilidad total de bordes y sombras) ── */}
+        <div className="w-full overflow-hidden px-4 sm:px-6 lg:px-12 py-2">
           <div
             ref={trackRef}
-            className="flex gap-6 lg:gap-8 overflow-x-auto lg:overflow-visible scrollbar-none snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0"
+            className="flex gap-5 sm:gap-6 lg:gap-8 overflow-x-auto lg:overflow-visible scrollbar-none snap-x snap-mandatory lg:snap-none items-stretch"
             style={{
-              transform: isDesktop ? `translate3d(${horizontalTranslate}%, 0, 0)` : undefined,
+              transform: isDesktop ? `translate3d(${horizontalTranslatePx}px, 0, 0)` : undefined,
               transition: isDesktop ? 'transform 0.15s cubic-bezier(0.16, 1, 0.3, 1)' : undefined,
               willChange: isDesktop ? 'transform' : undefined,
             }}
           >
             {SLIDES.map((slide, idx) => {
               const Icon = slide.icon;
-              // Cálculo de desplazamiento Parallax interno para cada foto
-              const parallaxOffset = isDesktop ? (scrollProgress - idx / SLIDES.length) * 45 : 0;
+              const parallaxOffset = isDesktop ? (scrollProgress - idx / SLIDES.length) * 35 : 0;
 
               return (
                 <div
                   key={slide.id}
-                  className="metric-card shrink-0 w-[88vw] sm:w-[580px] lg:w-[680px] snap-center rounded-lg border border-[var(--border)] bg-[var(--ivory)] overflow-hidden shadow-[0_4px_24px_rgba(20,23,21,0.04)] group transition-all duration-300 hover:border-[var(--forest-mid)]"
+                  className="metric-card shrink-0 w-[86vw] sm:w-[500px] lg:w-[560px] snap-center rounded-lg border border-[var(--border)] bg-[var(--ivory)] overflow-hidden shadow-[0_4px_20px_rgba(20,23,21,0.05)] group transition-all duration-300 hover:border-[var(--forest-mid)] flex flex-col justify-between"
                 >
-                  {/* Cuerpo Superior: Imagen con máscara y efecto Parallax */}
-                  <div className="relative h-48 sm:h-56 lg:h-64 w-full overflow-hidden bg-[var(--paper)]">
+                  {/* Cuerpo Superior: Imagen con máscara y Parallax (altura calibrada para no desbordar) */}
+                  <div className="relative h-40 sm:h-44 lg:h-48 w-full overflow-hidden bg-[var(--paper)]">
                     <div
-                      className="absolute inset-0 w-[115%] h-full -left-[7.5%] transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="absolute inset-0 w-[112%] h-full -left-[6%] transition-transform duration-700 ease-out group-hover:scale-105"
                       style={{
                         transform: isDesktop ? `translate3d(${parallaxOffset}px, 0, 0)` : undefined,
                       }}
@@ -286,72 +294,71 @@ export function Impact() {
                         src={slide.imageSrc}
                         alt={slide.imageAlt}
                         fill
-                        sizes="(max-width: 768px) 90vw, 680px"
-                        className="object-cover filter contrast-[1.03] brightness-[0.98]"
+                        sizes="(max-width: 768px) 86vw, 560px"
+                        className="object-cover filter contrast-[1.02] brightness-[0.98]"
                       />
                     </div>
 
-                    {/* Gradiente sutil para legibilidad de los badges */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[var(--ivory)] via-transparent to-black/25 pointer-events-none" />
 
-                    {/* Badge de Categoría e Icono Flotante */}
-                    <div className="absolute top-4 left-4 flex items-center gap-2 bg-[var(--ivory)]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-[var(--border)] shadow-xs">
+                    {/* Badge de Categoría e Icono */}
+                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex items-center gap-1.5 bg-[var(--ivory)]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-[var(--border)] shadow-2xs">
                       <Icon className="w-3.5 h-3.5 text-[var(--forest)]" aria-hidden="true" />
-                      <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--ink)]">
+                      <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-[var(--ink)]">
                         {slide.category}
                       </span>
                     </div>
 
-                    {/* Ubicación Geográfica en Terreno */}
-                    <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md text-[var(--ivory)] px-2.5 py-1 rounded-full text-[10.5px] font-mono tracking-wide">
+                    {/* Ubicación Geográfica */}
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-black/45 backdrop-blur-md text-[var(--ivory)] px-2.5 py-1 rounded-full text-[10px] font-mono tracking-wide">
                       {slide.location}
                     </div>
 
-                    {/* Cifra Monumental Parallax integrada al corte */}
-                    <div className="absolute bottom-2 left-6 sm:left-8 flex items-baseline gap-2.5">
+                    {/* Cifra Monumental */}
+                    <div className="absolute bottom-1.5 left-5 sm:left-6 flex items-baseline gap-2">
                       <span
                         style={{ fontFamily: 'var(--font-editorial)' }}
-                        className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-none tracking-tight text-[var(--ink)] drop-shadow-xs"
+                        className="text-4xl sm:text-5xl font-normal leading-none tracking-tight text-[var(--ink)] drop-shadow-2xs"
                       >
                         {slide.number}
                       </span>
-                      <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-[var(--forest-mid)]">
+                      <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--forest-mid)]">
                         {slide.unit}
                       </span>
                     </div>
                   </div>
 
-                  {/* Cuerpo Inferior: Textos Editoriales y Rigor */}
-                  <div className="p-6 sm:p-8 pt-4 flex flex-col justify-between min-h-[220px]">
+                  {/* Cuerpo Inferior: Textos y Cierre de Auditoría */}
+                  <div className="p-5 sm:p-6 pt-3 flex flex-col justify-between flex-1">
                     <div>
-                      <div className="flex items-center gap-2 text-xs font-mono text-[var(--forest-light)] font-medium mb-1.5">
-                        <Sparkles className="w-3.5 h-3.5 text-[var(--amber)]" />
+                      <div className="flex items-center gap-1.5 text-xs font-mono text-[var(--forest-light)] font-medium mb-1">
+                        <Sparkles className="w-3 h-3 text-[var(--amber)]" />
                         <span>{slide.headline}</span>
                       </div>
 
                       <h3
                         style={{ fontFamily: 'var(--font-editorial)' }}
-                        className="text-xl sm:text-2xl text-[var(--ink)] font-normal leading-snug mb-3"
+                        className="text-lg sm:text-xl text-[var(--ink)] font-normal leading-snug mb-2"
                       >
                         {slide.title}
                       </h3>
 
                       <p
                         style={{ fontFamily: 'var(--font-body)' }}
-                        className="text-[13.5px] sm:text-[14px] leading-relaxed text-[var(--ink-muted)] line-clamp-3"
+                        className="text-[13px] sm:text-[13.5px] leading-relaxed text-[var(--ink-muted)]"
                       >
                         {slide.description}
                       </p>
                     </div>
 
-                    {/* Footer de Auditoría de la Tarjeta */}
-                    <div className="mt-6 pt-4 border-t border-[var(--border-light)] flex items-center justify-between text-xs font-mono">
-                      <span className="text-[var(--text-secondary)] flex items-center gap-1.5">
+                    {/* Footer de Auditoría */}
+                    <div className="mt-4 pt-3 border-t border-[var(--border-light)] flex items-center justify-between text-xs font-mono">
+                      <span className="text-[var(--text-secondary)] flex items-center gap-1.5 text-[11px]">
                         <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)]" />
                         {slide.auditTag}
                       </span>
-                      <span className="text-[var(--forest)] font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                        Fase consolidada <ArrowRight className="w-3.5 h-3.5" />
+                      <span className="text-[var(--forest)] font-semibold flex items-center gap-1 text-[11.5px] group-hover:translate-x-1 transition-transform">
+                        Fase consolidada <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
                   </div>
@@ -359,29 +366,29 @@ export function Impact() {
               );
             })}
 
-            {/* ── Slide Final de Llamada al Próximo Paso ── */}
-            <div className="metric-card shrink-0 w-[88vw] sm:w-[480px] lg:w-[520px] snap-center rounded-lg border border-[var(--forest-mid)] bg-[var(--forest-dark)] text-[var(--ivory)] p-8 sm:p-10 flex flex-col justify-between shadow-lg">
+            {/* ── Slide Final de Conversión (Perfectamente calibrado) ── */}
+            <div className="metric-card shrink-0 w-[86vw] sm:w-[420px] lg:w-[460px] snap-center rounded-lg border border-[var(--forest-mid)] bg-[var(--forest-dark)] text-[var(--ivory)] p-6 sm:p-7 flex flex-col justify-between shadow-lg">
               <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-emerald-900/60 border border-emerald-500/30 font-mono text-[11px] font-bold uppercase tracking-wider text-emerald-300 mb-6">
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-900/60 border border-emerald-500/30 font-mono text-[10.5px] font-bold uppercase tracking-wider text-emerald-300 mb-4">
                   Próximo Hito · Fase IV
                 </span>
 
                 <h3
                   style={{ fontFamily: 'var(--font-editorial)' }}
-                  className="text-2xl sm:text-3xl text-[var(--ivory)] font-normal leading-tight mb-4"
+                  className="text-xl sm:text-2xl text-[var(--ivory)] font-normal leading-tight mb-3"
                 >
                   El impacto de 2026 lo defines tú.
                 </h3>
 
                 <p
                   style={{ fontFamily: 'var(--font-body)' }}
-                  className="text-[14px] leading-relaxed text-[rgba(250,248,244,0.75)] mb-6"
+                  className="text-[13px] sm:text-[13.5px] leading-relaxed text-[rgba(250,248,244,0.75)] mb-4"
                 >
                   Cada euro aportado a través de Fundació Montblanc se destina al 100% a la compra de
                   materiales y a la contratación de carpinteros y albañiles locales en Kilifi.
                 </p>
 
-                <div className="p-4 rounded-md bg-[rgba(250,248,244,0.06)] border border-[rgba(250,248,244,0.1)] text-xs text-[rgba(250,248,244,0.8)] font-mono mb-6">
+                <div className="p-3 rounded bg-[rgba(250,248,244,0.06)] border border-[rgba(250,248,244,0.1)] text-xs text-[rgba(250,248,244,0.8)] font-mono mb-4">
                   💡 Recuerda: los primeros 250 € desgravan el 80% en tu IRPF.
                 </div>
               </div>
@@ -389,35 +396,16 @@ export function Impact() {
               <div>
                 <a
                   href="#ayuda"
-                  className="inline-flex items-center justify-between w-full px-5 py-3.5 rounded bg-[var(--ivory)] text-[var(--forest-dark)] font-semibold text-sm hover:bg-emerald-100 transition-colors shadow-sm"
+                  className="inline-flex items-center justify-between w-full px-4 py-3 rounded bg-[var(--ivory)] text-[var(--forest-dark)] font-semibold text-xs sm:text-sm hover:bg-emerald-100 transition-colors shadow-xs"
                 >
                   <span>Calcular deducción y donar</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* ── Pie del Módulo: Instrucción de Navegación Sutil ── */}
-        <div className="container-page mt-6 lg:mt-8 shrink-0">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-[var(--text-secondary)] font-mono border-t border-[var(--border)] pt-3">
-            <div className="flex items-center gap-2">
-              <Maximize2 className="w-3.5 h-3.5 text-[var(--forest)]" />
-              <span>Desplaza en vertical para avanzar el recorrido horizontal</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <span>Supervisado por Volunteer Connect Kenya</span>
-              <span className="hidden sm:inline">·</span>
-              <a
-                href="https://www.fundaciomontblanc.org/index.php/es/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 text-[var(--forest)] hover:text-[var(--forest-dark)] font-medium"
-              >
-                Canalización fiscal Fundació Montblanc
-              </a>
-            </div>
+            {/* Espaciador final para asegurar margen derecho fluido en móvil */}
+            <div className="w-4 shrink-0 lg:hidden" aria-hidden="true" />
           </div>
         </div>
 
