@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+  <rect width="600" height="800" fill="#EDE8E0"/>
+  
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C8D4C0;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#E8E2D8;stop-opacity:0.2" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="600" height="600" fill="url(#bg3)"/>
+  <rect y="600" width="600" height="200" fill="#A8B49A" opacity="0.3"/>
+  
+  <!-- Figure silhouette - student -->
+  <g transform="translate(300, 380)" fill="#1E3D2B">
+    <!-- Head -->
+    <circle cx="0" cy="-200" r="60" opacity="0.2"/>
+    <!-- Neck -->
+    <rect x="-10" y="-140" width="20" height="30" opacity="0.18"/>
+    <!-- Shoulders/torso - school uniform -->
+    <path d="M -60 -110 L -80 40 L 80 40 L 60 -110 C 40 -120 -40 -120 -60 -110 Z" opacity="0.18"/>
+    <!-- Collar/tie detail -->
+    <polygon points="0,-110 -12,-80 0,-60 12,-80" opacity="0.12"/>
+    <!-- Arms -->
+    <rect x="-90" y="-100" width="25" height="120" rx="12" opacity="0.15"/>
+    <rect x="65" y="-100" width="25" height="120" rx="12" opacity="0.15"/>
+    <!-- Legs -->
+    <rect x="-40" y="40" width="28" height="120" rx="8" opacity="0.15"/>
+    <rect x="12" y="40" width="28" height="120" rx="8" opacity="0.15"/>
+  </g>
+  
+  <!-- Book in hands -->
+  <rect x="246" y="280" width="108" height="80" rx="3" fill="#1E3D2B" opacity="0.14"/>
+  <line x1="300" y1="282" x2="300" y2="358" stroke="#1E3D2B" stroke-width="2" opacity="0.1"/>
+  
+  <!-- School bag strap -->
+  <path d="M 340 230 Q 360 290 345 370" stroke="#1E3D2B" stroke-width="16" fill="none" opacity="0.12" stroke-linecap="round"/>
+  
+  <!-- Tree/nature background -->
+  <ellipse cx="100" cy="200" rx="80" ry="100" fill="#1E3D2B" opacity="0.1"/>
+  <rect x="93" y="280" width="14" height="200" fill="#1E3D2B" opacity="0.1"/>
+  
+  <!-- Border -->
+  <rect x="1" y="1" width="598" height="798" fill="none" stroke="#D0CCC4" stroke-width="1"/>
+  
+  <!-- Label -->
+  <rect x="165" y="748" width="270" height="24" rx="3" fill="#1E3D2B" opacity="0.07"/>
+  <text x="300" y="764" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1E3D2B" opacity="0.5" letter-spacing="0.8">student-learning · 600 × 800</text>
+</svg>

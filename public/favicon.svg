@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="7" fill="#142A1E"/>
+  <!-- Subtle warm acacia / sunrise sun arc -->
+  <circle cx="24" cy="8" r="4.5" fill="#E8A838" opacity="0.9"/>
+  <!-- Geometric letters 'LV' stylized in clean ivory -->
+  <path d="M7 9v14h7v-2.5H9.5V9H7z" fill="#FAF8F4"/>
+  <path d="M16 9l3.5 14h2.5L25.5 9h-2.6l-2.2 9.8L18.6 9H16z" fill="#FAF8F4"/>
+  <!-- Subtle foundational earth baseline -->
+  <rect x="7" y="25" width="18" height="1.5" rx="0.75" fill="#34D399"/>
+</svg>

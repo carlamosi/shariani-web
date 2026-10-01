@@ -1,26 +1,593 @@
+/*
+ * Typography: Manrope (body/UI) + Young Serif (headings/editorial)
+ * Preconnect in layout.tsx; single @import with display=swap prevents FOIT
+ * Young Serif: Latin Extended (Spanish/Catalan/English supported)
+ * Manrope: Latin + Latin Extended covers all three languages
+ */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Young+Serif&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ivory: #FAF8F4;
+  --paper: #F3EFE7;
+  --forest: #1E3D2B;
+  --forest-dark: #142A1E;
+  --forest-mid: #2A5438;
+  --forest-light: #3D7050;
+  --amber: #C4832A;
+  --amber-light: #E8A84A;
+  --ink: #141715;
+  --ink-muted: #3D4440;
+  --text-secondary: #656E68;
+  --border: #E2DFD7;
+  --border-light: #EDEBE5;
+
+  /* Global Typography Tokens — Manrope + Young Serif */
+  --font-editorial: 'Young Serif', 'Georgia', 'Times New Roman', serif;
+  --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+  /* Aliases for backwards compat with existing heading/serif classes */
+  --font-heading: var(--font-editorial);
+  --font-sans: var(--font-body);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ivory: var(--ivory);
+  --color-paper: var(--paper);
+  --color-forest: var(--forest);
+  --color-forest-dark: var(--forest-dark);
+  --color-forest-mid: var(--forest-mid);
+  --color-amber: var(--amber);
+  --color-ink: var(--ink);
+  --color-muted: var(--text-secondary);
+  --color-border: var(--border);
+  --font-heading: var(--font-editorial);
+  --font-sans: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* Typography — Young Serif (editorial) + Manrope (body/UI) */
+h1, h2, h3, h4, h5, h6,
+.font-heading,
+.font-serif,
+.font-editorial {
+  font-family: var(--font-editorial);
+  text-rendering: optimizeLegibility;
+  /* Young Serif is a regular-weight serif; bold has no effect — use weight 400 */
+  font-weight: 400;
+}
+
+.font-sans,
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Editorial headings — Young Serif at regular weight, controlled leading */
+h1, .hero-title {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+h2, .section-title {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+h3, .card-title {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* Labels, buttons, captions — Manrope for clarity */
+.section-label,
+button,
+.btn-primary,
+.btn-secondary,
+.btn-white,
+.btn-outline,
+label,
+caption,
+figcaption,
+nav,
+footer {
+  font-family: var(--font-body);
+}
+
+/* Accessible focus */
+*:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
+  border-radius: 9999px;
+}
+
+/* Smooth scrolling anchor offset for sticky nav */
+[id] {
+  scroll-margin-top: 76px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom link underline style */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Section label — Manrope, small caps tracking */
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Buttons — Manrope for UI clarity */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--forest);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: 0.6875rem 1.45rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(30, 61, 43, 0.15), 0 1px 2px rgba(30, 61, 43, 0.1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary:hover {
+  background-color: var(--forest-dark);
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 16px rgba(30, 61, 43, 0.22);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(30, 61, 43, 0.15);
+}
+
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #FFFFFF;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: 0.6875rem 1.45rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-white:hover {
+  background-color: #FAF8F4;
+  color: var(--forest);
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+.btn-white:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: 0.6875rem 1.45rem;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(250, 248, 244, 0.45);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-outline:hover {
+  border-color: rgba(250, 248, 244, 0.95);
+  background-color: rgba(250, 248, 244, 0.18);
+  transform: translateY(-1.5px);
+  color: #fff;
+}
+.btn-outline:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: 0.625rem 1.35rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-secondary:hover {
+  border-color: var(--ink);
+  background-color: var(--paper);
+  transform: translateY(-1.5px);
+}
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Card hover microinteractions */
+.card-interactive {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+.card-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -6px rgba(28, 28, 26, 0.08);
+  border-color: rgba(30, 61, 43, 0.25);
+}
+
+/* Image reveal / hover zoom */
+.image-zoom-container {
+  overflow: hidden;
+  border-radius: 6px;
+}
+.image-zoom-container img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.image-zoom-container:hover img {
+  transform: scale(1.035);
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* Container */
+.container-page {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-page {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Scroll indicator animation */
+@keyframes mouse-scroll {
+  0% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.4; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.animate-mouse-dot {
+  animation: mouse-scroll 1.8s ease-in-out infinite;
+}
+
+@keyframes hero-line-pulse {
+  0% { transform: scaleY(0.4); opacity: 0; transform-origin: top; }
+  50% { transform: scaleY(1); opacity: 1; transform-origin: top; }
+  50.1% { transform: scaleY(1); opacity: 1; transform-origin: bottom; }
+  100% { transform: scaleY(0.4); opacity: 0; transform-origin: bottom; }
+}
+
+/* ── Scroll-reveal: fade + rise ───────────────────────────── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+.reveal.in-view {
+  animation: reveal-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reveal-fade {
+  opacity: 0;
+}
+
+.reveal-fade.in-view {
+  animation: reveal-fade 0.8s ease both;
+}
+
+/* ── Clip-path Image Reveal ───────────────────────────────── */
+@keyframes clip-reveal-down {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes image-scale-down {
+  from { transform: scale(1.15); }
+  to   { transform: scale(1); }
+}
+
+.clip-reveal {
+  clip-path: inset(0 0 100% 0);
+  background: var(--ivory);
+}
+
+.clip-reveal.in-view {
+  animation: clip-reveal-down 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.image-scale-reveal {
+  transform: scale(1.15);
+}
+
+.clip-reveal.in-view .image-scale-reveal {
+  animation: image-scale-down 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Stagger delay helpers */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* ── Section separator line ───────────────────────────────── */
+.section-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  border: none;
+  margin: 0;
+}
+
+/* ──────────────────────────────────────────────────────────
+   IMPACT: Full-bleed split sticky (dark background)
+   Left: sticky crossfading photo. Right: scroll chapters.
+   All chapter transitions handled inline via React state.
+   Both Impact and HowToHelp share forest-dark background.
+   ────────────────────────────────────────────────────────── */
+
+/* ──────────────────────────────────────────────────────────
+   DONATE: Subtle Editorial Reveal & Understated Motion
+   Single-trigger, restrained 8-12px rise, line draw, and smooth cross-fade
+   ────────────────────────────────────────────────────────── */
+
+.editorial-reveal-header {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.editorial-reveal-header.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.editorial-reveal-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  will-change: transform;
+}
+.editorial-reveal-line.is-revealed {
+  transform: scaleX(1);
+}
+
+.editorial-reveal-content {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  will-change: opacity, transform;
+}
+.editorial-reveal-content.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fast, smooth cross-fade for method tabs */
+.method-content-fade {
+  animation: method-fade-subtle 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes method-fade-subtle {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Premium accordion and calculator micro-interactions */
+.calculator-enter {
+  animation: calc-slide-down 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes calc-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom premium slider styling */
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #34d399;
+  border: 2px solid #0f2017;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.8);
+}
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(1.05);
+}
+
+/* Copy button subtle confirmation transition */
+.copy-btn-feedback {
+  transition: color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Transition bridge: Impact → Donate — fine rule + color shift */
+.impact-to-donate-bridge {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(30, 61, 43, 0.2), transparent);
+  margin: 0;
+}
+
+/* ──────────────────────────────────────────────────────────
+   Reduced motion overrides
+   All content remains accessible; only decorative motion removed
+   ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Immediately reveal all chapters in reduced motion */
+  .impact-chapter,
+  .impact-chapter.is-active,
+  .impact-chapter.was-active {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .donate-headline-enter,
+  .donate-method,
+  .editorial-reveal-header,
+  .editorial-reveal-content {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .editorial-reveal-line {
+    transform: scaleX(1) !important;
+    transition: none !important;
+  }
+
+  .method-content-fade {
+    animation: none !important;
+  }
 }

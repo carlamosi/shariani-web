@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 338" width="600" height="338">
+  <rect width="600" height="338" fill="#F0EDE6"/>
+  <defs>
+    <linearGradient id="j3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#B8CEB0;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#E0DCD4;stop-opacity:0.2" />
+    </linearGradient>
+    <linearGradient id="gnd3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#98AA88;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#788A68;stop-opacity:0.5" />
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="600" height="220" fill="url(#j3)"/>
+  <!-- Ground / savanna -->
+  <rect y="200" width="600" height="138" fill="url(#gnd3)"/>
+  <!-- Rolling hills -->
+  <ellipse cx="100" cy="205" rx="160" ry="30" fill="#90A880" opacity="0.4"/>
+  <ellipse cx="480" cy="210" rx="180" ry="25" fill="#88A078" opacity="0.35"/>
+  <!-- Acacia tree center-left -->
+  <rect x="148" y="120" width="12" height="100" fill="#1E3D2B" opacity="0.25"/>
+  <!-- Flat acacia canopy -->
+  <ellipse cx="154" cy="110" rx="70" ry="22" fill="#1E3D2B" opacity="0.2"/>
+  <ellipse cx="110" cy="118" rx="40" ry="14" fill="#1E3D2B" opacity="0.16"/>
+  <ellipse cx="198" cy="115" rx="45" ry="16" fill="#1E3D2B" opacity="0.16"/>
+  <!-- Second acacia right -->
+  <rect x="460" y="130" width="10" height="90" fill="#1E3D2B" opacity="0.2"/>
+  <ellipse cx="465" cy="122" rx="55" ry="18" fill="#1E3D2B" opacity="0.18"/>
+  <!-- Distant silhouette of buildings -->
+  <rect x="250" y="180" width="100" height="50" fill="#1E3D2B" opacity="0.1" rx="1"/>
+  <rect x="280" y="168" width="40" height="18" fill="#1E3D2B" opacity="0.1" rx="1"/>
+  <!-- Red soil path -->
+  <path d="M 0 290 Q 300 260 600 280 L 600 338 L 0 338 Z" fill="#C4956A" opacity="0.2"/>
+  <!-- Border -->
+  <rect x="1" y="1" width="598" height="336" fill="none" stroke="#D0CCC4" stroke-width="1"/>
+  <!-- Label -->
+  <rect x="150" y="304" width="300" height="22" rx="3" fill="#1E3D2B" opacity="0.07"/>
+  <text x="300" y="319" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#1E3D2B" opacity="0.5" letter-spacing="0.8">project-update-03 · 600 × 338</text>
+</svg>
