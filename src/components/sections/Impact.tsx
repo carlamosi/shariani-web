@@ -96,8 +96,6 @@ export function Impact() {
     return () => observer.disconnect();
   }, []);
 
-  const activeChapterData = CHAPTERS[activeChapter];
-
   return (
     <section
       ref={sectionRef}

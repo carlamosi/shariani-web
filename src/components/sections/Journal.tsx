@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, Plus } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { images } from '@/data/images';
 
 const journalEntries = [
@@ -204,7 +204,7 @@ export function Journal() {
                   Esta semana hemos dado un paso crucial. La construcción del muro perimetral no es solo una barrera física; es una garantía de seguridad. Significa que los niños pueden jugar sin riesgos, que los animales no interrumpen las clases y que el entorno escolar se convierte en un refugio protegido.
                 </p>
                 <blockquote className="border-l-2 border-[var(--forest)] pl-5 italic text-[var(--ink)] my-8 text-lg font-editorial">
-                  "Un espacio seguro es el primer requisito para que el aprendizaje florezca."
+                  &ldquo;Un espacio seguro es el primer requisito para que el aprendizaje florezca.&rdquo;
                 </blockquote>
                 <p>
                   Hemos visto a la comunidad involucrarse en cada mezcla de cemento y en cada ladrillo colocado. El proyecto avanza gracias a los fondos recaudados, pero toma forma real gracias al esfuerzo de las personas de Shariani que trabajan día tras día en la obra.
