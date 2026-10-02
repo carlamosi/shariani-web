@@ -550,6 +550,47 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 
 /* ──────────────────────────────────────────────────────────
+   Continuous Editorial Media Marquee & Soft Mask Fade
+   ────────────────────────────────────────────────────────── */
+@keyframes media-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-media-marquee {
+  display: flex;
+  width: max-content;
+  animation: media-marquee 36s linear infinite;
+  will-change: transform;
+}
+
+.animate-media-marquee:hover,
+.media-marquee-container:hover .animate-media-marquee {
+  animation-play-state: paused;
+}
+
+.media-mask-fade {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
    Reduced motion overrides
    All content remains accessible; only decorative motion removed
    ────────────────────────────────────────────────────────── */
@@ -589,5 +630,17 @@ input[type="range"]::-webkit-slider-thumb:active {
 
   .method-content-fade {
     animation: none !important;
+  }
+
+  .animate-media-marquee {
+    animation: none !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  .media-mask-fade {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
   }
 }
