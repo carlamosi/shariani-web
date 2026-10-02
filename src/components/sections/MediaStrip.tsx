@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 /*
- * MediaStrip Section — «Nos han dado voz»
+ * MediaStrip Section — «Nuestra historia también ha llegado a los medios.»
  *
  * Tira continua y automática de logotipos de medios de comunicación que han dado
  * cobertura al proyecto La Vall × Shariani:
@@ -14,11 +14,11 @@ import Image from 'next/image';
  * - Ràdio Estel
  *
  * Características:
- * - Sin tarjetas, contenedores ni bordes: diseño editorial directo sobre el fondo.
- * - Desplazamiento continuo, suave y lineal (autoplay seamless loop de derecha a izquierda).
- * - Bordes con desvanecimiento gradual mediante máscara CSS (soft fading edges).
- * - Pausa suave al pasar el ratón y microinteracción hover sutil (scale 1.02, opacidad 100%).
- * - Respeto estricto a prefers-reduced-motion y sin desbordamiento horizontal.
+ * - Titular en una sola línea continua, con tipografía editorial pura.
+ * - Etiqueta de sección (.section-label) en perfecta coherencia con el diseño global.
+ * - Autoplay continuo y loop infinito sin saltos ni cortes.
+ * - Máscara suave en los extremos para un desvanecimiento elegante.
+ * - Pausa respetuosa y microinteracción sutil en hover.
  */
 
 interface MediaOutlet {
@@ -38,7 +38,6 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     src: '/images/media/COPE.webp',
     width: 1280,
     height: 530,
-    // Ratio ~2.4:1
     className: 'h-7 sm:h-8 md:h-9 w-auto max-w-[110px] sm:max-w-[130px]',
   },
   {
@@ -47,7 +46,6 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     src: '/images/media/ECOSitges.png',
     width: 1491,
     height: 186,
-    // Ratio ~8.0:1 (muy horizontal, calibrado visualmente)
     className: 'h-5 sm:h-5.5 md:h-6 w-auto max-w-[170px] sm:max-w-[210px]',
   },
   {
@@ -56,7 +54,6 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     src: '/images/media/TOT-Sant-Cugat.png',
     width: 1369,
     height: 223,
-    // Ratio ~6.1:1
     className: 'h-5.5 sm:h-6 md:h-6.5 w-auto max-w-[160px] sm:max-w-[195px]',
   },
   {
@@ -65,7 +62,6 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     src: '/images/media/diari-sabadell.png',
     width: 679,
     height: 367,
-    // Ratio ~1.85:1
     className: 'h-7 sm:h-8 md:h-9 w-auto max-w-[100px] sm:max-w-[125px]',
   },
   {
@@ -74,14 +70,13 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     src: '/images/media/radio-estel.png',
     width: 300,
     height: 95,
-    // Ratio ~3.15:1
     className: 'h-6 sm:h-7 md:h-8 w-auto max-w-[120px] sm:max-w-[145px]',
   },
 ];
 
 export function MediaStrip() {
-  // Duplicamos el conjunto de 5 logos 4 veces para garantizar un bucle infinito
-  // perfectamente continuo y sin interrupciones visuales en pantallas ultra-anchas.
+  // Duplicamos el conjunto de 5 logos 4 veces para garantizar un bucle continuo
+  // sin saltos ni cortes visuales en cualquier resolución.
   const repeatedOutlets = [
     ...MEDIA_OUTLETS,
     ...MEDIA_OUTLETS,
@@ -92,24 +87,35 @@ export function MediaStrip() {
   return (
     <section
       id="medios"
-      className="relative w-full bg-[var(--paper)] py-12 sm:py-16 border-t border-[var(--border)] overflow-hidden text-[var(--ink)]"
-      aria-label="Medios de comunicación que nos han dado voz"
+      className="relative w-full bg-[var(--ivory)] py-12 sm:py-16 border-t border-[var(--border)] overflow-hidden text-[var(--ink)]"
+      aria-label="Nuestra historia también ha llegado a los medios"
     >
       <div className="container-page mb-8 sm:mb-10 text-center">
-        <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--text-secondary)] font-semibold mb-2">
-          Repercusión y difusión
-        </p>
+        {/* Section Label con la tipografía y peso oficial de la web */}
+        <div className="flex items-center justify-center gap-2 mb-2.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)]" />
+          <p className="section-label text-[var(--forest-mid)]">
+            Apariciones en prensa y radio
+          </p>
+        </div>
+
+        {/* Titular en una sola línea continua sin saltos */}
         <h2
-          style={{ fontFamily: 'var(--font-editorial)' }}
-          className="text-2xl sm:text-3xl text-[var(--ink)] font-normal tracking-[-0.015em]"
+          style={{
+            fontFamily: 'var(--font-editorial)',
+            fontSize: 'clamp(19px, 2.6vw, 32px)',
+          }}
+          className="text-[var(--ink)] font-normal tracking-[-0.02em] whitespace-nowrap text-center overflow-hidden text-ellipsis"
         >
-          Nos han dado voz
+          Nuestra historia también ha llegado a los medios.
         </h2>
+
+        {/* Línea de apoyo editorial sobria */}
         <p
           style={{ fontFamily: 'var(--font-body)' }}
-          className="text-xs sm:text-[13.5px] text-[var(--ink-muted)] mt-1.5 max-w-md mx-auto"
+          className="text-xs sm:text-[13.5px] text-[var(--ink-muted)] mt-2 max-w-lg mx-auto"
         >
-          Medios de comunicación que han compartido la historia y el avance de Shariani.
+          Medios que han dado difusión al compromiso entre La Vall y Shariani.
         </p>
       </div>
 
@@ -139,7 +145,6 @@ export function MediaStrip() {
               </div>
             );
 
-            // Si tuviese URL en el futuro, se envuelve en enlace accesible
             if (outlet.url) {
               return (
                 <a

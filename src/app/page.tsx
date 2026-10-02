@@ -20,9 +20,9 @@ export default function Home() {
         <Story />
         <Project />
         <Impact />
-        <MediaStrip />
         <HowToHelp />
         <Contact />
+        <MediaStrip />
         <Journal />
       </main>
 
