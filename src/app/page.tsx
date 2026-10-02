@@ -4,6 +4,7 @@ import { Story } from '@/components/sections/Story';
 import { Project } from '@/components/sections/Project';
 import { Impact } from '@/components/sections/Impact';
 import { HowToHelp } from '@/components/sections/HowToHelp';
+import { Contact } from '@/components/sections/Contact';
 import { Journal } from '@/components/sections/Journal';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
@@ -19,6 +20,7 @@ export default function Home() {
         <Project />
         <Impact />
         <HowToHelp />
+        <Contact />
         <Journal />
       </main>
 

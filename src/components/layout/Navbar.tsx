@@ -9,6 +9,7 @@ const navLinks = [
   { href: '#shariani', label: 'Shariani' },
   { href: '#impacto', label: 'Impacto' },
   { href: '#ayuda', label: 'Ayuda' },
+  { href: '#contacto', label: 'Contacto' },
   { href: '#diario', label: 'Blog' },
 ];
 

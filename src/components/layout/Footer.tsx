@@ -8,6 +8,7 @@ const navLinks = [
   { href: '#proyecto', label: 'El proyecto' },
   { href: '#shariani', label: 'Shariani' },
   { href: '#impacto', label: 'Impacto' },
+  { href: '#contacto', label: 'Contacto' },
   { href: '#diario', label: 'Blog' },
 ];
 

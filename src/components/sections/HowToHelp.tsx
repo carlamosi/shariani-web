@@ -469,7 +469,7 @@ export function HowToHelp() {
             </div>
             <div className="mt-4">
               <a
-                href="mailto:contacto@lavall.example.com?subject=Colaboraci%C3%B3n%20empresarial%20-%20La%20Vall%20x%20Shariani"
+                href="#contacto"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--ivory)] hover:text-white border-b border-[rgba(250,248,244,0.35)] hover:border-white pb-0.5 transition-all group"
               >
                 <span>Hablemos de colaborar</span>
