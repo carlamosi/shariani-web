@@ -1,34 +1,53 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { images } from '@/data/images';
+
+type YearState = 'done' | 'active' | 'future';
 
 interface YearProject {
   year: string;
   headline: string;
   body: string;
   tag: string;
+  state: YearState;
+  items: string[];
 }
 
 const projects: YearProject[] = [
   {
     year: '2024',
-    headline: 'Pintura y primera visita',
-    body: 'Primera expedición de voluntarios. Se realizaron mejoras de pintura en las aulas y se estableció la relación directa con la comunidad de Shariani. El inicio de todo.',
-    tag: 'Voluntariado',
+    headline: 'Cadires, taules i vallat perimetral',
+    body: 'Primera expedición de voluntarios. Se dotaron las aulas con sillas y mesas fabricadas localmente, y se construyó el vallado perimetral que da seguridad e identidad a la escuela.',
+    tag: 'Mobiliari & Seguretat',
+    state: 'done',
+    items: ['Cadires & taules', 'Valles perimetrals cole'],
   },
   {
     year: '2025',
-    headline: 'Mesas y sillas con carpintero local',
-    body: 'Los alumnos hacían las clases sentados en el suelo. Junto a un carpintero de la comunidad, fabricamos el mobiliario que faltaba: mesas y sillas para todas las aulas.',
-    tag: 'Mobiliario',
+    headline: 'Aules renovades i salut bucal',
+    body: 'Restauración integral de las aulas: reparación de goteras, limpieza y pintura de paredes, murales educativos, y kits de higiene bucal para todos los alumnos con sesiones de explicación.',
+    tag: 'Renovació & Salut',
+    state: 'done',
+    items: ['Goteres', 'Aules (netejar, pintar, dibuixos)', 'Higiene bucal (kits, explicació)'],
   },
   {
     year: '2026',
-    headline: 'Vallado exterior del colegio',
-    body: 'Para garantizar la seguridad de los niños y niñas, construimos el vallado perimetral exterior del colegio. Un límite que protege y da identidad al espacio escolar.',
-    tag: 'Seguridad',
+    headline: '300 faldilles, mural i sala de professors',
+    body: 'Confeccionamos 300 faldillas escolares para las niñas de la comunidad. Pintamos el mural de entrada del colegio y completamos la reforma de la sala de profesores.',
+    tag: 'En curs',
+    state: 'active',
+    items: ['300 faldilles', 'Pintar entrada / mural cole', 'Reformes sala profes'],
+  },
+  {
+    year: '2027',
+    headline: 'Lavabos, biblioteca, laboratori i residus',
+    body: 'Próxima misión: construcción de lavabos dignos, habilitación de la biblioteca escolar, equipamiento del laboratorio y mejora de la gestión de residuos en el recinto.',
+    tag: 'Propera missió',
+    state: 'future',
+    items: ['Lavabos', 'Biblio', 'Basura', 'Lab'],
   },
 ];
 
@@ -82,7 +101,7 @@ export function Improvements() {
                 maxWidth: '560px',
               }}
             >
-              Cada junio,<br />un proyecto nuevo.
+              Cada any,<br />una obra real.
             </h2>
             <p
               className="font-sans text-[var(--ink-muted)] leading-relaxed"
@@ -150,6 +169,69 @@ export function Improvements() {
   );
 }
 
+
+/* ── State-aware style maps ── */
+const bubbleStyle: Record<YearState, React.CSSProperties> = {
+  done: {
+    background: 'var(--forest)',
+    color: '#fff',
+    border: '2px solid var(--forest)',
+  },
+  active: {
+    background: 'var(--forest)',
+    color: '#fff',
+    border: '2px solid var(--forest)',
+    boxShadow: '0 0 0 4px rgba(45,90,60,0.15)',
+  },
+  future: {
+    background: 'transparent',
+    color: 'var(--ink-muted)',
+    border: '2px dashed var(--border)',
+  },
+};
+
+const lineStyle: Record<YearState, React.CSSProperties> = {
+  done:   { background: 'linear-gradient(to bottom, var(--forest), var(--forest))' },
+  active: { background: 'linear-gradient(to bottom, var(--forest), var(--border))' },
+  future: { background: 'var(--border)' },
+};
+
+const chipStyle: Record<YearState, React.CSSProperties> = {
+  done: {
+    background: 'rgba(45,90,60,0.08)',
+    color: 'var(--forest)',
+    border: '1px solid rgba(45,90,60,0.2)',
+  },
+  active: {
+    background: 'rgba(245,158,11,0.09)',
+    color: '#92400e',
+    border: '1px solid rgba(245,158,11,0.35)',
+  },
+  future: {
+    background: 'rgba(0,0,0,0.03)',
+    color: 'var(--ink-muted)',
+    border: '1px solid var(--border)',
+  },
+};
+
+const tagStyle: Record<YearState, React.CSSProperties> = {
+  done: {
+    background: 'rgba(45,90,60,0.08)',
+    color: 'var(--forest)',
+    border: '1px solid rgba(45,90,60,0.22)',
+  },
+  active: {
+    background: 'rgba(245,158,11,0.1)',
+    color: '#92400e',
+    border: '1px solid rgba(245,158,11,0.4)',
+  },
+  future: {
+    background: 'transparent',
+    color: 'var(--ink-muted)',
+    border: '1px dashed var(--border)',
+  },
+};
+
 function TimelineEntry({
   project,
   index,
@@ -159,7 +241,9 @@ function TimelineEntry({
   index: number;
   isLast: boolean;
 }) {
-  const { ref, inView } = useInView(0.2);
+  const { ref, inView } = useInView(0.15);
+  const isActive = project.state === 'active';
+  const isFuture = project.state === 'future';
 
   return (
     <div
@@ -168,33 +252,38 @@ function TimelineEntry({
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'none' : 'translateY(32px)',
-        transition: `opacity 0.65s ease ${index * 0.15}s, transform 0.65s ease ${index * 0.15}s`,
+        transition: `opacity 0.65s ease ${index * 0.14}s, transform 0.65s ease ${index * 0.14}s`,
       }}
     >
       {/* Timeline spine */}
       <div className="flex flex-col items-center flex-shrink-0 w-10">
         {/* Year bubble */}
         <div
-          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 z-10"
+          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 z-10 relative"
           style={{
-            background: 'var(--forest)',
-            color: '#fff',
             fontFamily: 'var(--font-heading)',
             fontSize: '13px',
-            fontWeight: 600,
+            fontWeight: 700,
             letterSpacing: '-0.01em',
+            transition: 'box-shadow 0.3s ease',
+            ...bubbleStyle[project.state],
           }}
         >
-          {project.year.slice(2)}
+          {/* Pulse ring only for active year */}
+          {isActive && (
+            <span
+              className="absolute inset-0 rounded-full animate-ping"
+              style={{ background: 'rgba(45,90,60,0.18)', animationDuration: '2s' }}
+              aria-hidden="true"
+            />
+          )}
+          <span className="relative z-10">{project.year.slice(2)}</span>
         </div>
         {/* Connector line */}
         {!isLast && (
           <div
             className="flex-1 w-px mt-2 mb-0"
-            style={{
-              background: 'linear-gradient(to bottom, var(--forest), var(--border))',
-              minHeight: '48px',
-            }}
+            style={{ minHeight: '48px', ...lineStyle[project.state] }}
             aria-hidden="true"
           />
         )}
@@ -202,38 +291,102 @@ function TimelineEntry({
 
       {/* Content card */}
       <div
-        className="pb-10 flex-1"
-        style={{ paddingBottom: isLast ? '0' : '2.5rem' }}
+        className="pb-10 flex-1 rounded-xl"
+        style={{
+          paddingBottom: isLast ? '0' : '2.5rem',
+        }}
       >
-        <div className="flex items-start justify-between gap-3 mb-2">
-          <span
-            className="font-heading text-[var(--forest-mid)] leading-none font-bold tracking-tight"
-            style={{ fontSize: 'clamp(14px, 1.3vw, 16px)' }}
-          >
-            {project.year}
-          </span>
-          <span
-            className="font-sans text-[11px] px-2 py-0.5 rounded-full border border-[var(--border)] text-[var(--text-secondary)] tracking-wider uppercase flex-shrink-0 font-medium"
-          >
-            {project.tag}
-          </span>
-        </div>
-
-        <h3
-          className="font-heading text-[var(--ink)] mb-2 leading-snug font-semibold"
+        <div
+          className="p-5 rounded-xl transition-all duration-300"
           style={{
-            fontSize: 'clamp(20px, 2.2vw, 26px)',
-            letterSpacing: '-0.02em',
+            background: isActive
+              ? 'linear-gradient(135deg, rgba(45,90,60,0.04) 0%, rgba(45,90,60,0.01) 100%)'
+              : isFuture
+              ? 'rgba(0,0,0,0.015)'
+              : 'transparent',
+            border: isActive
+              ? '1px solid rgba(45,90,60,0.15)'
+              : isFuture
+              ? '1px dashed var(--border)'
+              : '1px solid transparent',
+            opacity: isFuture ? 0.72 : 1,
           }}
         >
-          {project.headline}
-        </h3>
-        <p
-          className="font-sans text-[var(--ink-muted)] leading-relaxed"
-          style={{ fontSize: '14px', maxWidth: '480px' }}
-        >
-          {project.body}
-        </p>
+          {/* Header row: year label + tag badge */}
+          <div className="flex items-center justify-between gap-3 mb-2.5 flex-wrap">
+            <div className="flex items-center gap-2">
+              <span
+                className="font-heading leading-none font-bold tracking-tight"
+                style={{
+                  fontSize: 'clamp(13px, 1.2vw, 15px)',
+                  color: isFuture ? 'var(--ink-muted)' : 'var(--forest-mid)',
+                }}
+              >
+                {project.year}
+              </span>
+              {isActive && (
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded"
+                  style={{ background: 'rgba(45,90,60,0.1)', color: 'var(--forest)' }}
+                >
+                  ● Ara
+                </span>
+              )}
+            </div>
+            <span
+              className="font-sans text-[11px] px-2.5 py-1 rounded-full tracking-wider uppercase font-semibold flex-shrink-0"
+              style={tagStyle[project.state]}
+            >
+              {project.tag}
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h3
+            className="font-heading text-[var(--ink)] mb-2 leading-snug font-semibold"
+            style={{
+              fontSize: 'clamp(18px, 2vw, 24px)',
+              letterSpacing: '-0.02em',
+              opacity: isFuture ? 0.75 : 1,
+            }}
+          >
+            {project.headline}
+          </h3>
+
+          {/* Body */}
+          <p
+            className="font-sans text-[var(--ink-muted)] leading-relaxed mb-4"
+            style={{ fontSize: '13.5px', maxWidth: '480px' }}
+          >
+            {project.body}
+          </p>
+
+          {/* Sub-item pill chips */}
+          <div className="flex flex-wrap gap-1.5" role="list" aria-label={`Activitats ${project.year}`}>
+            {project.items.map((item) => (
+              <span
+                key={item}
+                role="listitem"
+                className="inline-flex items-center gap-1 font-sans text-[11.5px] font-medium px-2.5 py-1 rounded-full"
+                style={chipStyle[project.state]}
+              >
+                {/* Checkmark for done, dot for active, dash for future */}
+                {project.state === 'done' && (
+                  <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true">
+                    <path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+                {project.state === 'active' && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-600 flex-shrink-0" aria-hidden="true" />
+                )}
+                {project.state === 'future' && (
+                  <span className="w-1.5 h-1.5 rounded-full border border-current flex-shrink-0 opacity-50" aria-hidden="true" />
+                )}
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

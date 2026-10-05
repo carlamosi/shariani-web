@@ -42,7 +42,7 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
   },
   {
     id: 'eco-sitges',
-    name: 'L’Eco de Sitges',
+    name: "L'Eco de Sitges",
     src: '/images/media/ECOSitges.png',
     width: 1491,
     height: 186,
@@ -55,6 +55,7 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     width: 1369,
     height: 223,
     className: 'h-5.5 sm:h-6 md:h-6.5 w-auto max-w-[160px] sm:max-w-[195px]',
+    url: 'https://www.totsantcugat.cat/actualitat/educacio/aules-vall-africa-projecte-compromis-social-lideratge-etic_2200113102.html',
   },
   {
     id: 'diari-sabadell',
@@ -63,6 +64,7 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     width: 679,
     height: 367,
     className: 'h-7 sm:h-8 md:h-9 w-auto max-w-[100px] sm:max-w-[125px]',
+    url: 'https://www.diaridesabadell.com/valles/viatge-kenia-la-vall-voluntariat-escola.html',
   },
   {
     id: 'radio-estel',
@@ -71,6 +73,7 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     width: 300,
     height: 95,
     className: 'h-6 sm:h-7 md:h-8 w-auto max-w-[120px] sm:max-w-[145px]',
+    url: 'https://www.radioestel.cat/programes/sense-distancia/',
   },
 ];
 
@@ -131,7 +134,7 @@ export function MediaStrip() {
             const content = (
               <div
                 key={itemKey}
-                className="shrink-0 flex items-center justify-center opacity-80 contrast-[0.98] hover:opacity-100 hover:scale-[1.02] transition-all duration-300 ease-out cursor-default"
+                className={`shrink-0 flex items-center justify-center opacity-80 contrast-[0.98] hover:opacity-100 hover:scale-[1.02] transition-all duration-300 ease-out ${outlet.url ? 'cursor-pointer' : 'cursor-default'}`}
                 title={outlet.name}
               >
                 <Image

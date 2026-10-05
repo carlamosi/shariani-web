@@ -10,7 +10,6 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
-  Sparkles,
 } from 'lucide-react';
 import { images } from '@/data/images';
 
@@ -28,7 +27,6 @@ interface MetricSlide {
   unit: string;
   category: string;
   title: string;
-  headline: string;
   description: string;
   auditTag: string;
   location: string;
@@ -44,7 +42,6 @@ const SLIDES: MetricSlide[] = [
     unit: 'alumnos',
     category: 'Dignidad Escolar',
     title: 'Fin del suelo de tierra y la masificación',
-    headline: 'Un pupitre propio y aulas con luz natural',
     description:
       'Aulas saneadas, ventiladas e iluminadas que devuelven la dignidad al aprendizaje diario. El 100% de los niños y niñas de primaria cuentan hoy con espacio personal donde sentarse y escribir.',
     auditTag: 'Censo escolar en activo',
@@ -59,7 +56,6 @@ const SLIDES: MetricSlide[] = [
     unit: 'metros',
     category: 'Seguridad Integral',
     title: 'Perímetro protegido de piedra y acceso controlado',
-    headline: 'Aprender en paz sin intrusiones del exterior',
     description:
       'Construcción civil culminada en 2026. El cerramiento continuo protege a los menores frente al paso peligroso de vehículos rurales, ganado y personas ajenas a la institución escolar.',
     auditTag: 'Obra civil entregada',
@@ -74,7 +70,6 @@ const SLIDES: MetricSlide[] = [
     unit: 'economía local',
     category: 'Desarrollo en Origen',
     title: 'Cero importaciones: empleo y compras en Kilifi',
-    headline: 'El dinero dinamiza la comunidad',
     description:
       'Cada pupitre fue fabricado por un taller de carpintería local de Kilifi y cada tramo de muro lo levantaron albañiles de la zona. Se remunera con salario justo, convirtiendo la ayuda en capacidad propia.',
     auditTag: 'Impacto socioeconómico directo',
@@ -89,7 +84,6 @@ const SLIDES: MetricSlide[] = [
     unit: 'intermediarios',
     category: 'Transparencia Radical',
     title: 'Estructura directa sin gastos diluidos',
-    headline: 'El 100% del fondo se traduce en obra',
     description:
       'Las voluntarias de La Vall costean personalmente sus billetes de avión, visados y manutención. Las donaciones se canalizan íntegramente a materiales de construcción y mano de obra a través de Fundació Montblanc.',
     auditTag: 'Canal oficial Fundació Montblanc',
@@ -199,16 +193,7 @@ export function Impact() {
         <div className="container-page mb-5 lg:mb-6 shrink-0">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[var(--border)] pb-3.5">
             <div>
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--forest)] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--forest)]" />
-                </span>
-                <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--text-secondary)] font-semibold">
-                  Evidencia y Auditoría de Impacto · 2024–2026
-                </p>
-              </div>
-
+              <p className="section-label mb-3">Impacto verificado · 2024–2026</p>
               <h2
                 id="impacto-heading"
                 style={{ fontFamily: 'var(--font-editorial)' }}
@@ -331,11 +316,6 @@ export function Impact() {
                   {/* Cuerpo Inferior: Textos y Cierre de Auditoría */}
                   <div className="p-5 sm:p-6 pt-3 flex flex-col justify-between flex-1">
                     <div>
-                      <div className="flex items-center gap-1.5 text-xs font-mono text-[var(--forest-light)] font-medium mb-1">
-                        <Sparkles className="w-3 h-3 text-[var(--amber)]" />
-                        <span>{slide.headline}</span>
-                      </div>
-
                       <h3
                         style={{ fontFamily: 'var(--font-editorial)' }}
                         className="text-lg sm:text-xl text-[var(--ink)] font-normal leading-snug mb-2"

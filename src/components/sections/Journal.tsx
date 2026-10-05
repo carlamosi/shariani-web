@@ -78,7 +78,7 @@ export function Journal() {
                 fontFamily: 'var(--font-editorial)'
               }}
             >
-              Un cuaderno de campo<br />en continuo crecimiento
+              Un diario de obra desde el terreno.
             </h2>
             <p
               className="mb-6 leading-relaxed font-sans text-[var(--ink-muted)]"
