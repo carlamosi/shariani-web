@@ -108,21 +108,16 @@ export function MediaStrip() {
         >
           {repeatedOutlets.map((outlet, index) => {
             const itemKey = `${outlet.id}-${index}`;
-            const imgEl = (
-              <div
-                key={itemKey}
-                className={`shrink-0 flex items-center justify-center opacity-80 contrast-[0.98] hover:opacity-100 hover:scale-[1.02] transition-all duration-300 ease-out ${outlet.url ? 'cursor-pointer' : 'cursor-default'}`}
-                title={outlet.name}
-              >
-                <Image
-                  src={outlet.src}
-                  alt={outlet.name}
-                  width={outlet.width}
-                  height={outlet.height}
-                  className={`${outlet.className} object-contain`}
-                  loading="lazy"
-                />
-              </div>
+
+            const logoImg = (
+              <Image
+                src={outlet.src}
+                alt={outlet.name}
+                width={outlet.width}
+                height={outlet.height}
+                className={`${outlet.className} object-contain`}
+                loading="lazy"
+              />
             );
 
             if (outlet.url) {
@@ -132,15 +127,24 @@ export function MediaStrip() {
                   href={outlet.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 focus:outline-none focus:ring-1 focus:ring-[var(--forest)] rounded"
+                  title={outlet.name}
+                  className="shrink-0 flex items-center justify-center opacity-80 contrast-[0.98] hover:opacity-100 hover:scale-[1.02] transition-all duration-300 ease-out cursor-pointer focus:outline-none focus:ring-1 focus:ring-[var(--forest)] rounded"
                   aria-label={tr.media.articleIn(outlet.name)}
                 >
-                  {imgEl}
+                  {logoImg}
                 </a>
               );
             }
 
-            return imgEl;
+            return (
+              <div
+                key={itemKey}
+                className="shrink-0 flex items-center justify-center opacity-80 contrast-[0.98] cursor-default"
+                title={outlet.name}
+              >
+                {logoImg}
+              </div>
+            );
           })}
         </div>
       </div>
