@@ -3,25 +3,27 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Menu, X, Globe } from 'lucide-react';
+import { useLang } from '@/context/LangContext';
+import { Lang } from '@/data/translations';
 
-const navLinks = [
-  { href: '#proyecto', label: 'El proyecto' },
-  { href: '#shariani', label: 'Shariani' },
-  { href: '#impacto', label: 'Impacto' },
-  { href: '#ayuda', label: 'Ayuda' },
-  { href: '#contacto', label: 'Contacto' },
-  { href: '#diario', label: 'Blog' },
-];
-
-const languages = ['ES', 'CA', 'EN'];
+const LANGUAGES: Lang[] = ['CA', 'ES', 'EN'];
 
 export function Navbar() {
+  const { lang, setLang, tr } = useLang();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [lang, setLang] = useState('ES');
   const [langOpen, setLangOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  const navLinks = [
+    { href: '#proyecto', label: tr.nav.project },
+    { href: '#shariani', label: tr.nav.shariani },
+    { href: '#impacto', label: tr.nav.impact },
+    { href: '#ayuda', label: tr.nav.help },
+    { href: '#contacto', label: tr.nav.contact },
+    { href: '#diario', label: tr.nav.blog },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 12);
@@ -50,8 +52,11 @@ export function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  const handleNavClick = () => {
-    setMenuOpen(false);
+  const handleNavClick = () => setMenuOpen(false);
+
+  const handleLangSelect = (l: Lang) => {
+    setLang(l);
+    setLangOpen(false);
   };
 
   return (
@@ -97,10 +102,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav
-          className="hidden md:flex items-center gap-1"
-          aria-label="Navegación principal"
-        >
+        <nav className="hidden md:flex items-center gap-1" aria-label="Navegació principal">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -117,38 +119,88 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Right controls */}
+        {/* Right controls — desktop */}
         <div className="hidden md:flex items-center gap-3">
           {/* Language selector */}
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className={`flex items-center gap-1 text-[0.8125rem] transition-colors duration-300 px-2 py-1 rounded ${
+              className={`flex items-center gap-1.5 text-[0.8125rem] transition-colors duration-300 px-2.5 py-1.5 rounded-lg border ${
                 isScrolled || menuOpen
-                  ? 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
-                  : 'text-white/80 hover:text-white'
-              }`}
+                  ? 'text-[var(--ink-muted)] hover:text-[var(--ink)] border-[var(--border)] hover:border-[var(--forest)] bg-transparent hover:bg-[var(--paper)]'
+                  : 'text-white/80 hover:text-white border-white/20 hover:border-white/50 bg-transparent'
+              } transition-all duration-200`}
               aria-expanded={langOpen}
               aria-haspopup="listbox"
-              aria-label={`Idioma actual: ${lang}`}
+              aria-label={tr.nav.langLabel(lang)}
             >
               <Globe size={13} strokeWidth={1.5} aria-hidden="true" />
-              <span>{lang}</span>
+              <span className="font-semibold">{lang}</span>
+              <svg
+                width="8" height="5" viewBox="0 0 8 5" fill="none"
+                className={`transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`}
+                aria-hidden="true"
+              >
+                <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
+
             {langOpen && (
               <div
                 role="listbox"
                 aria-label="Seleccionar idioma"
-                className="absolute right-0 top-full mt-1 bg-[var(--ivory)] border border-[var(--border)] rounded shadow-sm z-10 min-w-[72px]"
+                className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-lg shadow-md z-10 min-w-[88px] overflow-hidden"
               >
-                {languages.map((l) => (
+                {LANGUAGES.map((l) => (
                   <button
                     key={l}
                     role="option"
                     aria-selected={lang === l}
-                    onClick={() => { setLang(l); setLangOpen(false); }}
-                    className={`w-full text-left text-[0.8125rem] px-3 py-1.5 hover:bg-[var(--paper)] transition-colors ${
-                      lang === l ? 'text-[var(--forest)] font-medium' : 'text-[var(--ink-muted)]'
+                    onClick={() => handleLangSelect(l)}
+                    className={`w-full text-left text-[0.8125rem] px-3.5 py-2 hover:bg-[var(--paper)] transition-colors flex items-center justify-between gap-2 ${
+                      lang === l ? 'text-[var(--forest)] font-semibold' : 'text-[var(--ink-muted)]'
+                    }`}
+                  >
+                    <span>{l}</span>
+                    {lang === l && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)]" aria-hidden="true" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Donar CTA */}
+          <a href="#ayuda" className="btn-primary text-sm px-5 py-2">
+            {tr.nav.donate}
+          </a>
+        </div>
+
+        {/* Mobile: lang + menu */}
+        <div className="md:hidden flex items-center gap-2">
+          {/* Compact lang pill on mobile */}
+          <div className="relative">
+            <button
+              onClick={() => setLangOpen(!langOpen)}
+              className={`flex items-center gap-1 px-2 py-1 rounded border text-[0.75rem] font-semibold transition-all duration-200 ${
+                isScrolled || menuOpen
+                  ? 'text-[var(--ink-muted)] border-[var(--border)]'
+                  : 'text-white/80 border-white/25'
+              }`}
+              aria-label={`Idioma: ${lang}`}
+            >
+              <Globe size={12} strokeWidth={1.5} />
+              <span>{lang}</span>
+            </button>
+            {langOpen && (
+              <div className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-lg shadow-md z-50 min-w-[80px] overflow-hidden">
+                {LANGUAGES.map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => handleLangSelect(l)}
+                    className={`w-full text-left text-[0.8125rem] px-3 py-2 hover:bg-[var(--paper)] transition-colors ${
+                      lang === l ? 'text-[var(--forest)] font-semibold' : 'text-[var(--ink-muted)]'
                     }`}
                   >
                     {l}
@@ -158,26 +210,6 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Donar CTA */}
-          <a
-            href="#ayuda"
-            className="btn-primary text-sm px-5 py-2"
-          >
-            Donar
-          </a>
-        </div>
-
-        {/* Mobile: lang + menu */}
-        <div className="md:hidden flex items-center gap-2">
-          <button
-            onClick={() => setLangOpen(!langOpen)}
-            className={`p-1.5 rounded transition-colors duration-300 ${
-              isScrolled || menuOpen ? 'text-[var(--ink-muted)]' : 'text-white/80'
-            }`}
-            aria-label={`Idioma: ${lang}`}
-          >
-            <Globe size={16} strokeWidth={1.5} />
-          </button>
           <button
             ref={menuButtonRef}
             onClick={() => setMenuOpen(!menuOpen)}
@@ -186,7 +218,7 @@ export function Navbar() {
             }`}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-label={menuOpen ? tr.nav.closeMenu : tr.nav.openMenu}
           >
             {menuOpen ? (
               <X size={20} strokeWidth={1.5} aria-hidden="true" />
@@ -205,12 +237,9 @@ export function Navbar() {
           className="md:hidden fixed inset-0 top-16 bg-[var(--ivory)] z-40 flex flex-col"
           role="dialog"
           aria-modal="true"
-          aria-label="Menú de navegación"
+          aria-label="Menú de navegació"
         >
-          <nav
-            className="flex flex-col px-6 py-8 gap-1"
-            aria-label="Menú principal"
-          >
+          <nav className="flex flex-col px-6 py-8 gap-1" aria-label="Menú principal">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -229,18 +258,18 @@ export function Navbar() {
               onClick={handleNavClick}
               className="btn-primary w-full justify-center text-base py-3"
             >
-              Donar
+              {tr.nav.donate}
             </a>
           </div>
-          <div className="px-6 mt-6 flex gap-4">
-            {languages.map((l) => (
+          <div className="px-6 mt-6 flex gap-3">
+            {LANGUAGES.map((l) => (
               <button
                 key={l}
-                onClick={() => { setLang(l); setLangOpen(false); }}
-                className={`text-sm px-3 py-1.5 rounded border transition-colors ${
+                onClick={() => handleLangSelect(l)}
+                className={`text-sm px-4 py-2 rounded-lg border transition-colors font-medium ${
                   lang === l
                     ? 'bg-[var(--forest)] text-white border-[var(--forest)]'
-                    : 'text-[var(--ink-muted)] border-[var(--border)]'
+                    : 'text-[var(--ink-muted)] border-[var(--border)] hover:border-[var(--forest)]'
                 }`}
               >
                 {l}

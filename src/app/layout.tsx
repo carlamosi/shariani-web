@@ -1,14 +1,15 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { LangProvider } from '@/context/LangContext';
 
 export const metadata: Metadata = {
-  title: 'La Vall × Shariani — Educación sin fronteras',
-  description: 'Desde La Vall, en Barcelona, colaboramos con Shariani Primary School en Kilifi County, Kenia, para mejorar sus espacios educativos y construir una relación que continúa creciendo.',
+  title: 'La Vall × Shariani — Educació sense fronteres',
+  description: 'Des de La Vall, a Barcelona, col·laborem amb Shariani Primary School a Kilifi County, Kènia, per millorar els seus espais educatius i construir una relació que continua creixent.',
   openGraph: {
     title: 'La Vall × Shariani',
-    description: 'Una colaboración educativa entre Barcelona y Kenia.',
+    description: 'Una col·laboració educativa entre Barcelona i Kènia.',
     type: 'website',
-    locale: 'es_ES',
+    locale: 'ca_ES',
   },
   icons: {
     icon: [
@@ -23,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="ca" className="scroll-smooth">
       <head>
         {/*
           Preconnect to Google Fonts to reduce DNS + TLS handshake latency.
@@ -33,7 +34,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body>{children}</body>
+      <body>
+        <LangProvider>{children}</LangProvider>
+      </body>
     </html>
   );
 }

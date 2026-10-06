@@ -1,25 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-
-/*
- * MediaStrip Section — «Nuestra historia también ha llegado a los medios.»
- *
- * Tira continua y automática de logotipos de medios de comunicación que han dado
- * cobertura al proyecto La Vall × Shariani:
- * - COPE Catalunya
- * - L’Eco de Sitges
- * - TOT per Sant Cugat
- * - Diari Sabadell
- * - Ràdio Estel
- *
- * Características:
- * - Titular en una sola línea continua, con tipografía editorial pura.
- * - Etiqueta de sección (.section-label) en perfecta coherencia con el diseño global.
- * - Autoplay continuo y loop infinito sin saltos ni cortes.
- * - Máscara suave en los extremos para un desvanecimiento elegante.
- * - Pausa respetuosa y microinteracción sutil en hover.
- */
+import { useLang } from '@/context/LangContext';
 
 interface MediaOutlet {
   id: string;
@@ -78,8 +60,7 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
 ];
 
 export function MediaStrip() {
-  // Duplicamos el conjunto de 5 logos 4 veces para garantizar un bucle continuo
-  // sin saltos ni cortes visuales en cualquier resolución.
+  const { tr } = useLang();
   const repeatedOutlets = [
     ...MEDIA_OUTLETS,
     ...MEDIA_OUTLETS,
@@ -91,18 +72,16 @@ export function MediaStrip() {
     <section
       id="medios"
       className="relative w-full bg-[var(--ivory)] py-12 sm:py-16 border-t border-[var(--border)] overflow-hidden text-[var(--ink)]"
-      aria-label="Nuestra historia también ha llegado a los medios"
+      aria-label={tr.media.ariaLabel}
     >
       <div className="container-page mb-8 sm:mb-10 text-center">
-        {/* Section Label con la tipografía y peso oficial de la web */}
         <div className="flex items-center justify-center gap-2 mb-2.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)]" />
           <p className="section-label text-[var(--forest-mid)]">
-            Apariciones en prensa y radio
+            {tr.media.sectionLabel}
           </p>
         </div>
 
-        {/* Titular en una sola línea continua sin saltos */}
         <h2
           style={{
             fontFamily: 'var(--font-editorial)',
@@ -110,19 +89,17 @@ export function MediaStrip() {
           }}
           className="text-[var(--ink)] font-normal tracking-[-0.02em] whitespace-nowrap text-center overflow-hidden text-ellipsis"
         >
-          Nuestra historia también ha llegado a los medios.
+          {tr.media.heading}
         </h2>
 
-        {/* Línea de apoyo editorial sobria */}
         <p
           style={{ fontFamily: 'var(--font-body)' }}
           className="text-xs sm:text-[13.5px] text-[var(--ink-muted)] mt-2 max-w-lg mx-auto"
         >
-          Medios que han dado difusión al compromiso entre La Vall y Shariani.
+          {tr.media.sub}
         </p>
       </div>
 
-      {/* ── Contenedor del Carrusel con Máscara de Desvanecimiento Suave ── */}
       <div className="relative w-full overflow-hidden media-mask-fade media-marquee-container">
         <div
           className="animate-media-marquee flex items-center py-2 gap-14 sm:gap-20 md:gap-24 lg:gap-28 select-none"
@@ -131,7 +108,7 @@ export function MediaStrip() {
         >
           {repeatedOutlets.map((outlet, index) => {
             const itemKey = `${outlet.id}-${index}`;
-            const content = (
+            const imgEl = (
               <div
                 key={itemKey}
                 className={`shrink-0 flex items-center justify-center opacity-80 contrast-[0.98] hover:opacity-100 hover:scale-[1.02] transition-all duration-300 ease-out ${outlet.url ? 'cursor-pointer' : 'cursor-default'}`}
@@ -156,14 +133,14 @@ export function MediaStrip() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="shrink-0 focus:outline-none focus:ring-1 focus:ring-[var(--forest)] rounded"
-                  aria-label={`Artículo en ${outlet.name}`}
+                  aria-label={tr.media.articleIn(outlet.name)}
                 >
-                  {content}
+                  {imgEl}
                 </a>
               );
             }
 
-            return content;
+            return imgEl;
           })}
         </div>
       </div>
