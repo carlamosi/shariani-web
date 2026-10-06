@@ -10,10 +10,10 @@
 :root {
   --ivory: #FAF8F4;
   --paper: #F3EFE7;
-  --forest: #1E3D2B;
-  --forest-dark: #142A1E;
-  --forest-mid: #2A5438;
-  --forest-light: #3D7050;
+  --forest: #186ED7;
+  --forest-dark: #0F52A8;
+  --forest-mid: #2278E0;
+  --forest-light: #4A95F0;
   --amber: #C4832A;
   --amber-light: #E8A84A;
   --ink: #141715;
@@ -192,7 +192,7 @@ footer {
   border-radius: 9999px;
   border: 1px solid transparent;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(30, 61, 43, 0.15), 0 1px 2px rgba(30, 61, 43, 0.1);
+  box-shadow: 0 1px 3px rgba(24, 110, 215, 0.18), 0 1px 2px rgba(24, 110, 215, 0.12);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   white-space: nowrap;
@@ -200,11 +200,11 @@ footer {
 .btn-primary:hover {
   background-color: var(--forest-dark);
   transform: translateY(-1.5px);
-  box-shadow: 0 6px 16px rgba(30, 61, 43, 0.22);
+  box-shadow: 0 6px 16px rgba(24, 110, 215, 0.28);
 }
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(30, 61, 43, 0.15);
+  box-shadow: 0 2px 4px rgba(24, 110, 215, 0.18);
 }
 
 .btn-white {
@@ -303,7 +303,7 @@ footer {
 .card-interactive:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 28px -6px rgba(28, 28, 26, 0.08);
-  border-color: rgba(30, 61, 43, 0.25);
+  border-color: rgba(24, 110, 215, 0.25);
 }
 
 /* Image reveal / hover zoom */

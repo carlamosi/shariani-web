@@ -76,15 +76,15 @@ export function Hero() {
         />
       </div>
 
-      {/* Gradients */}
+      {/* Gradients — lighter to let photo breathe */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: 'linear-gradient(105deg, rgba(14,22,16,0.96) 0%, rgba(14,22,16,0.80) 28%, rgba(14,22,16,0.42) 56%, rgba(14,22,16,0.10) 80%, transparent 100%)' }}
+        style={{ background: 'linear-gradient(105deg, rgba(10,18,28,0.88) 0%, rgba(10,18,28,0.65) 30%, rgba(10,18,28,0.28) 60%, rgba(10,18,28,0.06) 82%, transparent 100%)' }}
         aria-hidden="true"
       />
       <div
         className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
-        style={{ height: '45%', background: 'linear-gradient(to top, rgba(14,22,16,0.55) 0%, transparent 100%)' }}
+        style={{ height: '35%', background: 'linear-gradient(to top, rgba(10,18,28,0.38) 0%, transparent 100%)' }}
         aria-hidden="true"
       />
       <div

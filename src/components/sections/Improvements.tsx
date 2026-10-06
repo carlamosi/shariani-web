@@ -183,7 +183,7 @@ export function Improvements() {
 /* ── State-aware style maps ── */
 const bubbleStyle: Record<YearState, React.CSSProperties> = {
   done: { background: 'var(--forest)', color: '#fff', border: '2px solid var(--forest)' },
-  active: { background: 'var(--forest)', color: '#fff', border: '2px solid var(--forest)', boxShadow: '0 0 0 4px rgba(45,90,60,0.15)' },
+  active: { background: 'var(--forest)', color: '#fff', border: '2px solid var(--forest)', boxShadow: '0 0 0 4px rgba(24,110,215,0.15)' },
   future: { background: 'transparent', color: 'var(--ink-muted)', border: '2px dashed var(--border)' },
 };
 
@@ -194,13 +194,13 @@ const lineStyle: Record<YearState, React.CSSProperties> = {
 };
 
 const chipStyle: Record<YearState, React.CSSProperties> = {
-  done: { background: 'rgba(45,90,60,0.08)', color: 'var(--forest)', border: '1px solid rgba(45,90,60,0.2)' },
+  done: { background: 'rgba(24,110,215,0.07)', color: 'var(--forest)', border: '1px solid rgba(24,110,215,0.2)' },
   active: { background: 'rgba(245,158,11,0.09)', color: '#92400e', border: '1px solid rgba(245,158,11,0.35)' },
   future: { background: 'rgba(0,0,0,0.03)', color: 'var(--ink-muted)', border: '1px solid var(--border)' },
 };
 
 const tagStyle: Record<YearState, React.CSSProperties> = {
-  done: { background: 'rgba(45,90,60,0.08)', color: 'var(--forest)', border: '1px solid rgba(45,90,60,0.22)' },
+  done: { background: 'rgba(24,110,215,0.07)', color: 'var(--forest)', border: '1px solid rgba(24,110,215,0.2)' },
   active: { background: 'rgba(245,158,11,0.1)', color: '#92400e', border: '1px solid rgba(245,158,11,0.4)' },
   future: { background: 'transparent', color: 'var(--ink-muted)', border: '1px dashed var(--border)' },
 };
@@ -246,8 +246,8 @@ function TimelineEntry({
         <div
           className="p-5 rounded-xl transition-all duration-300"
           style={{
-            background: isActive ? 'linear-gradient(135deg, rgba(45,90,60,0.04) 0%, rgba(45,90,60,0.01) 100%)' : isFuture ? 'rgba(0,0,0,0.015)' : 'transparent',
-            border: isActive ? '1px solid rgba(45,90,60,0.15)' : isFuture ? '1px dashed var(--border)' : '1px solid transparent',
+            background: isActive ? 'linear-gradient(135deg, rgba(24,110,215,0.04) 0%, rgba(24,110,215,0.01) 100%)' : isFuture ? 'rgba(0,0,0,0.015)' : 'transparent',
+            border: isActive ? '1px solid rgba(24,110,215,0.15)' : isFuture ? '1px dashed var(--border)' : '1px solid transparent',
             opacity: isFuture ? 0.72 : 1,
           }}
         >

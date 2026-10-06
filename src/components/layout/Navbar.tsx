@@ -19,10 +19,10 @@ export function Navbar() {
   const navLinks = [
     { href: '#proyecto', label: tr.nav.project },
     { href: '#shariani', label: tr.nav.shariani },
+    { href: '/obra-real', label: tr.nav.obres },
     { href: '#impacto', label: tr.nav.impact },
     { href: '#ayuda', label: tr.nav.help },
     { href: '#contacto', label: tr.nav.contact },
-    { href: '#diario', label: tr.nav.blog },
   ];
 
   useEffect(() => {
@@ -103,20 +103,23 @@ export function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1" aria-label="Navegació principal">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`px-3 py-1.5 text-sm transition-colors duration-300 rounded link-underline ${
-                isScrolled || menuOpen
-                  ? 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
-                  : 'text-white/80 hover:text-white'
-              }`}
-              style={{ fontWeight: 400 }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isPage = link.href.startsWith('/');
+            const cls = `px-3 py-1.5 text-sm transition-colors duration-300 rounded link-underline ${
+              isScrolled || menuOpen
+                ? 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
+                : 'text-white/80 hover:text-white'
+            }`;
+            return isPage ? (
+              <Link key={link.href} href={link.href} className={cls} style={{ fontWeight: 400 }}>
+                {link.label}
+              </Link>
+            ) : (
+              <a key={link.href} href={link.href} className={cls} style={{ fontWeight: 400 }}>
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Right controls — desktop */}
@@ -240,17 +243,20 @@ export function Navbar() {
           aria-label="Menú de navegació"
         >
           <nav className="flex flex-col px-6 py-8 gap-1" aria-label="Menú principal">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={handleNavClick}
-                className="py-3.5 text-lg text-[var(--ink)] border-b border-[var(--border-light)] hover:text-[var(--forest)] transition-colors"
-                style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isPage = link.href.startsWith('/');
+              const cls = 'py-3.5 text-lg text-[var(--ink)] border-b border-[var(--border-light)] hover:text-[var(--forest)] transition-colors';
+              const style = { fontFamily: 'var(--font-sans)', fontWeight: 400 };
+              return isPage ? (
+                <Link key={link.href} href={link.href} onClick={handleNavClick} className={cls} style={style}>
+                  {link.label}
+                </Link>
+              ) : (
+                <a key={link.href} href={link.href} onClick={handleNavClick} className={cls} style={style}>
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
           <div className="px-6 mt-2">
             <a
