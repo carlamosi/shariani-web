@@ -1,6 +1,5 @@
 'use client';
 
-import { ArrowRight } from 'lucide-react';
 import { useLang } from '@/context/LangContext';
 
 export function Impact() {
@@ -65,6 +64,7 @@ export function Impact() {
               </div>
             </div>
           ))}
+      </div>
       </div>
     </section>
   );
