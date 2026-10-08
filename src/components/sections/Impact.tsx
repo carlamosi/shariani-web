@@ -65,33 +65,6 @@ export function Impact() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Clean, authentic human CTA strip */}
-        <div className="rounded-xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-[var(--ivory)] border border-[var(--border)]">
-          <div className="max-w-xl">
-            <h3
-              style={{ fontFamily: 'var(--font-editorial)' }}
-              className="text-xl sm:text-2xl font-normal text-[var(--ink)] mb-2"
-            >
-              {impact.ctaTitle}
-            </h3>
-            <p
-              style={{ fontFamily: 'var(--font-body)' }}
-              className="text-sm text-[var(--ink-muted)] leading-relaxed"
-            >
-              {impact.ctaBody}
-            </p>
-          </div>
-
-          <a
-            href="#ayuda"
-            className="btn-primary shrink-0 flex items-center gap-2"
-          >
-            <span>{impact.ctaButton}</span>
-            <ArrowRight className="w-4 h-4" aria-hidden="true" />
-          </a>
-        </div>
       </div>
     </section>
   );

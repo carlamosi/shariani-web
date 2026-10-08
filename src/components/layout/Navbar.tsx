@@ -23,9 +23,8 @@ export function Navbar() {
     { href: '/', label: tr.nav.home },
     { href: '/#proyecto', label: tr.nav.project },
     { href: '/obra-real', label: tr.nav.obres },
-    { href: '/blog', label: tr.nav.blog },
     { href: '/#impacto', label: tr.nav.impact },
-    { href: '/#ayuda', label: tr.nav.help },
+    { href: '/blog', label: tr.nav.blog },
   ];
 
   useEffect(() => {
