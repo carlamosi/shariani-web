@@ -74,31 +74,6 @@ export function MediaStrip() {
       className="relative w-full bg-[var(--ivory)] py-12 sm:py-16 border-t border-[var(--border)] overflow-hidden text-[var(--ink)]"
       aria-label={tr.media.ariaLabel}
     >
-      <div className="container-page mb-8 sm:mb-10 text-center">
-        <div className="flex items-center justify-center gap-2 mb-2.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)]" />
-          <p className="section-label text-[var(--forest-mid)]">
-            {tr.media.sectionLabel}
-          </p>
-        </div>
-
-        <h2
-          style={{
-            fontFamily: 'var(--font-editorial)',
-            fontSize: 'clamp(19px, 2.6vw, 32px)',
-          }}
-          className="text-[var(--ink)] font-normal tracking-[-0.02em] whitespace-nowrap text-center overflow-hidden text-ellipsis"
-        >
-          {tr.media.heading}
-        </h2>
-
-        <p
-          style={{ fontFamily: 'var(--font-body)' }}
-          className="text-xs sm:text-[13.5px] text-[var(--ink-muted)] mt-2 max-w-lg mx-auto"
-        >
-          {tr.media.sub}
-        </p>
-      </div>
 
       <div className="relative w-full overflow-hidden media-mask-fade media-marquee-container">
         <div
