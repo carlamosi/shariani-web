@@ -112,9 +112,9 @@ export const t = {
 
     /* ── Impact ── */
     impact: {
-      sectionLabel: 'Impacte verificat · 2024–2026',
+      sectionLabel: 'Impacte real',
       heading: 'Xifres que transformen el dia a dia a Shariani.',
-      subheading: 'Resultats reals i auditats aconseguits gràcies al treball conjunt d\'alumnes, voluntàries, professorat i la comunitat local de Kilifi.',
+      subheading: 'Resultats reals aconseguits gràcies al treball conjunt d\'alumnes, voluntàries, professorat i la comunitat local de Kilifi.',
       metrics: [
         {
           number: '1.700',
@@ -437,9 +437,9 @@ export const t = {
       articleIn: (name: string) => `Artículo en ${name}`,
     },
     impact: {
-      sectionLabel: 'Impacto verificado · 2024–2026',
+      sectionLabel: 'Impacto real',
       heading: 'Cifras que transforman el día a día en Shariani.',
-      subheading: 'Resultados reales y auditados conseguidos gracias al trabajo conjunto de alumnas, voluntarias, profesorado y la comunidad local de Kilifi.',
+      subheading: 'Resultados reales conseguidos gracias al trabajo conjunto de alumnas, voluntarias, profesorado y la comunidad local de Kilifi.',
       metrics: [
         {
           number: '1.700',
@@ -753,9 +753,9 @@ export const t = {
       articleIn: (name: string) => `Article in ${name}`,
     },
     impact: {
-      sectionLabel: 'Verified impact · 2024–2026',
+      sectionLabel: 'Real impact',
       heading: 'Numbers transforming everyday life at Shariani.',
-      subheading: 'Audited, tangible outcomes made possible by the collective effort of students, volunteers, educators and the local Kilifi community.',
+      subheading: 'Real outcomes made possible by the collective effort of students, volunteers, educators and the local Kilifi community.',
       metrics: [
         {
           number: '1,700',

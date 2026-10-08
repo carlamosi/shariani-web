@@ -1,7 +1,6 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Hero } from '@/components/sections/Hero';
 import { Story } from '@/components/sections/Story';
-import { Project } from '@/components/sections/Project';
 import { ImprovementsTeaser } from '@/components/sections/ImprovementsTeaser';
 import { MediaStrip } from '@/components/sections/MediaStrip';
 import { Impact } from '@/components/sections/Impact';
@@ -18,7 +17,6 @@ export default function Home() {
       <main>
         <Hero />
         <Story />
-        <Project />
         <ImprovementsTeaser />
         <MediaStrip />
         <Impact />
