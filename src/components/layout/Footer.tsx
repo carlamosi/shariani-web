@@ -5,11 +5,11 @@ import { useLang } from '@/context/LangContext';
 
 const year = new Date().getFullYear();
 
-const NAV_HREFS = ['#proyecto', '#shariani', '#impacto', '#contacto', '#diario'];
+const NAV_HREFS = ['/#proyecto', '/obra-real', '/#impacto', '/#contacto', '/blog'];
 const HELP_HREFS = [
   { href: 'https://www.teaming.net/unaescuela-milesdesuenosenkenia', external: true },
-  { href: '#ayuda', external: false },
-  { href: '#ayuda', external: false },
+  { href: '/#ayuda', external: false },
+  { href: '/#ayuda', external: false },
   { href: 'https://www.instagram.com/amara.la_vall/', external: true },
 ];
 

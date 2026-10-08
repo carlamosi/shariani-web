@@ -7,7 +7,6 @@ import { MediaStrip } from '@/components/sections/MediaStrip';
 import { Impact } from '@/components/sections/Impact';
 import { HowToHelp } from '@/components/sections/HowToHelp';
 import { Contact } from '@/components/sections/Contact';
-import { Journal } from '@/components/sections/Journal';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
@@ -25,7 +24,6 @@ export default function Home() {
         <Impact />
         <HowToHelp />
         <Contact />
-        <Journal />
       </main>
 
       <Footer />

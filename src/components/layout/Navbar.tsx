@@ -17,12 +17,12 @@ export function Navbar() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const navLinks = [
-    { href: '#proyecto', label: tr.nav.project },
-    { href: '#shariani', label: tr.nav.shariani },
+    { href: '/', label: tr.nav.home },
+    { href: '/#proyecto', label: tr.nav.project },
     { href: '/obra-real', label: tr.nav.obres },
-    { href: '#impacto', label: tr.nav.impact },
-    { href: '#ayuda', label: tr.nav.help },
-    { href: '#contacto', label: tr.nav.contact },
+    { href: '/blog', label: tr.nav.blog },
+    { href: '/#impacto', label: tr.nav.impact },
+    { href: '/#ayuda', label: tr.nav.help },
   ];
 
   useEffect(() => {
@@ -175,9 +175,9 @@ export function Navbar() {
           </div>
 
           {/* Donar CTA */}
-          <a href="#ayuda" className="btn-primary text-sm px-5 py-2">
+          <Link href="/#ayuda" className="btn-primary text-sm px-5 py-2">
             {tr.nav.donate}
-          </a>
+          </Link>
         </div>
 
         {/* Mobile: lang + menu */}
@@ -259,13 +259,13 @@ export function Navbar() {
             })}
           </nav>
           <div className="px-6 mt-2">
-            <a
-              href="#ayuda"
+            <Link
+              href="/#ayuda"
               onClick={handleNavClick}
               className="btn-primary w-full justify-center text-base py-3"
             >
               {tr.nav.donate}
-            </a>
+            </Link>
           </div>
           <div className="px-6 mt-6 flex gap-3">
             {LANGUAGES.map((l) => (
