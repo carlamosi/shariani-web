@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLang } from '@/context/LangContext';
@@ -10,7 +11,9 @@ const LANGUAGES: Lang[] = ['CA', 'ES', 'EN'];
 
 export function Navbar() {
   const { lang, setLang, tr } = useLang();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const [isScrolled, setIsScrolled] = useState(!isHome);
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -26,10 +29,17 @@ export function Navbar() {
   ];
 
   useEffect(() => {
+    // On home: start transparent, go opaque after 12px scroll
+    // On subpages: always opaque (reset if navigating)
+    if (!isHome) {
+      setIsScrolled(true);
+      return;
+    }
+    setIsScrolled(window.scrollY > 12);
     const handleScroll = () => setIsScrolled(window.scrollY > 12);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {

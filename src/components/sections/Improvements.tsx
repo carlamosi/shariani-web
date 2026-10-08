@@ -44,7 +44,7 @@ const PROJECTS_DATA: {
   },
   {
     year: '2026',
-    state: 'active',
+    state: 'done',
     items: ['300 faldilles', 'Pintar entrada / mural cole', 'Reformes sala profes'],
     image: {
       src: images.fase3_1.src,
@@ -53,7 +53,7 @@ const PROJECTS_DATA: {
   },
   {
     year: '2027',
-    state: 'future',
+    state: 'active',
     items: ['Lavabos', 'Biblio', 'Basura', 'Lab'],
     image: {
       src: images.schoolBuilding.src,
@@ -64,7 +64,7 @@ const PROJECTS_DATA: {
 
 const IMPROVEMENTS_TEXT = {
   CA: {
-    tags: ['Mobiliari & Seguretat', 'Renovació & Salut', 'En curs', 'Propera missió'],
+    tags: ['Mobiliari & Seguretat', 'Renovació & Salut', 'Completat · Juny 2026', 'Propera expedició'],
     headlines: [
       'Cadires, taules i vallat perimetral',
       'Aules renovades i salut bucal',
@@ -77,10 +77,10 @@ const IMPROVEMENTS_TEXT = {
       'Confeccionem 300 faldilles escolars per a les nenes de la comunitat. Pintem el mural d\'entrada del col·legi i completem la reforma de la sala de professors.',
       'Propera missió: construcció de lavabos dignes, habilitació de la biblioteca escolar, equipament del laboratori i millora de la gestió de residus al recinte.',
     ],
-    activeNow: 'Ara',
+    activeNow: 'Juny 2027',
   },
   ES: {
-    tags: ['Mobiliario & Seguridad', 'Renovación & Salud', 'En curso', 'Próxima misión'],
+    tags: ['Mobiliario & Seguridad', 'Renovación & Salud', 'Completado · Junio 2026', 'Próxima expedición'],
     headlines: [
       'Sillas, mesas y vallado perimetral',
       'Aulas renovadas y salud bucal',
@@ -93,10 +93,10 @@ const IMPROVEMENTS_TEXT = {
       'Confeccionamos 300 faldillas escolares para las niñas de la comunidad. Pintamos el mural de entrada del colegio y completamos la reforma de la sala de profesores.',
       'Próxima misión: construcción de lavabos dignos, habilitación de la biblioteca escolar, equipamiento del laboratorio y mejora de la gestión de residuos en el recinto.',
     ],
-    activeNow: 'Ahora',
+    activeNow: 'Junio 2027',
   },
   EN: {
-    tags: ['Furniture & Safety', 'Renovation & Health', 'In progress', 'Next mission'],
+    tags: ['Furniture & Safety', 'Renovation & Health', 'Completed · June 2026', 'Next expedition'],
     headlines: [
       'Chairs, tables and perimeter fence',
       'Renovated classrooms and oral health',
@@ -109,7 +109,7 @@ const IMPROVEMENTS_TEXT = {
       'We made 300 school skirts for the girls in the community. We painted the school entrance mural and completed the refurbishment of the staff room.',
       'Next mission: building proper toilets, setting up the school library, equipping the science lab, and improving waste management on the school grounds.',
     ],
-    activeNow: 'Now',
+    activeNow: 'June 2027',
   },
 };
 

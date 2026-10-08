@@ -18,10 +18,10 @@ export default function Home() {
         <Hero />
         <Story />
         <ImprovementsTeaser />
-        <MediaStrip />
         <Impact />
         <HowToHelp />
         <Contact />
+        <MediaStrip />
       </main>
 
       <Footer />

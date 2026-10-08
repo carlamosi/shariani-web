@@ -8,7 +8,7 @@ import { useLang } from '@/context/LangContext';
 
 const YEARS = ['2024', '2025', '2026', '2027'] as const;
 type YearState = 'done' | 'active' | 'future';
-const STATES: YearState[] = ['done', 'done', 'active', 'future'];
+const STATES: YearState[] = ['done', 'done', 'done', 'active'];
 
 const TEASER_TEXT = {
   CA: {
@@ -16,21 +16,21 @@ const TEASER_TEXT = {
     heading: 'Construïm sense aturar-nos.',
     body: 'Des del 2024, cada expedició deixa una millora física permanent a Shariani. Aules, mobiliari, seguretat, higiene i molt més.',
     cta: 'Descobreix com construïm',
-    years: ['Mobiliari & Seguretat', 'Aules & Salut', 'En curs ara', 'Propera missió'],
+    years: ['Mobiliari & Seguretat', 'Aules & Salut', 'Mural & Faldilles', 'Juny 2027'],
   },
   ES: {
     sectionLabel: 'Cada año, una obra real',
     heading: 'Construimos sin parar.',
     body: 'Desde 2024, cada expedición deja una mejora física permanente en Shariani. Aulas, mobiliario, seguridad, higiene y mucho más.',
     cta: 'Descubre cómo construimos',
-    years: ['Mobiliario & Seguridad', 'Aulas & Salud', 'En curso ahora', 'Próxima misión'],
+    years: ['Mobiliario & Seguridad', 'Aulas & Salud', 'Mural & Faldillas', 'Junio 2027'],
   },
   EN: {
     sectionLabel: 'Every year, real work',
     heading: 'We build without stopping.',
     body: 'Since 2024, every expedition leaves a permanent physical improvement at Shariani. Classrooms, furniture, safety, hygiene and much more.',
     cta: 'Discover how we build',
-    years: ['Furniture & Safety', 'Classrooms & Health', 'In progress now', 'Next mission'],
+    years: ['Furniture & Safety', 'Classrooms & Health', 'Mural & Skirts', 'June 2027'],
   },
 };
 
@@ -95,44 +95,99 @@ export function ImprovementsTeaser() {
             </Link>
           </div>
 
-          {/* Right — photo */}
-          <div className="relative">
+          {/* Right — organic photo collage */}
+          <div className="relative h-[420px] sm:h-[480px] lg:h-[520px] flex items-center justify-center" aria-hidden="true">
+            {/* Photo 1 — large, rounded rect, slight left tilt */}
             <div
-              className="relative overflow-hidden rounded-xl image-zoom-container"
-              style={{ aspectRatio: '4/3', border: '1px solid var(--border)', boxShadow: '0 20px 60px rgba(0,0,0,0.1)' }}
+              className="absolute w-[54%] aspect-[4/5] overflow-hidden shadow-xl"
+              style={{
+                borderRadius: '48% 52% 36% 64% / 40% 46% 54% 60%',
+                top: '2%',
+                left: '2%',
+                transform: 'rotate(-3deg)',
+                zIndex: 3,
+                border: '3px solid var(--ivory)',
+              }}
+            >
+              <Image
+                src={images.heroSchool.src}
+                alt={images.heroSchool.alt}
+                fill
+                sizes="(max-width: 1024px) 35vw, 22vw"
+                className="object-cover"
+              />
+            </div>
+
+            {/* Photo 2 — pill / tall rounded, right side */}
+            <div
+              className="absolute w-[40%] aspect-[3/4] overflow-hidden shadow-lg"
+              style={{
+                borderRadius: '50%',
+                top: '8%',
+                right: '3%',
+                transform: 'rotate(4deg)',
+                zIndex: 2,
+                border: '3px solid var(--ivory)',
+              }}
+            >
+              <Image
+                src={images.classroom.src}
+                alt={images.classroom.alt}
+                fill
+                sizes="(max-width: 1024px) 28vw, 17vw"
+                className="object-cover"
+              />
+            </div>
+
+            {/* Photo 3 — landscape, bottom left, pill */}
+            <div
+              className="absolute w-[52%] aspect-[16/9] overflow-hidden shadow-lg"
+              style={{
+                borderRadius: '40px',
+                bottom: '4%',
+                left: '0%',
+                transform: 'rotate(2deg)',
+                zIndex: 4,
+                border: '3px solid var(--ivory)',
+              }}
             >
               <Image
                 src={images.fase3_1.src}
                 alt={images.fase3_1.alt}
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 35vw, 22vw"
                 className="object-cover"
               />
-              {/* Year counter overlay */}
-              <div
-                className="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between"
-                style={{ background: 'linear-gradient(to top, rgba(10,18,28,0.75) 0%, transparent 100%)' }}
-              >
-                <div>
-                  <p className="text-white/50 text-xs font-mono uppercase tracking-widest mb-0.5">Shariani · 2024–2027</p>
-                  <p className="text-white text-sm font-semibold">{YEARS.filter((_, i) => STATES[i] === 'done').length} / {YEARS.length} fases</p>
-                </div>
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold"
-                  style={{ background: 'rgba(24,110,215,0.85)', backdropFilter: 'blur(8px)' }}
-                  aria-hidden="true"
-                >
-                  {Math.round((YEARS.filter((_, i) => STATES[i] === 'done').length / YEARS.length) * 100)}%
-                </div>
-              </div>
             </div>
-            {/* Decorative dot grid */}
+
+            {/* Photo 4 — small square, bottom right */}
             <div
-              className="absolute -bottom-6 -right-6 w-32 h-32 pointer-events-none opacity-40"
-              aria-hidden="true"
+              className="absolute w-[32%] aspect-square overflow-hidden shadow-md"
+              style={{
+                borderRadius: '44% 56% 60% 40% / 50% 44% 56% 50%',
+                bottom: '6%',
+                right: '2%',
+                transform: 'rotate(-5deg)',
+                zIndex: 3,
+                border: '3px solid var(--ivory)',
+              }}
+            >
+              <Image
+                src={images.fase1_1.src}
+                alt={images.fase1_1.alt}
+                fill
+                sizes="(max-width: 1024px) 22vw, 14vw"
+                className="object-cover"
+              />
+            </div>
+
+            {/* Subtle dot grid backdrop */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-25"
               style={{
                 backgroundImage: 'radial-gradient(circle, var(--border) 1.5px, transparent 1.5px)',
-                backgroundSize: '12px 12px',
+                backgroundSize: '16px 16px',
+                zIndex: 1,
               }}
             />
           </div>
