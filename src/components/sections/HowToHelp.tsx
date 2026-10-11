@@ -1,291 +1,532 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Copy, Check, ArrowRight, ExternalLink, ChevronDown, Mail, Smartphone } from 'lucide-react';
-import { useLang } from '@/context/LangContext';
+import Link from 'next/link';
+import {
+  Copy,
+  Check,
+  ArrowRight,
+  BookOpen,
+  Droplets,
+  FlaskConical,
+  Lock,
+  Share2,
+  ChevronDown,
+  Building2,
+  Users2,
+  ExternalLink,
+} from 'lucide-react';
+
+const DEDUCTION = 0.80;
+
+const DONATION_PRESETS = [
+  { amount: 10, impact: 'Material i quaderns escolars bàsics' },
+  { amount: 25, impact: 'Kits de lectura i salut dental' },
+  { amount: 50, impact: 'Un pupitre doble fabricat a Kilifi' },
+  { amount: 100, impact: 'Prestatgeries i fons de llibres' },
+  { amount: 250, impact: 'Material d’obra per a una aula' },
+];
+
+const DESTINATIONS = [
+  'On més falta (recomanat)',
+  'Biblioteca escolar',
+  'Nous lavabos',
+  'Laboratori de ciències',
+] as const;
 
 export function HowToHelp() {
-  const { tr } = useLang();
-  const h = tr.help;
+  const [frequency, setFrequency] = useState<'once' | 'monthly'>('once');
+  const [selectedPreset, setSelectedPreset] = useState<number | 'custom'>(50);
+  const [customAmount, setCustomAmount] = useState<number>(50);
+  const [destination, setDestination] = useState<string>(DESTINATIONS[0]);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [copiedBizum, setCopiedBizum] = useState(false);
+  const [hasPassedCard, setHasPassedCard] = useState(false);
 
-  const [copied, setCopied] = useState(false);
-  const [isRevealed, setIsRevealed] = useState(false);
-  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
-  const [isBizumGuideOpen, setIsBizumGuideOpen] = useState(false);
-  const [donationAmount, setDonationAmount] = useState<number>(50);
-  const sectionRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mq.matches) { setIsRevealed(true); return; }
-    const observer = new IntersectionObserver(
-      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { setIsRevealed(true); observer.disconnect(); } }); },
-      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const activeAmount = selectedPreset === 'custom' ? customAmount : selectedPreset;
+  const netCost = Math.round(activeAmount * (1 - DEDUCTION));
+
+  const donationUrl = `https://www.fundaciomontblanc.org/index.php/es/?project=shariani&dest=${encodeURIComponent(
+    destination
+  )}&freq=${frequency}&amount=${activeAmount}`;
+
+  const whatsappShareUrl = `https://wa.me/?text=${encodeURIComponent(
+    "Ajuda'm a construir la propera obra a Shariani: https://lavallshariani.cat"
+  )}`;
 
   const handleCopyBizum = () => {
     navigator.clipboard.writeText('03367').then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2400);
+      setCopiedBizum(true);
+      setTimeout(() => setCopiedBizum(false), 2000);
     });
   };
 
-  const calculateDeduction = (amount: number) => {
-    const safeAmount = Math.max(0, isNaN(amount) ? 0 : amount);
-    const refund = safeAmount <= 250 ? safeAmount * 0.8 : 250 * 0.8 + (safeAmount - 250) * 0.4;
-    const realCost = safeAmount - refund;
-    return { donation: safeAmount, refund: Math.round(refund * 100) / 100, realCost: Math.round(realCost * 100) / 100 };
-  };
-
-  const deduction = calculateDeduction(donationAmount);
-
-  const certMailtoUrl =
-    'mailto:info@fundaciomontblanc.org?subject=Solicitud%20Certificado%20Donaci%C3%B3n%20%E2%80%94%20La%20Vall%20x%20Shariani&body=Hola%2C%20equipo%20de%20Fundaci%C3%B3%20Montblanc%3A%0A%0AHe%20realizado%20una%20donaci%C3%B3n%20para%20el%20proyecto%20La%20Vall%20x%20Shariani%20y%20deseo%20solicitar%20mi%20certificado%20fiscal.%0A%0AMuchas%20gracias.';
+  useEffect(() => {
+    const onScroll = () => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      // Show sticky bar only when card has scrolled above the viewport
+      setHasPassedCard(rect.bottom < 80);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <section
-      ref={sectionRef}
       id="ayuda"
       style={{ background: 'var(--forest-dark)' }}
-      className="relative w-full py-12 md:py-20 text-[var(--ivory)] overflow-hidden"
-      aria-labelledby="ayuda-heading"
+      className="relative w-full py-16 md:py-24 text-[var(--ivory)] overflow-hidden"
+      aria-labelledby="donar-heading"
     >
+      <span id="donar" className="absolute -top-24" aria-hidden="true" />
+
       <div className="container-page">
-        {/* Header */}
-        <div className={`mb-10 editorial-reveal-header ${isRevealed ? 'is-revealed' : ''}`}>
-          <div className="flex items-center gap-3 mb-3">
-            <p className="section-label" style={{ color: 'rgba(250, 248, 244, 0.45)' }}>{h.sectionLabel}</p>
-            <span className="text-[rgba(250,248,244,0.2)]">/</span>
-            <span className="text-xs font-mono text-emerald-300 font-medium">{h.nextGoal}</span>
+        {/* 1. Header & 3 Compact Example Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start mb-12 sm:mb-14">
+          {/* Left: Eyebrow, H1, Subtext */}
+          <div className="lg:col-span-6">
+            <p className="text-xs uppercase tracking-widest font-semibold text-amber-300 mb-3">
+              FASE IV · JUNY 2027
+            </p>
+            <h1
+              id="donar-heading"
+              className="text-3xl sm:text-4xl lg:text-[42px] font-normal leading-[1.12] text-[var(--ivory)] tracking-tight mb-4"
+              style={{
+                fontFamily: 'var(--font-editorial)',
+                textWrap: 'balance',
+                hyphens: 'none',
+              }}
+            >
+              El que dones avui, es construeix al juny.
+            </h1>
+            <p
+              className="text-base sm:text-lg text-white/85 leading-relaxed max-w-xl"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              Tot el material i la mà d&apos;obra són locals, de Kilifi. Tria la teva aportació i mira què fa possible.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
-            <div className="lg:col-span-7">
-              <h2
-                id="ayuda-heading"
-                style={{ fontFamily: 'var(--font-editorial)', fontSize: 'clamp(28px, 3.2vw, 42px)', lineHeight: 1.1, letterSpacing: '-0.025em', color: 'var(--ivory)' }}
-              >
-                {h.heading}
-              </h2>
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '15.5px', lineHeight: 1.7 }} className="text-[rgba(250,248,244,0.8)] mt-3.5 max-w-xl">
-                {h.body}
-              </p>
-            </div>
+          {/* Right: Heading & 3 Compact Cards */}
+          <div className="lg:col-span-6">
+            <h2 className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-white/70 mb-3">
+              Què pot fer possible el 2027
+            </h2>
 
-            <div className="lg:col-span-5 flex lg:justify-end pb-1">
-              <button
-                type="button"
-                onClick={() => setIsCalculatorOpen(!isCalculatorOpen)}
-                aria-expanded={isCalculatorOpen}
-                className="relative overflow-hidden inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-400/40 hover:border-emerald-300 bg-emerald-950/40 hover:bg-emerald-900/60 text-[var(--ivory)] transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-[0_0_20px_rgba(52,211,153,0.2)] whitespace-nowrap active:scale-[0.98]"
-              >
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-                <span className="text-xs sm:text-[13px] font-semibold text-emerald-200 group-hover:text-white transition-colors whitespace-nowrap">
-                  {isCalculatorOpen ? h.calculatorHide : h.calculatorShow}
+            {/* Horizontal swipe on mobile, grid on tablet+ */}
+            <div className="flex sm:grid sm:grid-cols-3 gap-3 overflow-x-auto snap-x scrollbar-none pb-2 sm:pb-0">
+              {/* Card 1: Biblioteca */}
+              <div className="snap-start shrink-0 w-[240px] sm:w-auto p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between">
+                <div className="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center mb-2.5">
+                  <BookOpen size={17} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white mb-1">Una biblioteca</h3>
+                  <p className="text-xs text-white/75 leading-snug">
+                    Llibres escolars, prestatgeries i espai de lectura equipat.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 2: Nous lavabos */}
+              <div className="snap-start shrink-0 w-[240px] sm:w-auto p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between">
+                <div className="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center mb-2.5">
+                  <Droplets size={17} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white mb-1">Nous lavabos</h3>
+                  <p className="text-xs text-white/75 leading-snug">
+                    Higiene, aigua corrent i dignitat sanitària per a 1.700 infants.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 3: Laboratori */}
+              <div className="snap-start shrink-0 w-[240px] sm:w-auto p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between">
+                <div className="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center mb-2.5">
+                  <FlaskConical size={17} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white mb-1">Un laboratori</h3>
+                  <p className="text-xs text-white/75 leading-snug">
+                    Equipament científic i taules de pràctiques per a primària.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. DONATION CARD (White, 16px radius, 2 columns on desktop) */}
+        <div
+          ref={cardRef}
+          className="w-full bg-white text-[var(--ink)] rounded-[16px] p-6 sm:p-8 lg:p-10 shadow-2xl mb-12"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Left: Toggles & Amount Tiles */}
+            <div className="lg:col-span-7 flex flex-col justify-between">
+              <div>
+                {/* Toggle: Una vegada | Cada mes */}
+                <div className="inline-flex p-1 rounded-full bg-stone-100 border border-stone-200 mb-6">
+                  <button
+                    type="button"
+                    onClick={() => setFrequency('once')}
+                    className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                      frequency === 'once'
+                        ? 'bg-[var(--forest)] text-white shadow-xs'
+                        : 'text-stone-600 hover:text-stone-900'
+                    }`}
+                  >
+                    Una vegada
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFrequency('monthly')}
+                    className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                      frequency === 'monthly'
+                        ? 'bg-[var(--forest)] text-white shadow-xs'
+                        : 'text-stone-600 hover:text-stone-900'
+                    }`}
+                  >
+                    Cada mes
+                  </button>
+                </div>
+
+                {/* Amount Tiles: 2 cols on mobile, 3 cols on sm/desktop */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+                  {DONATION_PRESETS.map((preset) => {
+                    const isSelected = selectedPreset === preset.amount;
+                    return (
+                      <button
+                        key={preset.amount}
+                        type="button"
+                        onClick={() => setSelectedPreset(preset.amount)}
+                        className={`relative p-3.5 sm:p-4 rounded-xl text-left border-2 transition-all cursor-pointer flex flex-col justify-between min-h-[92px] ${
+                          isSelected
+                            ? 'border-[#186ED7] bg-blue-50/60 shadow-xs'
+                            : 'border-stone-200 hover:border-stone-300 bg-white'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between w-full mb-1">
+                          <span className="text-xl sm:text-2xl font-bold text-[var(--ink)]">
+                            {preset.amount} €
+                          </span>
+                          {isSelected && (
+                            <span className="w-5 h-5 rounded-full bg-[#186ED7] text-white flex items-center justify-center shrink-0">
+                              <Check size={12} strokeWidth={3} />
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[11px] sm:text-xs text-stone-500 leading-snug">
+                          {preset.impact}
+                        </p>
+                      </button>
+                    );
+                  })}
+
+                  {/* Custom tile */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedPreset('custom')}
+                    className={`relative p-3.5 sm:p-4 rounded-xl text-left border-2 transition-all cursor-pointer flex flex-col justify-between min-h-[92px] ${
+                      selectedPreset === 'custom'
+                        ? 'border-[#186ED7] bg-blue-50/60 shadow-xs'
+                        : 'border-stone-200 hover:border-stone-300 bg-white'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between w-full mb-1">
+                      <span className="text-sm sm:text-base font-bold text-[var(--ink)]">
+                        Una altra
+                      </span>
+                      {selectedPreset === 'custom' && (
+                        <span className="w-5 h-5 rounded-full bg-[#186ED7] text-white flex items-center justify-center shrink-0">
+                          <Check size={12} strokeWidth={3} />
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-stone-500 leading-snug">
+                      Tria la teva xifra
+                    </p>
+                  </button>
+                </div>
+
+                {/* Custom Amount Input if active */}
+                {selectedPreset === 'custom' && (
+                  <div className="mb-6 p-3.5 rounded-xl bg-stone-50 border border-stone-200 flex items-center gap-3">
+                    <span className="text-sm font-semibold text-stone-600">Import:</span>
+                    <div className="relative flex-1 max-w-[160px]">
+                      <input
+                        type="number"
+                        min="5"
+                        step="5"
+                        value={customAmount || ''}
+                        onChange={(e) => setCustomAmount(Math.max(1, Number(e.target.value)))}
+                        className="w-full pl-3 pr-8 py-1.5 rounded-lg border border-stone-300 font-bold text-lg text-[var(--ink)] focus:outline-none focus:border-[#186ED7]"
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 font-bold text-stone-500">
+                        €
+                      </span>
+                    </div>
+                    <span className="text-xs text-stone-500">Qualsevol aportació compta</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Segmented Control: On vols que vagi? */}
+              <div className="pt-4 border-t border-stone-100">
+                <span className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2.5">
+                  On vols que vagi?
                 </span>
-                <ChevronDown size={14} className={`text-emerald-300 group-hover:text-white transition-transform duration-300 shrink-0 ${isCalculatorOpen ? 'rotate-180' : ''}`} />
-              </button>
+                <div className="flex flex-wrap gap-2">
+                  {DESTINATIONS.map((dest) => (
+                    <button
+                      key={dest}
+                      type="button"
+                      onClick={() => setDestination(dest)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                        destination === dest
+                          ? 'bg-stone-900 text-white shadow-xs'
+                          : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                      }`}
+                    >
+                      {dest}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Calculator */}
-          {isCalculatorOpen && (
-            <div className="mt-8 pt-8 pb-8 border-t border-b border-[rgba(250,248,244,0.18)] calculator-enter">
-              <div className="max-w-4xl mx-auto">
-                <div className="mb-7">
-                  <h3 style={{ fontFamily: 'var(--font-editorial)' }} className="text-xl sm:text-2xl text-[var(--ivory)] font-normal tracking-tight">
-                    {h.calcHeading}
-                  </h3>
-                  <p className="text-sm text-[rgba(250,248,244,0.85)] mt-1.5 leading-relaxed">
-                    {h.calcIntroPrefix}{' '}
-                    <a href="https://www.fundaciomontblanc.org/index.php/es/" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--ivory)] underline underline-offset-2 hover:text-emerald-300 transition-colors">
-                      Fundació Montblanc
-                    </a>{' '}
-                    {h.calcIntroSuffix}{' '}
-                    <span className="font-light text-xs sm:text-[12.5px] text-[rgba(250,248,244,0.6)]">{h.calcIntroSmall}</span>
+            {/* Right: Live Summary & Amber CTA */}
+            <div className="lg:col-span-5 p-6 rounded-2xl bg-stone-50 border border-stone-200 flex flex-col justify-between">
+              <div>
+                <span className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
+                  Resum de la donació
+                </span>
+
+                <div className="flex items-baseline justify-between py-2 border-b border-stone-200 mb-3">
+                  <span className="text-sm text-stone-600">La teva aportació:</span>
+                  <span className="text-2xl font-bold text-[var(--ink)]">
+                    {activeAmount} €
+                  </span>
+                </div>
+
+                {/* Fiscal Deduction notice */}
+                <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 mb-6">
+                  <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-emerald-900 mb-1">
+                    <span>Amb la desgravació (80%):</span>
+                    <span className="text-base font-bold text-emerald-700">
+                      et costa només {netCost} €
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-emerald-800/80 leading-relaxed">
+                    Els primers 250 € desgraven el 80% al teu IRPF a través de la Fundació Montblanc.
                   </p>
                 </div>
 
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 py-6 border-y border-[rgba(250,248,244,0.12)]">
-                  <div className="w-full md:w-5/12">
-                    <div className="flex justify-between items-baseline mb-2.5">
-                      <span className="text-xs uppercase tracking-wider text-[var(--ivory)] font-semibold">{h.calcInputLabel}</span>
-                      <span className="text-[11px] text-[rgba(250,248,244,0.4)]">{h.calcSlider}</span>
-                    </div>
-                    <div className="flex items-center gap-3.5">
-                      <div className="relative group/input">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-emerald-400 font-bold">€</span>
-                        <input
-                          id="donation-input"
-                          type="number" min="5" max="1000" step="5"
-                          value={donationAmount || ''}
-                          onChange={(e) => setDonationAmount(Number(e.target.value))}
-                          className="w-28 pl-7 pr-2.5 py-1.5 bg-black/30 border-b-2 border-emerald-400/70 focus:border-emerald-300 focus:bg-black/45 focus:outline-none text-2xl font-mono font-bold text-[var(--ivory)] transition-all duration-200"
-                          aria-label={h.calcInputLabel}
-                        />
-                      </div>
-                      <div className="flex-1 relative flex items-center">
-                        <input
-                          type="range" min="10" max="300" step="5"
-                          value={donationAmount || 10}
-                          onChange={(e) => setDonationAmount(Number(e.target.value))}
-                          className="w-full h-1.5 bg-[rgba(250,248,244,0.2)] rounded-lg appearance-none cursor-pointer accent-emerald-400 focus:outline-none"
-                          aria-label={h.calcSlider}
-                        />
-                      </div>
-                    </div>
-                    <span className="block text-[11px] text-emerald-300/80 font-medium mt-1.5">{h.calcDirect}</span>
-                  </div>
-
-                  <div className="w-full md:w-6/12 flex items-center justify-between gap-4 sm:gap-8 pt-2 md:pt-0">
-                    <div className="transition-all duration-200 flex-1">
-                      <span className="block text-[11px] uppercase tracking-wider text-emerald-300 font-semibold mb-1">{h.calcRefund}</span>
-                      <div className="flex items-baseline gap-1">
-                        <span key={`refund-${deduction.refund}`} style={{ fontFamily: 'var(--font-editorial)' }} className="text-3xl sm:text-4xl text-emerald-300 font-normal inline-block">
-                          +{deduction.refund}
-                        </span>
-                        <span className="text-sm font-mono text-emerald-400">€</span>
-                      </div>
-                      <span className="block text-[10.5px] text-[rgba(250,248,244,0.5)] mt-0.5">{h.calcIrpf}</span>
-                    </div>
-
-                    <div className="h-12 w-px bg-gradient-to-b from-transparent via-[rgba(250,248,244,0.2)] to-transparent" />
-
-                    <div className="transition-all duration-200 flex-1 pl-2">
-                      <span className="block text-[11px] uppercase tracking-wider text-[rgba(250,248,244,0.85)] font-semibold mb-1">{h.calcRealCost}</span>
-                      <div className="flex items-baseline gap-1">
-                        <span key={`cost-${deduction.realCost}`} style={{ fontFamily: 'var(--font-editorial)' }} className="text-3xl sm:text-4xl text-[var(--ivory)] font-bold inline-block">
-                          {deduction.realCost}
-                        </span>
-                        <span className="text-sm font-mono text-[var(--ivory)]">€</span>
-                      </div>
-                      <span className="inline-flex items-center gap-1 text-[10.5px] text-emerald-300 font-medium mt-0.5 px-1.5 py-0.2 rounded bg-emerald-950/50 border border-emerald-500/20">
-                        {h.calcOnly(Math.round((deduction.realCost / (deduction.donation || 1)) * 100))}
-                      </span>
-                    </div>
-                  </div>
+                <div className="text-xs text-stone-600 mb-5">
+                  <span className="font-semibold text-stone-900">Destinació: </span>
+                  <span>{destination}</span>
                 </div>
-                <p className="text-[11px] text-[rgba(250,248,244,0.45)] mt-4">{h.calcDisclaimer}</p>
+              </div>
+
+              <div>
+                {/* Full-width Amber CTA */}
+                <a
+                  href={donationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full h-13 px-6 rounded-full inline-flex items-center justify-center gap-2 font-bold text-amber-950 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg text-base cursor-pointer mb-3"
+                  style={{ background: '#E8A84A' }}
+                >
+                  <span>Dona {activeAmount} €</span>
+                  <ArrowRight size={17} />
+                </a>
+
+                {/* Security info */}
+                <div className="flex items-center justify-center gap-2 text-xs text-stone-500 mb-4">
+                  <Lock size={12} className="text-stone-400" />
+                  <span>Pagament segur · Certificat fiscal disponible</span>
+                </div>
+
+                {/* WhatsApp Share Button */}
+                <div className="text-center pt-3 border-t border-stone-200">
+                  <a
+                    href={whatsappShareUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-stone-900 underline underline-offset-4 cursor-pointer transition-colors"
+                  >
+                    <Share2 size={13} />
+                    <span>Comparteix l&apos;objectiu a WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. VOICE FROM SHARIANI (Quote Block with Amber left line) */}
+        <div className="border-l-4 border-amber-400 pl-4 sm:pl-6 py-2 my-10 text-white/95 max-w-3xl">
+          <p
+            className="text-base sm:text-lg leading-relaxed italic"
+            style={{ fontFamily: 'var(--font-editorial)' }}
+          >
+            «Cada any veiem arribar les voluntàries de La Vall no només amb eines i pintura, sinó amb un compromís
+            que es queda quan marxen. Els nens ara aprenen en aules dignes i saben que no estan sols.»
+          </p>
+          <p className="text-xs sm:text-sm font-semibold text-white/70 mt-2.5 not-italic tracking-wide">
+            — Mwalimu Juma, docent a Shariani Primary School
+          </p>
+        </div>
+
+        {/* 4. ACCORDION: On van els meus diners? */}
+        <div className="w-full max-w-3xl mb-12 border-t border-b border-white/15">
+          <button
+            type="button"
+            onClick={() => setIsAccordionOpen(!isAccordionOpen)}
+            className="w-full py-4.5 flex items-center justify-between text-left cursor-pointer group"
+            aria-expanded={isAccordionOpen}
+          >
+            <span className="text-base sm:text-lg font-semibold text-white group-hover:text-amber-300 transition-colors">
+              On van els meus diners?
+            </span>
+            <ChevronDown
+              size={18}
+              className={`text-white/70 transition-transform duration-300 group-hover:text-white ${
+                isAccordionOpen ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
+
+          {isAccordionOpen && (
+            <div className="pb-6 pt-2 text-sm text-white/85 space-y-3 leading-relaxed">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 py-2">
+                <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                  <span className="text-xl font-bold text-amber-300 block mb-0.5">85%</span>
+                  <span className="text-xs text-white/80">Materials d&apos;obra i mobiliari escolar comprat a Kilifi</span>
+                </div>
+                <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                  <span className="text-xl font-bold text-amber-300 block mb-0.5">15%</span>
+                  <span className="text-xs text-white/80">Mà d&apos;obra de paletes i fusters locals</span>
+                </div>
+                <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                  <span className="text-xl font-bold text-emerald-300 block mb-0.5">0%</span>
+                  <span className="text-xs text-white/80">Despeses d&apos;intermediaris (les voluntàries es costegen el viatge)</span>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <Link
+                  href="/obra-real#2026"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-300 hover:text-white underline underline-offset-4 transition-colors"
+                >
+                  <span>Veure la memòria de la Fase III</span>
+                  <ArrowRight size={13} />
+                </Link>
               </div>
             </div>
           )}
         </div>
 
-        {/* 4-Column donation methods */}
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 pt-6 border-t border-[rgba(250,248,244,0.15)] editorial-reveal-content ${isRevealed ? 'is-revealed' : ''}`}>
-
-          {/* 1. BIZUM */}
-          <div className="flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[11px] uppercase tracking-wider font-semibold text-[rgba(250,248,244,0.5)]">{h.bizumLabel}</span>
-                <span className="text-[10px] text-emerald-300 font-medium bg-emerald-950/40 border border-emerald-500/20 px-1.5 py-0.2 rounded">{h.bizumDesgrav}</span>
+        {/* 5. OTHER WAYS TO GIVE (3 compact columns, text + icon, no boxes) */}
+        <div className="pt-8 border-t border-white/15">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+            {/* Bizum */}
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <span className="font-bold text-xs text-amber-300">BZ</span>
               </div>
-              <div className="flex items-baseline gap-3 my-1">
-                <span className="font-mono text-2xl sm:text-3xl font-bold tracking-widest text-[var(--ivory)] select-all" aria-label="Codi Bizum 03367">03367</span>
-                <button type="button" onClick={handleCopyBizum} aria-live="polite" className="copy-btn-feedback text-xs text-[rgba(250,248,244,0.7)] hover:text-white border-b border-[rgba(250,248,244,0.3)] hover:border-white pb-0.5 cursor-pointer font-medium">
-                  {copied ? (
-                    <span className="text-emerald-300 inline-flex items-center gap-1"><Check size={11} strokeWidth={2.5} /> {h.bizumCopied}</span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1"><Copy size={11} strokeWidth={2} /> {h.bizumCopy}</span>
-                  )}
-                </button>
-              </div>
-
-              <button type="button" onClick={() => setIsBizumGuideOpen(!isBizumGuideOpen)} className="mt-2 text-xs inline-flex items-center gap-1.5 text-emerald-300 hover:text-emerald-200 transition-colors cursor-pointer font-medium">
-                <Smartphone size={12} strokeWidth={2} />
-                <span>{isBizumGuideOpen ? h.bizumGuideHide : h.bizumGuideShow}</span>
-                <ChevronDown size={11} className={`transition-transform ${isBizumGuideOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {isBizumGuideOpen ? (
-                <div className="mt-2.5 p-3 rounded bg-black/30 border border-[rgba(250,248,244,0.1)] text-xs text-[rgba(250,248,244,0.75)] space-y-1.5">
-                  <p><strong className="text-[var(--ivory)]">1.</strong> {h.bizumStep1}</p>
-                  <p><strong className="text-[var(--ivory)]">2.</strong> {h.bizumStep2}</p>
-                  <p><strong className="text-[var(--ivory)]">3.</strong> {h.bizumStep3} <strong className="text-emerald-300 font-mono">03367</strong> {h.bizumStep3b}</p>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono font-bold text-base text-white">Bizum 03367</span>
+                  <button
+                    type="button"
+                    onClick={handleCopyBizum}
+                    className="text-xs px-2 py-0.5 rounded-full bg-white/15 hover:bg-white/25 text-white cursor-pointer transition-colors font-medium"
+                  >
+                    {copiedBizum ? (
+                      <span className="text-emerald-300 flex items-center gap-1">
+                        <Check size={11} strokeWidth={2.5} /> Copiat
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-1">
+                        <Copy size={11} /> Copiar
+                      </span>
+                    )}
+                  </button>
                 </div>
-              ) : (
-                <p className="text-xs text-[rgba(250,248,244,0.8)] leading-relaxed mt-2">
-                  {h.bizumDest}{' '}
-                  <a href="https://www.fundaciomontblanc.org/index.php/es/" target="_blank" rel="noopener noreferrer" className="text-[var(--ivory)] hover:text-emerald-300 underline underline-offset-2 transition-colors font-medium">
-                    Fundació Montblanc
-                  </a>{' '}
-                  · {h.bizumSubject} <strong className="text-[var(--ivory)] font-medium">La Vall x Shariani</strong>.
-                </p>
-              )}
+                <span className="text-xs text-white/60 block mt-0.5">ONG Fundació Montblanc</span>
+              </div>
             </div>
-            <div className="mt-4 pt-2 border-t border-[rgba(250,248,244,0.08)]">
-              <a href={certMailtoUrl} className="inline-flex items-center gap-1.5 text-[11px] text-[rgba(250,248,244,0.6)] hover:text-white transition-colors" title={h.bizumCertLink}>
-                <Mail size={11} strokeWidth={2} />
-                <span className="underline underline-offset-2">{h.bizumCertLink}</span>
-              </a>
+
+            {/* Teaming */}
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <Users2 size={17} className="text-amber-300" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <a
+                  href="https://www.teaming.net/unaescuela-milesdesuenosenkenia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-sm sm:text-base text-white hover:text-amber-300 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>Teaming · 1 €/mes</span>
+                  <ExternalLink size={12} className="opacity-70" />
+                </a>
+                <span className="text-xs text-white/60 block mt-0.5">Microdonacions periòdiques</span>
+              </div>
             </div>
+
+            {/* Empreses */}
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <Building2 size={17} className="text-amber-300" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <a
+                  href="#contacto"
+                  className="font-semibold text-sm sm:text-base text-white hover:text-amber-300 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>Empreses i aliances · Parlem</span>
+                  <ArrowRight size={12} className="opacity-70" />
+                </a>
+                <span className="text-xs text-white/60 block mt-0.5">Responsabilitat social i convenis</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* MOBILE STICKY BOTTOM BAR (visible only after scrolling past the card) */}
+      <div
+        className={`fixed bottom-0 inset-x-0 p-3.5 bg-stone-900/95 backdrop-blur-md border-t border-white/15 z-40 lg:hidden transition-all duration-300 ${
+          hasPassedCard
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-full opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+          <div className="text-left">
+            <span className="text-[11px] text-white/60 block leading-tight">La teva donació:</span>
+            <span className="text-sm font-bold text-white leading-tight">
+              {activeAmount} € <span className="text-emerald-400 font-normal text-xs">(costa {netCost} €)</span>
+            </span>
           </div>
 
-          {/* 2. TEAMING */}
-          <div className="flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[11px] uppercase tracking-wider font-semibold text-[rgba(250,248,244,0.5)]">{h.teamingLabel}</span>
-                <span className="text-[10px] text-[rgba(250,248,244,0.65)] font-medium">{h.teamingMonthly}</span>
-              </div>
-              <div className="flex items-baseline gap-1 my-1">
-                <span style={{ fontFamily: 'var(--font-editorial)' }} className="text-2xl sm:text-3xl text-[var(--ivory)]">1 €</span>
-                <span className="text-xs text-[rgba(250,248,244,0.55)]">{h.teamingPerMonth}</span>
-              </div>
-              <p className="text-xs text-[rgba(250,248,244,0.75)] leading-relaxed mt-2">{h.teamingBody}</p>
-            </div>
-            <div className="mt-4">
-              <a href="https://www.teaming.net/unaescuela-milesdesuenosenkenia" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--ivory)] hover:text-white border-b border-[rgba(250,248,244,0.35)] hover:border-white pb-0.5 transition-all group">
-                <span>{h.teamingCta}</span>
-                <ExternalLink size={11} strokeWidth={2} className="opacity-70 group-hover:opacity-100" />
-              </a>
-            </div>
-          </div>
-
-          {/* 3. IHELP */}
-          <div className="flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[11px] uppercase tracking-wider font-semibold text-[rgba(250,248,244,0.5)]">{h.ihelpLabel}</span>
-                <span className="text-[10px] text-[rgba(250,248,244,0.65)] font-medium">{h.ihelpOneTime}</span>
-              </div>
-              <div className="my-1">
-                <span style={{ fontFamily: 'var(--font-editorial)' }} className="text-xl sm:text-2xl text-[var(--ivory)]">{h.ihelpAmount}</span>
-              </div>
-              <p className="text-xs text-[rgba(250,248,244,0.75)] leading-relaxed mt-2">{h.ihelpBody}</p>
-            </div>
-            <div className="mt-4">
-              <a href="https://www.ihelp.org.es/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--ivory)] hover:text-white border-b border-[rgba(250,248,244,0.35)] hover:border-white pb-0.5 transition-all group">
-                <span>{h.ihelpCta}</span>
-                <ExternalLink size={11} strokeWidth={2} className="opacity-70 group-hover:opacity-100" />
-              </a>
-            </div>
-          </div>
-
-          {/* 4. EMPRESAS */}
-          <div className="flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[11px] uppercase tracking-wider font-semibold text-[rgba(250,248,244,0.5)]">{h.companiesLabel}</span>
-                <span className="text-[10px] text-emerald-300 font-medium bg-emerald-950/40 border border-emerald-500/20 px-1.5 py-0.2 rounded">{h.companiesDeduction}</span>
-              </div>
-              <div className="my-1">
-                <span style={{ fontFamily: 'var(--font-editorial)' }} className="text-xl sm:text-2xl text-[var(--ivory)]">{h.companiesAmount}</span>
-              </div>
-              <p className="text-xs text-[rgba(250,248,244,0.85)] leading-relaxed mt-2 font-medium" dangerouslySetInnerHTML={{ __html: h.companiesBody }} />
-              <p className="text-xs text-[rgba(250,248,244,0.65)] leading-relaxed mt-1.5">{h.companiesBody2}</p>
-            </div>
-            <div className="mt-4">
-              <a href="#contacto" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--ivory)] hover:text-white border-b border-[rgba(250,248,244,0.35)] hover:border-white pb-0.5 transition-all group">
-                <span>{h.companiesCta}</span>
-                <ArrowRight size={11} strokeWidth={2} className="transition-transform group-hover:translate-x-0.5" />
-              </a>
-            </div>
-          </div>
+          <a
+            href={donationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-11 px-5 rounded-full inline-flex items-center justify-center gap-1.5 font-bold text-amber-950 text-sm shadow-md cursor-pointer shrink-0"
+            style={{ background: '#E8A84A' }}
+          >
+            <span>Dona {activeAmount} €</span>
+            <ArrowRight size={15} />
+          </a>
         </div>
       </div>
     </section>
