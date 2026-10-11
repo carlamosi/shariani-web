@@ -120,7 +120,7 @@ export function Hero() {
 
           <p
             className="mb-10 leading-relaxed"
-            style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 1.5vw, 17px)', color: 'rgba(250,248,244,0.85)', maxWidth: '440px' }}
+            style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 1.5vw, 17px)', color: 'rgba(250,248,244,0.85)', maxWidth: '520px' }}
           >
             {tr.hero.body}
           </p>

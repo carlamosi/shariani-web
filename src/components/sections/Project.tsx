@@ -9,10 +9,22 @@ import { useLang } from '@/context/LangContext';
 const YEARS = ['2024', '2025', '2026', '2027'];
 
 const MILESTONE_IMAGES = [
-  { imgs: [images.fase1_1.src, images.fase1_2.src, images.fase1_3.src], alts: ['Estudiants i aules de Shariani condicionades i pintades (2024)', 'Detall del llimat i pintat interior de les aules', 'Resultat final de les aules lluminoses de primària'] },
-  { imgs: [images.classroom.src, images.heroSchool.src], alts: ['Alumnes de Shariani fent servir els nous pupitres de fusta a l\'aula', 'Vista general del pati i l\'edifici de Shariani Primary School'] },
-  { imgs: [images.fase3_1.src, images.schoolBuilding.src], alts: ['Mur perimetral de pedra construït al voltant de Shariani Primary School', 'Edifici exterior protegit i perímetre de l\'escola'] },
-  { imgs: [images.schoolBuilding.src, images.classroom.src], alts: ['Exteriors de Shariani on es planifiquen els nous lavabos', 'Espai interior que acollirà la futura biblioteca de Shariani'] },
+  {
+    imgs: [images.fase1_1.src, images.fase1_2.src, images.mesas.src],
+    alts: ['Aules de Shariani condicionades i pintades', 'Detall del llimat i pintat interior de les aules', 'Noves taules i bancs escolars de fusta'],
+  },
+  {
+    imgs: [images.mesas.src, images.higieneBucal.src],
+    alts: ['Pupitres i bancs de fusta fabricats a Kilifi', 'Sessions i kits d\'higiene bucal per a tots els alumnes'],
+  },
+  {
+    imgs: [images.valla.src, images.muralDespues.src, images.salaProfes.src],
+    alts: ['Tanca de protecció perimetral construïda a Shariani', 'Mural artístic acabat a la façana principal', 'Reforma de la sala de professors'],
+  },
+  {
+    imgs: [images.muralAntes.src, images.muralDurante.src, images.laContinuidad.src],
+    alts: ['Estat inicial previ a les actuacions', 'Treballs en marxa amb voluntàries i comunitat', 'Seguiment de la continuïtat del projecte'],
+  },
 ];
 
 export function Project() {

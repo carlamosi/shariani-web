@@ -29,8 +29,8 @@ const PROJECTS_DATA: {
     state: 'done',
     items: ['Cadires & taules', 'Valles perimetrals cole'],
     image: {
-      src: images.fase1_1.src,
-      alt: 'Aules condicionades i mobiliari nou a Shariani (2024)',
+      src: images.mesas.src,
+      alt: 'Aules condicionades i mobiliari nou de fusta a Shariani (2024)',
     },
   },
   {
@@ -38,8 +38,8 @@ const PROJECTS_DATA: {
     state: 'done',
     items: ['Goteres', 'Aules (netejar, pintar, dibuixos)', 'Higiene bucal (kits, explicació)'],
     image: {
-      src: images.classroom.src,
-      alt: 'Restauració de les aules i kits d higiene bucal (2025)',
+      src: images.higieneBucal.src,
+      alt: 'Kits i tallers d\'higiene bucal i aules renovades (2025)',
     },
   },
   {
@@ -47,8 +47,8 @@ const PROJECTS_DATA: {
     state: 'done',
     items: ['300 faldilles', 'Pintar entrada / mural cole', 'Reformes sala profes'],
     image: {
-      src: images.fase3_1.src,
-      alt: 'Muro perimetral, mural i sala de professors (2026)',
+      src: images.muralDespues.src,
+      alt: 'Mural artístic acabat i sala de professors (2026)',
     },
   },
   {
@@ -56,8 +56,8 @@ const PROJECTS_DATA: {
     state: 'active',
     items: ['Lavabos', 'Biblio', 'Basura', 'Lab'],
     image: {
-      src: images.schoolBuilding.src,
-      alt: 'Planificació dels lavabos, biblioteca i laboratori a Shariani (2027)',
+      src: images.valla.src,
+      alt: 'Planificació dels lavabos, biblioteca i millores estructurals a Shariani (2027)',
     },
   },
 ];
