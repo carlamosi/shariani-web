@@ -33,8 +33,8 @@ export function Impact() {
           </p>
         </div>
 
-        {/* Editorial Typography & Stats Grid (Organic, Editorial feel - No AI slope cards) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-16 pt-4 border-t border-[var(--border)]">
+        {/* Editorial Typography & Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12 mb-16 pt-4 border-t border-[var(--border)] max-w-5xl">
           {impact.metrics.map((metric, idx) => (
             <div
               key={idx}
