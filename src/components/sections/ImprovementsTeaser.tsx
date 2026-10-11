@@ -32,7 +32,7 @@ export function ImprovementsTeaser() {
                 hyphens: 'none',
               }}
             >
-              El que construïm a Shariani, es queda.
+              El que construïm a Shariani es queda.
             </h1>
 
             {/* Subtext */}
@@ -44,53 +44,65 @@ export function ImprovementsTeaser() {
             </p>
 
             {/* 2 CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 mb-8">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-8 w-full sm:w-auto">
               <a
                 href="#ayuda"
-                className="btn-primary inline-flex items-center gap-2"
+                className="btn-primary w-full sm:w-auto h-[48px] inline-flex items-center justify-center gap-2"
               >
                 <span>Ajuda&apos;ns a construir el 2027 →</span>
               </a>
 
               <Link
                 href="/obra-real"
-                className="btn-secondary inline-flex items-center justify-center"
+                className="w-full sm:w-auto h-[48px] px-6 inline-flex items-center justify-center rounded-full text-sm font-semibold text-[var(--ink)] bg-transparent border-2 border-[var(--ink)] transition-colors duration-200 hover:bg-[var(--ink)] hover:text-white"
               >
                 Mira què hem construït
               </Link>
             </div>
 
-            {/* Year Chips */}
+            {/* Year Chips as links */}
             <div className="flex flex-wrap items-center gap-2 pt-1">
               {/* 2024 */}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)]">
+              <Link
+                href="/obra-real#2024"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)] cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 transition-all"
+              >
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" aria-hidden="true" />
                 <span>2024 · Mobiliari i seguretat</span>
-              </span>
+              </Link>
 
               {/* 2025 */}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)]">
+              <Link
+                href="/obra-real#2025"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)] cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 transition-all"
+              >
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" aria-hidden="true" />
                 <span>2025 · Aules i salut</span>
-              </span>
+              </Link>
 
               {/* 2026 */}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)]">
+              <Link
+                href="/obra-real#2026"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)] cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 transition-all"
+              >
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" aria-hidden="true" />
                 <span>2026 · Mural i faldilles</span>
-              </span>
+              </Link>
 
               {/* 2027 Upcoming */}
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold text-amber-950 bg-amber-50/90 border-2 border-dashed border-amber-400">
+              <a
+                href="#donar"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold text-amber-950 bg-amber-50/90 border-2 border-dashed border-amber-400 cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 transition-all"
+              >
                 <span className="relative flex h-2 w-2 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
                 </span>
                 <span>2027 · Juny</span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-200/80 text-amber-900 ml-0.5">
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-200/80 text-amber-900 ml-0.5 no-underline">
                   Properament
                 </span>
-              </span>
+              </a>
             </div>
           </div>
 
@@ -128,7 +140,7 @@ export function ImprovementsTeaser() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-3 z-10 inline-flex items-center px-2.5 py-1 rounded-[8px] bg-black/65 backdrop-blur-md text-white text-xs font-semibold">
-                    Fet amb la comunitat
+                    Fusters i paletes de Kilifi
                   </div>
                 </div>
 
@@ -148,7 +160,7 @@ export function ImprovementsTeaser() {
                   </div>
                 </div>
 
-                {/* Children drinking: small tile */}
+                {/* Children drinking / cups: small tile */}
                 <div className="relative col-span-1 rounded-[16px] overflow-hidden bg-[var(--paper)]">
                   <Image
                     src={images.heroSchool.src}
