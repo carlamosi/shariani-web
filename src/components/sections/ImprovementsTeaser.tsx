@@ -19,7 +19,7 @@ export function ImprovementsTeaser() {
           <div className="lg:col-span-5 flex flex-col justify-center">
             {/* Eyebrow */}
             <p className="section-label mb-3 text-[var(--forest)] font-semibold tracking-wider">
-              SHARIANI, KENYA · 2024–2027
+              UN PROJECTE QUE CREIX CADA ANY
             </p>
 
             {/* Headline */}
@@ -32,7 +32,7 @@ export function ImprovementsTeaser() {
                 hyphens: 'none',
               }}
             >
-              El que construïm a Shariani es queda.
+              A Shariani, cada any deixa empremta.
             </h1>
 
             {/* Subtext */}
@@ -40,7 +40,7 @@ export function ImprovementsTeaser() {
               className="text-base sm:text-lg text-[var(--ink-muted)] leading-relaxed mb-7 max-w-xl"
               style={{ fontFamily: 'var(--font-body)' }}
             >
-              Cada any tornem a l&apos;escola i hi deixem una millora permanent: mobiliari, aules, seguretat, higiene i uniformes.
+              Tornem cada juny a Shariani per impulsar millores a l’escola i contribuir al benestar dels alumnes. Cada actuació respon a necessitats reals i dona continuïtat al nostre compromís amb la comunitat educativa.
             </p>
 
             {/* 2 CTAs */}
@@ -49,14 +49,14 @@ export function ImprovementsTeaser() {
                 href="#ayuda"
                 className="btn-primary w-full sm:w-auto h-[48px] inline-flex items-center justify-center gap-2"
               >
-                <span>Ajuda&apos;ns a construir el 2027 →</span>
+                <span>Ajuda&apos;ns a continuar →</span>
               </a>
 
               <Link
                 href="/obra-real"
                 className="w-full sm:w-auto h-[48px] px-6 inline-flex items-center justify-center rounded-full text-sm font-semibold text-[var(--ink)] bg-transparent border-2 border-[var(--ink)] transition-colors duration-200 hover:bg-[var(--ink)] hover:text-white"
               >
-                Mira què hem construït
+                Mira què hem aconseguit
               </Link>
             </div>
 
