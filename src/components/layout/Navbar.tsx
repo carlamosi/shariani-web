@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLang } from '@/context/LangContext';
 import { Lang } from '@/data/translations';
+import { LOCALES } from '@/lib/site';
 
 const LANGUAGES: { code: Lang; locale: string; hrefLang: string }[] = [
   { code: 'CA', locale: 'ca', hrefLang: 'ca' },
@@ -15,20 +16,25 @@ const LANGUAGES: { code: Lang; locale: string; hrefLang: string }[] = [
 
 /** Derive the equivalent URL in another locale by swapping the first path segment. */
 function switchLocale(pathname: string, toLocale: string): string {
-  // pathname is like /es, /es/blog, /es/obra-real
+  if (!pathname) return `/${toLocale}`;
   const segments = pathname.split('/').filter(Boolean);
   if (segments.length === 0) return `/${toLocale}`;
-  // Replace first segment (current locale) with new locale
-  segments[0] = toLocale;
-  return `/${segments.join('/')}`;
+  if ((LOCALES as readonly string[]).includes(segments[0])) {
+    segments[0] = toLocale;
+    return `/${segments.join('/')}`;
+  }
+  return `/${toLocale}/${segments.join('/')}`;
 }
 
 export function Navbar() {
   const { lang, setLang, tr } = useLang();
   const pathname = usePathname();
 
-  // Detect current locale from URL path
-  const currentLocale = LANGUAGES.find((l) => l.code === lang)?.locale ?? 'es';
+  // Detect current locale from URL path first, fallback to context
+  const pathLocale = pathname?.split('/').filter(Boolean)[0];
+  const currentLocale = (LOCALES as readonly string[]).includes(pathLocale)
+    ? pathLocale
+    : (LANGUAGES.find((l) => l.code === lang)?.locale ?? 'es');
   const isHome = pathname === `/${currentLocale}` || pathname === '/';
 
   const [isScrolled, setIsScrolled] = useState(!isHome);

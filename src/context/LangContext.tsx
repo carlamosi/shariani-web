@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { t, Lang, Translations } from '@/data/translations';
 import type { Locale } from '@/lib/site';
 
@@ -32,6 +32,12 @@ export function LangProvider({
 }) {
   const derived: Lang = initialLang ? (LOCALE_TO_LANG[initialLang] ?? 'ES') : 'ES';
   const [lang, setLangState] = useState<Lang>(derived);
+
+  useEffect(() => {
+    if (initialLang && LOCALE_TO_LANG[initialLang]) {
+      setLangState(LOCALE_TO_LANG[initialLang]);
+    }
+  }, [initialLang]);
 
   const setLang = (l: Lang) => setLangState(l);
 

@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useLang } from '@/context/LangContext';
 import type { Lang } from '@/data/translations';
+import { LOCALES } from '@/lib/site';
 
 const year = new Date().getFullYear();
 
@@ -29,8 +31,12 @@ function getHelpHrefs(locale: string) {
 
 export function Footer() {
   const { lang, tr } = useLang();
+  const pathname = usePathname();
   const f = tr.footer;
-  const locale = LANG_TO_LOCALE[lang];
+  const pathLocale = pathname?.split('/').filter(Boolean)[0];
+  const locale = (LOCALES as readonly string[]).includes(pathLocale)
+    ? pathLocale
+    : (LANG_TO_LOCALE[lang] ?? 'es');
   const NAV_HREFS = getNavHrefs(locale);
   const HELP_HREFS = getHelpHrefs(locale);
 
@@ -75,15 +81,15 @@ export function Footer() {
             <ul className="flex flex-col gap-2.5">
               {f.navLinks.map((link, i) => (
                 <li key={NAV_HREFS[i]}>
-                  <a
+                  <Link
                     href={NAV_HREFS[i]}
                     className="text-[13px] no-underline transition-colors"
                     style={{ color: 'rgba(250,248,244,0.6)', fontFamily: 'var(--font-body)' }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#fff'; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(250,248,244,0.6)'; }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#fff'; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.6)'; }}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -95,21 +101,36 @@ export function Footer() {
               {f.helpCol}
             </h3>
             <ul className="flex flex-col gap-2.5">
-              {f.helpLinks.map((link, i) => (
-                <li key={link.label}>
-                  <a
-                    href={HELP_HREFS[i].href}
-                    target={HELP_HREFS[i].external ? '_blank' : undefined}
-                    rel={HELP_HREFS[i].external ? 'noopener noreferrer' : undefined}
-                    className="text-[13px] no-underline transition-colors"
-                    style={{ color: 'rgba(250,248,244,0.6)', fontFamily: 'var(--font-body)' }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#fff'; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(250,248,244,0.6)'; }}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {f.helpLinks.map((link, i) => {
+                const item = HELP_HREFS[i];
+                return (
+                  <li key={link.label}>
+                    {item.external ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[13px] no-underline transition-colors"
+                        style={{ color: 'rgba(250,248,244,0.6)', fontFamily: 'var(--font-body)' }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#fff'; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.6)'; }}
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="text-[13px] no-underline transition-colors"
+                        style={{ color: 'rgba(250,248,244,0.6)', fontFamily: 'var(--font-body)' }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#fff'; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.6)'; }}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -135,19 +156,31 @@ export function Footer() {
             {[
               { label: f.privacy, href: '#' },
               { label: f.cookies, href: '#' },
-              { label: f.contact, href: '#contacto' },
+              { label: f.contact, href: `/${locale}#contacto` },
             ].map((item, i) => (
               <span key={item.label} className="inline-flex items-center gap-4">
                 {i > 0 && <span aria-hidden="true">·</span>}
-                <a
-                  href={item.href}
-                  className="no-underline transition-colors"
-                  style={{ color: 'rgba(250,248,244,0.35)' }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(250,248,244,0.65)'; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(250,248,244,0.35)'; }}
-                >
-                  {item.label}
-                </a>
+                {item.href.startsWith('/') ? (
+                  <Link
+                    href={item.href}
+                    className="no-underline transition-colors"
+                    style={{ color: 'rgba(250,248,244,0.35)' }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.65)'; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.35)'; }}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="no-underline transition-colors"
+                    style={{ color: 'rgba(250,248,244,0.35)' }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.65)'; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.35)'; }}
+                  >
+                    {item.label}
+                  </a>
+                )}
               </span>
             ))}
           </div>

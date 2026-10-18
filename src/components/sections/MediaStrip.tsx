@@ -45,7 +45,7 @@ const MEDIA_OUTLETS: MediaOutlet[] = [
     src: '/images/media/diari-sabadell.png',
     width: 679,
     height: 367,
-    className: 'h-7 sm:h-8 md:h-9 w-auto max-w-[100px] sm:max-w-[125px]',
+    className: 'h-8 sm:h-9 md:h-10 w-auto max-w-[155px] sm:max-w-[190px]',
     url: 'https://www.diaridesabadell.com/valles/viatge-kenia-la-vall-voluntariat-escola.html',
   },
   {

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { LOCALES, type Locale } from '@/lib/site';
 import { LangProvider } from '@/context/LangContext';
+import { LangAttributeSetter } from '@/components/ui/LangAttributeSetter';
 import { notFound } from 'next/navigation';
 
 export const dynamicParams = false;
@@ -23,6 +24,9 @@ export default async function LangLayout({
   const locale = lang as Locale;
 
   return (
-    <LangProvider initialLang={locale}>{children}</LangProvider>
+    <LangProvider key={locale} initialLang={locale}>
+      <LangAttributeSetter />
+      {children}
+    </LangProvider>
   );
 }

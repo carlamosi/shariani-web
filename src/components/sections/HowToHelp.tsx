@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useLang } from '@/context/LangContext';
 import {
   Copy,
   Check,
@@ -35,6 +36,8 @@ const DESTINATIONS = [
 ] as const;
 
 export function HowToHelp() {
+  const { lang } = useLang();
+  const locale = lang.toLowerCase();
   const [frequency, setFrequency] = useState<'once' | 'monthly'>('once');
   const [selectedPreset, setSelectedPreset] = useState<number | 'custom'>(50);
   const [customAmount, setCustomAmount] = useState<number>(50);
@@ -420,7 +423,7 @@ export function HowToHelp() {
 
               <div className="pt-2">
                 <Link
-                  href="/obra-real#2026"
+                  href={`/${locale}/obra-real#2026`}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-300 hover:text-white underline underline-offset-4 transition-colors"
                 >
                   <span>Veure la memòria de la Fase III</span>

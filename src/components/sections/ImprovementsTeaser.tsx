@@ -4,8 +4,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Check } from 'lucide-react';
 import { images } from '@/data/images';
+import { useLang } from '@/context/LangContext';
 
 export function ImprovementsTeaser() {
+  const { lang } = useLang();
+  const locale = lang.toLowerCase();
+
   return (
     <section
       className="py-16 md:py-24 border-t border-[var(--border)] overflow-hidden"
@@ -53,7 +57,7 @@ export function ImprovementsTeaser() {
               </a>
 
               <Link
-                href="/obra-real"
+                href={`/${locale}/obra-real`}
                 className="w-full sm:w-auto h-[48px] px-6 inline-flex items-center justify-center rounded-full text-sm font-semibold text-[var(--ink)] bg-transparent border-2 border-[var(--ink)] transition-colors duration-200 hover:bg-[var(--ink)] hover:text-white"
               >
                 Mira què hem aconseguit
@@ -64,7 +68,7 @@ export function ImprovementsTeaser() {
             <div className="flex flex-wrap items-center gap-2 pt-1">
               {/* 2024 */}
               <Link
-                href="/obra-real#2024"
+                href={`/${locale}/obra-real#2024`}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)] cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 transition-all"
               >
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" aria-hidden="true" />
@@ -73,7 +77,7 @@ export function ImprovementsTeaser() {
 
               {/* 2025 */}
               <Link
-                href="/obra-real#2025"
+                href={`/${locale}/obra-real#2025`}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)] cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 transition-all"
               >
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" aria-hidden="true" />
@@ -82,7 +86,7 @@ export function ImprovementsTeaser() {
 
               {/* 2026 */}
               <Link
-                href="/obra-real#2026"
+                href={`/${locale}/obra-real#2026`}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)] cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 transition-all"
               >
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" aria-hidden="true" />

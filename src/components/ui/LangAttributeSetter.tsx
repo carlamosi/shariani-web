@@ -15,6 +15,7 @@ export function LangAttributeSetter() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!pathname) return;
     const first = pathname.split('/').filter(Boolean)[0] ?? '';
     const lang: Locale = (LOCALES as readonly string[]).includes(first)
       ? (first as Locale)
