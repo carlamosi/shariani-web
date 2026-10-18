@@ -81,7 +81,7 @@ export default async function ObraRealPage({
           className="pt-32 pb-16 md:pt-40 md:pb-20 border-b border-[var(--border)]"
           style={{ background: 'var(--ivory)' }}
         >
-          <div className="container-page max-w-3xl">
+          <div className="container-page max-w-4xl">
             <p className="section-label mb-4" style={{ color: 'var(--forest)' }}>
               {header.label}
             </p>
@@ -98,11 +98,29 @@ export default async function ObraRealPage({
               {header.h1}
             </h1>
             <p
-              className="text-[var(--ink-muted)] leading-relaxed"
-              style={{ fontSize: 'clamp(15px, 1.6vw, 18px)', maxWidth: '560px' }}
+              className="text-[var(--ink-muted)] leading-relaxed mb-8"
+              style={{ fontSize: 'clamp(15px, 1.6vw, 18px)', maxWidth: '640px' }}
             >
               {header.body}
             </p>
+
+            {/* Video: 300 faldilles */}
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-[var(--border)] shadow-xl bg-black mt-8">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/9G5SYwl5JeU"
+                title={
+                  locale === 'ca'
+                    ? 'Vídeo del projecte: 300 faldilles a Shariani'
+                    : locale === 'en'
+                    ? 'Project video: 300 skirts at Shariani'
+                    : 'Vídeo del proyecto: 300 faldas en Shariani'
+                }
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full border-0"
+                loading="lazy"
+              />
+            </div>
           </div>
         </section>
 

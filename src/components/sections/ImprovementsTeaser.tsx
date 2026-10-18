@@ -114,37 +114,39 @@ export function ImprovementsTeaser() {
           <div className="lg:col-span-7">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-[460px] sm:h-[480px] lg:h-[500px]">
 
-              {/* Classroom: large tile (spans 2 rows) */}
+              {/* School desks: large tile (spans 2 rows) */}
               <div className="relative sm:row-span-2 rounded-[16px] overflow-hidden bg-[var(--paper)]">
                 <Image
-                  src={images.classroom.src}
-                  alt={images.classroom.alt}
+                  src={images.fase1Mesas.src}
+                  alt={images.fase1Mesas.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute bottom-3 left-3 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[8px] bg-black/65 backdrop-blur-md text-white text-xs">
-                  <span className="font-bold">+100</span>
-                  <span className="text-white/90">cadires</span>
+                  <span className="font-bold">+30</span>
+                  <span className="text-white/90">
+                    {locale === 'es' ? 'mesas' : locale === 'en' ? 'tables' : 'taules'}
+                  </span>
                 </div>
               </div>
 
               {/* Right half: medium tile + 2 small tiles */}
               <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:row-span-2">
 
-                {/* Community building: medium tile (spans 2 cols) */}
+                {/* Oral hygiene: medium tile (spans 2 cols) */}
                 <div className="relative col-span-2 rounded-[16px] overflow-hidden bg-[var(--paper)]">
                   <Image
-                    src={images.colaborarOngs.src}
-                    alt={images.colaborarOngs.alt}
+                    src={images.higieneBucal.src}
+                    alt={images.higieneBucal.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32vw"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-3 z-10 inline-flex items-center px-2.5 py-1 rounded-[8px] bg-black/65 backdrop-blur-md text-white text-xs font-semibold">
-                    Fusters i paletes de Kilifi
+                    {locale === 'en' ? 'Oral hygiene' : 'Higiene bucal'}
                   </div>
                 </div>
 
@@ -160,15 +162,17 @@ export function ImprovementsTeaser() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-3 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[8px] bg-black/65 backdrop-blur-md text-white text-xs">
                     <span className="font-bold">500 m</span>
-                    <span className="text-white/90">de tanca</span>
+                    <span className="text-white/90">
+                      {locale === 'es' ? 'de valla' : locale === 'en' ? 'of fence' : 'de tanca'}
+                    </span>
                   </div>
                 </div>
 
-                {/* Children drinking / cups: small tile */}
+                {/* 300 skirts: small tile */}
                 <div className="relative col-span-1 rounded-[16px] overflow-hidden bg-[var(--paper)]">
                   <Image
-                    src={images.heroSchool.src}
-                    alt={images.heroSchool.alt}
+                    src={images.ninaFalda.src}
+                    alt={images.ninaFalda.alt}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                     className="object-cover"
@@ -176,7 +180,9 @@ export function ImprovementsTeaser() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-3 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[8px] bg-black/65 backdrop-blur-md text-white text-xs">
                     <span className="font-bold">300</span>
-                    <span className="text-white/90">faldilles</span>
+                    <span className="text-white/90">
+                      {locale === 'es' ? 'faldas' : locale === 'en' ? 'skirts' : 'faldilles'}
+                    </span>
                   </div>
                 </div>
 

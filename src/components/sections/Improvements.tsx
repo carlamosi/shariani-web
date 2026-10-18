@@ -132,8 +132,7 @@ function useInView(threshold = 0.15) {
 }
 
 export function Improvements() {
-  const { lang, tr } = useLang();
-  const { ref: sectionRef, inView: sectionVisible } = useInView(0.1);
+  const { lang } = useLang();
   const langText = IMPROVEMENTS_TEXT[lang];
 
   const projects: YearProject[] = PROJECTS_DATA.map((d, i) => ({
@@ -146,37 +145,11 @@ export function Improvements() {
   return (
     <section
       id="shariani"
-      className="py-16 md:py-24 overflow-hidden"
+      className="py-12 md:py-20 overflow-hidden"
       style={{ background: 'var(--ivory)' }}
-      aria-labelledby="improvements-heading"
+      aria-label="Cronologia d'actuacions i millores a Shariani"
     >
       <div className="container-page">
-        <div
-          ref={sectionRef}
-          className="mb-14 md:mb-18"
-          style={{
-            opacity: sectionVisible ? 1 : 0,
-            transform: sectionVisible ? 'none' : 'translateY(24px)',
-            transition: 'opacity 0.7s ease, transform 0.7s ease',
-          }}
-        >
-          <p className="section-label mb-3" style={{ color: 'var(--forest)' }}>{tr.improvements.sectionLabel}</p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <h2
-              id="improvements-heading"
-              className="font-heading leading-[1.08] text-[var(--ink)] font-normal"
-              style={{ fontSize: 'clamp(32px, 4vw, 48px)', letterSpacing: '-0.025em', maxWidth: '600px', fontFamily: 'var(--font-editorial)' }}
-            >
-              {tr.improvements.heading1} {tr.improvements.heading2}
-            </h2>
-            <p
-              className="font-sans text-[var(--ink-muted)] leading-relaxed"
-              style={{ fontSize: '15px', maxWidth: '360px' }}
-            >
-              {tr.improvements.subheading}
-            </p>
-          </div>
-        </div>
 
         <div className="flex flex-col gap-12 lg:gap-16">
           {projects.map((project, idx) => (
