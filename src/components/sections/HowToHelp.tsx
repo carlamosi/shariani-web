@@ -107,11 +107,11 @@ export function HowToHelp() {
       {/* Legacy anchor compatibility */}
       <span id="ayuda" className="absolute -top-20" aria-hidden="true" />
 
-      <div className="container-page max-w-5xl">
+      <div className="container-page max-w-4xl">
         {/* ── 1. Headline at the top, left aligned ───────────────────────── */}
         <div
           ref={headerRef}
-          className="max-w-2xl mb-14 md:mb-18 overflow-visible"
+          className="max-w-xl mb-12 md:mb-16 overflow-visible"
           style={{
             opacity: headerVisible ? 1 : 0,
             transform: headerVisible ? 'translateY(0)' : 'translateY(12px)',
@@ -121,7 +121,7 @@ export function HowToHelp() {
         >
           <h2
             id="donar-heading"
-            className="text-3xl sm:text-4xl lg:text-[44px] font-normal leading-[1.15] text-[var(--ivory)] tracking-tight mb-4 overflow-visible"
+            className="text-3xl sm:text-4xl lg:text-[40px] font-normal leading-[1.15] text-[var(--ivory)] tracking-tight mb-4 overflow-visible"
             style={{
               fontFamily: 'var(--font-editorial)',
               paddingTop: '0.05em',
@@ -131,7 +131,7 @@ export function HowToHelp() {
             {d.headline}
           </h2>
           <p
-            className="text-sm sm:text-base text-white/80 leading-relaxed max-w-xl"
+            className="text-sm sm:text-base text-white/80 leading-relaxed max-w-lg"
             style={{ fontFamily: 'var(--font-body)' }}
           >
             {d.supporting}
@@ -139,7 +139,7 @@ export function HowToHelp() {
         </div>
 
         {/* ── 2. Asymmetric Two-Column Layout (Desktop) / Stacked (Mobile) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-16 md:mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mb-14 md:mb-18">
           {/* ── LEFT: Bizum, occupying the full column ──────────────────── */}
           <div className="lg:col-span-7 flex flex-col justify-between">
             <div>
@@ -328,7 +328,7 @@ export function HowToHelp() {
 
         {/* ── 3. Editorial Pull-Quote and Authentic Photograph ───────────── */}
         <div className="pt-12 md:pt-16 border-t border-white/15">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Authentic Photograph with Fade-in Caption (Microinteraction 3) */}
             <div className="lg:col-span-5 order-2 lg:order-1">
               <figure className="m-0">

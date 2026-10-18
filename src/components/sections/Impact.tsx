@@ -9,32 +9,32 @@ export function Impact() {
   return (
     <section
       id="impacto"
-      className="py-20 md:py-28 bg-[var(--paper)] text-[var(--ink)] border-t border-[var(--border)] overflow-hidden"
+      className="py-16 md:py-24 bg-[var(--paper)] text-[var(--ink)] border-t border-[var(--border)] overflow-hidden"
       aria-labelledby="impacto-heading"
     >
-      <div className="container-page">
+      <div className="container-page max-w-4xl">
         {/* Editorial Section Header */}
-        <div className="max-w-3xl mb-14 md:mb-18">
+        <div className="max-w-2xl mb-12 md:mb-16">
           <p className="section-label mb-3" style={{ color: 'var(--forest)' }}>
             {impact.sectionLabel}
           </p>
           <h2
             id="impacto-heading"
             style={{ fontFamily: 'var(--font-editorial)' }}
-            className="text-3xl sm:text-4xl lg:text-[44px] font-normal tracking-tight text-[var(--ink)] leading-tight mb-4"
+            className="text-3xl sm:text-4xl lg:text-[40px] font-normal tracking-tight text-[var(--ink)] leading-tight mb-4"
           >
             {impact.heading}
           </h2>
           <p
             style={{ fontFamily: 'var(--font-body)' }}
-            className="text-base sm:text-lg text-[var(--ink-muted)] leading-relaxed max-w-2xl"
+            className="text-base text-[var(--ink-muted)] leading-relaxed"
           >
             {impact.subheading}
           </p>
         </div>
 
         {/* Editorial Typography & Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12 mb-16 pt-4 border-t border-[var(--border)] max-w-5xl">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-10 pt-4 border-t border-[var(--border)]">
           {impact.metrics.map((metric, idx) => (
             <div
               key={idx}
