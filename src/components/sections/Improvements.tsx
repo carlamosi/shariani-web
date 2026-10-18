@@ -54,7 +54,7 @@ const PROJECTS_DATA: {
   {
     year: '2027',
     state: 'active',
-    items: ['Lavabos', 'Biblio', 'Basura', 'Lab'],
+    items: ['Lavabos', 'Biblio', 'Residus'],
     image: {
       src: images.valla.src,
       alt: 'Planificació dels lavabos, biblioteca i millores estructurals a Shariani (2027)',
@@ -64,50 +64,50 @@ const PROJECTS_DATA: {
 
 const IMPROVEMENTS_TEXT = {
   CA: {
-    tags: ['Mobiliari & Seguretat', 'Renovació & Salut', 'Completat · Juny 2026', 'Propera expedició'],
+    tags: ['Mobiliari i Seguretat', 'Renovació i Salut', 'Completat · Juny 2026', 'Propera expedició'],
     headlines: [
       'Cadires, taules i vallat perimetral',
       'Aules renovades i salut bucal',
       '300 faldilles, mural i sala de professors',
-      'Lavabos, biblioteca, laboratori i residus',
+      'Lavabos, biblioteca i menys residus',
     ],
     bodies: [
       'Primera expedició de voluntaris. Es van dotar les aules amb cadires i taules fabricades localment, i es va construir el vallat perimetral que dóna seguretat i identitat a l\'escola.',
       'Restauració integral de les aules: reparació de goteres, neteja i pintura de parets, murals educatius i kits d\'higiene bucal per a tots els alumnes amb sessions explicatives.',
       'Confeccionem 300 faldilles escolars per a les nenes de la comunitat. Pintem el mural d\'entrada del col·legi i completem la reforma de la sala de professors.',
-      'Propera missió: construcció de lavabos dignes, habilitació de la biblioteca escolar, equipament del laboratori i millora de la gestió de residus al recinte.',
+      'Propera missió: construcció de lavabos dignes, habilitació de la biblioteca escolar i millora de la gestió de residus al recinte.',
     ],
     activeNow: 'Juny 2027',
   },
   ES: {
-    tags: ['Mobiliario & Seguridad', 'Renovación & Salud', 'Completado · Junio 2026', 'Próxima expedición'],
+    tags: ['Mobiliario y Seguridad', 'Renovación y Salud', 'Completado · Junio 2026', 'Próxima expedición'],
     headlines: [
       'Sillas, mesas y vallado perimetral',
       'Aulas renovadas y salud bucal',
-      '300 faldillas, mural y sala de profesores',
-      'Lavabos, biblioteca, laboratorio y residuos',
+      '300 faldas, mural y sala de profesores',
+      'Lavabos, biblioteca y menos residuos',
     ],
     bodies: [
       'Primera expedición de voluntarios. Se dotaron las aulas con sillas y mesas fabricadas localmente, y se construyó el vallado perimetral que da seguridad e identidad a la escuela.',
       'Restauración integral de las aulas: reparación de goteras, limpieza y pintura de paredes, murales educativos y kits de higiene bucal para todos los alumnos con sesiones explicativas.',
-      'Confeccionamos 300 faldillas escolares para las niñas de la comunidad. Pintamos el mural de entrada del colegio y completamos la reforma de la sala de profesores.',
-      'Próxima misión: construcción de lavabos dignos, habilitación de la biblioteca escolar, equipamiento del laboratorio y mejora de la gestión de residuos en el recinto.',
+      'Confeccionamos 300 faldas escolares para las niñas de la comunidad. Pintamos el mural de entrada del colegio y completamos la reforma de la sala de profesores.',
+      'Próxima misión: construcción de lavabos dignos, habilitación de la biblioteca escolar y mejora de la gestión de residuos en el recinto.',
     ],
     activeNow: 'Junio 2027',
   },
   EN: {
-    tags: ['Furniture & Safety', 'Renovation & Health', 'Completed · June 2026', 'Next expedition'],
+    tags: ['Furniture and Safety', 'Renovation and Health', 'Completed · June 2026', 'Next expedition'],
     headlines: [
       'Chairs, tables and perimeter fence',
       'Renovated classrooms and oral health',
       '300 skirts, mural and staff room',
-      'Toilets, library, lab and waste management',
+      'Toilets, library and waste management',
     ],
     bodies: [
       'First volunteer expedition. Classrooms were equipped with locally made chairs and tables, and the perimeter fence was built, providing safety and identity to the school.',
       'Full classroom restoration: roof leak repairs, wall cleaning and painting, educational murals, and oral hygiene kits for all pupils with explanation sessions.',
       'We made 300 school skirts for the girls in the community. We painted the school entrance mural and completed the refurbishment of the staff room.',
-      'Next mission: building proper toilets, setting up the school library, equipping the science lab, and improving waste management on the school grounds.',
+      'Next mission: building proper toilets, setting up the school library, and improving waste management on the school grounds.',
     ],
     activeNow: 'June 2027',
   },

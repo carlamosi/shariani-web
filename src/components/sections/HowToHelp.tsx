@@ -9,7 +9,7 @@ import {
   ArrowRight,
   BookOpen,
   Droplets,
-  FlaskConical,
+  Recycle,
   Lock,
   Share2,
   ChevronDown,
@@ -32,7 +32,7 @@ const DESTINATIONS = [
   'On més falta (recomanat)',
   'Biblioteca escolar',
   'Nous lavabos',
-  'Laboratori de ciències',
+  'Menys residus',
 ] as const;
 
 export function HowToHelp() {
@@ -147,15 +147,15 @@ export function HowToHelp() {
                 </div>
               </div>
 
-              {/* Card 3: Laboratori */}
+              {/* Card 3: Menys residus */}
               <div className="snap-start shrink-0 w-[240px] sm:w-auto p-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex flex-col justify-between">
                 <div className="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center mb-2.5">
-                  <FlaskConical size={17} />
+                  <Recycle size={17} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white mb-1">Un laboratori</h3>
+                  <h3 className="text-sm font-bold text-white mb-1">Menys residus</h3>
                   <p className="text-xs text-white/75 leading-snug">
-                    Equipament científic i taules de pràctiques per a primària.
+                    Gestió de residus i materials reciclables per al recinte escolar.
                   </p>
                 </div>
               </div>
