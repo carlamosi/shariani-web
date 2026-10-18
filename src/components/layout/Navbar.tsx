@@ -9,8 +9,8 @@ import { Lang } from '@/data/translations';
 import { LOCALES } from '@/lib/site';
 
 const LANGUAGES: { code: Lang; locale: string; hrefLang: string }[] = [
-  { code: 'CA', locale: 'ca', hrefLang: 'ca' },
   { code: 'ES', locale: 'es', hrefLang: 'es' },
+  { code: 'CA', locale: 'ca', hrefLang: 'ca' },
   { code: 'EN', locale: 'en', hrefLang: 'en' },
 ];
 

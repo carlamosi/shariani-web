@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.png?v=3', type: 'image/png' },
-      { url: '/favicon.ico?v=3' },
+      { url: '/favicon.png?v=4', type: 'image/png' },
+      { url: '/favicon.ico?v=4' },
     ],
-    apple: [{ url: '/favicon.png?v=3', type: 'image/png' }],
-    shortcut: '/favicon.png?v=3',
+    apple: [{ url: '/favicon.png?v=4', type: 'image/png' }],
+    shortcut: '/favicon.png?v=4',
   },
 };
 
@@ -44,9 +44,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang} className="scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon.png?v=3" type="image/png" sizes="any" />
-        <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
-        <link rel="apple-touch-icon" href="/favicon.png?v=3" />
+        <link rel="icon" href="/favicon.png?v=4" type="image/png" sizes="any" />
+        <link rel="icon" href="/favicon.ico?v=4" sizes="any" />
+        <link rel="apple-touch-icon" href="/favicon.png?v=4" />
         {/*
           Preconnect to Google Fonts to reduce DNS + TLS handshake latency.
           The CSS @import in globals.css then loads Young Serif + Manrope
