@@ -5,12 +5,12 @@ import { META } from '@/lib/seo';
  * Builds the @graph JSON-LD for the home page of each locale.
  * Returns a JSON string safe to embed in <script type="application/ld+json">.
  */
-export function buildHomeJsonLd(lang: Locale): string {
-  const safeLang: Locale = (LOCALES as readonly string[]).includes(lang) ? lang : DEFAULT_LOCALE;
+export function buildHomeJsonLd(lang: string): string {
+  const safeLang: Locale = (LOCALES as readonly string[]).includes(lang) ? (lang as Locale) : DEFAULT_LOCALE;
   const meta = META[safeLang];
 
   const orgId = `${SITE_URL}/#org`;
-  const websiteId = `${SITE_URL}/${lang}#website`;
+  const websiteId = `${SITE_URL}/${safeLang}#website`;
 
   const graph: object[] = [
     {
@@ -46,9 +46,9 @@ export function buildHomeJsonLd(lang: Locale): string {
     {
       '@type': 'WebSite',
       '@id': websiteId,
-      url: `${SITE_URL}/${lang}`,
+      url: `${SITE_URL}/${safeLang}`,
       name: SITE_NAME,
-      inLanguage: lang,
+      inLanguage: safeLang,
       publisher: { '@id': orgId },
     },
   ];

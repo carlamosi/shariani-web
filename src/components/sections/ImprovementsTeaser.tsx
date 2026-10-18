@@ -23,7 +23,7 @@ export function ImprovementsTeaser() {
             </p>
 
             {/* Headline */}
-            <h1
+            <h2
               id="obra-real-title"
               className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-normal text-[var(--ink)] leading-[1.12] tracking-tight mb-4"
               style={{
@@ -33,7 +33,7 @@ export function ImprovementsTeaser() {
               }}
             >
               A Shariani, cada any deixa empremta.
-            </h1>
+            </h2>
 
             {/* Subtext */}
             <p

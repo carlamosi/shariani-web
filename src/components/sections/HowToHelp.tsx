@@ -91,7 +91,7 @@ export function HowToHelp() {
             <p className="text-xs uppercase tracking-widest font-semibold text-amber-300 mb-3">
               FASE IV · JUNY 2027
             </p>
-            <h1
+            <h2
               id="donar-heading"
               className="text-3xl sm:text-4xl lg:text-[42px] font-normal leading-[1.12] text-[var(--ivory)] tracking-tight mb-4"
               style={{
@@ -101,7 +101,7 @@ export function HowToHelp() {
               }}
             >
               El que dones avui, es construeix al juny.
-            </h1>
+            </h2>
             <p
               className="text-base sm:text-lg text-white/85 leading-relaxed max-w-xl"
               style={{ fontFamily: 'var(--font-body)' }}

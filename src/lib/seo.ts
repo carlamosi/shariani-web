@@ -44,7 +44,7 @@ function trunc(s: string, max = 160) {
 }
 
 interface BuildMetadataOptions {
-  lang: Locale;
+  lang: string;
   /** Path WITHOUT leading slash, e.g. "" for home, "blog", "obra-real" */
   path: string;
   /** Page title WITHOUT site suffix — for home pass undefined to use the home title */
@@ -61,7 +61,7 @@ export function buildMetadata({
 }: BuildMetadataOptions): Metadata {
   // Guard: if an unknown locale sneaks in, fall back to DEFAULT_LOCALE
   const safeLang: Locale = (LOCALES as readonly string[]).includes(lang)
-    ? lang
+    ? (lang as Locale)
     : DEFAULT_LOCALE;
   const m = META[safeLang];
   const canonical = `${SITE_URL}/${safeLang}${path ? `/${path}` : ''}`;

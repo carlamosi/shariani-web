@@ -55,7 +55,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  if (!(LOCALES as readonly string[]).includes(lang)) return {};
+  if (!(LOCALES as readonly string[]).includes(lang)) notFound();
   const locale = lang as Locale;
   const m = OBRA_META[locale];
   return buildMetadata({ lang: locale, path: 'obra-real', title: m.title, description: m.description });

@@ -56,7 +56,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  if (!(LOCALES as readonly string[]).includes(lang)) return {};
+  if (!(LOCALES as readonly string[]).includes(lang)) notFound();
   const locale = lang as Locale;
   const m = BLOG_META[locale];
   return buildMetadata({ lang: locale, path: 'blog', title: m.title, description: m.description });
