@@ -2,6 +2,14 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import { t, Lang, Translations } from '@/data/translations';
+import type { Locale } from '@/lib/site';
+
+// Map URL locale segment (lowercase) to translation key (uppercase)
+const LOCALE_TO_LANG: Record<string, Lang> = {
+  ca: 'CA',
+  es: 'ES',
+  en: 'EN',
+};
 
 interface LangContextValue {
   lang: Lang;
@@ -15,8 +23,15 @@ const LangContext = createContext<LangContextValue>({
   tr: t.CA,
 });
 
-export function LangProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('CA');
+export function LangProvider({
+  children,
+  initialLang,
+}: {
+  children: React.ReactNode;
+  initialLang?: Locale;
+}) {
+  const derived: Lang = initialLang ? (LOCALE_TO_LANG[initialLang] ?? 'ES') : 'ES';
+  const [lang, setLangState] = useState<Lang>(derived);
 
   const setLang = (l: Lang) => setLangState(l);
 

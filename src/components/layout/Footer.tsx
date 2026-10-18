@@ -2,20 +2,37 @@
 
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
+import type { Lang } from '@/data/translations';
 
 const year = new Date().getFullYear();
 
-const NAV_HREFS = ['/#proyecto', '/obra-real', '/#impacto', '/#contacto', '/blog'];
-const HELP_HREFS = [
-  { href: 'https://www.teaming.net/unaescuela-milesdesuenosenkenia', external: true },
-  { href: '/#ayuda', external: false },
-  { href: '/#ayuda', external: false },
-  { href: 'https://www.instagram.com/amara.la_vall/', external: true },
-];
+const LANG_TO_LOCALE: Record<Lang, string> = { CA: 'ca', ES: 'es', EN: 'en' };
+
+function getNavHrefs(locale: string) {
+  return [
+    `/${locale}#proyecto`,
+    `/${locale}/obra-real`,
+    `/${locale}#impacto`,
+    `/${locale}#contacto`,
+    `/${locale}/blog`,
+  ];
+}
+
+function getHelpHrefs(locale: string) {
+  return [
+    { href: 'https://www.teaming.net/unaescuela-milesdesuenosenkenia', external: true },
+    { href: `/${locale}#ayuda`, external: false },
+    { href: `/${locale}#ayuda`, external: false },
+    { href: 'https://www.instagram.com/amara.la_vall/', external: true },
+  ];
+}
 
 export function Footer() {
-  const { tr } = useLang();
+  const { lang, tr } = useLang();
   const f = tr.footer;
+  const locale = LANG_TO_LOCALE[lang];
+  const NAV_HREFS = getNavHrefs(locale);
+  const HELP_HREFS = getHelpHrefs(locale);
 
   return (
     <footer
@@ -38,7 +55,7 @@ export function Footer() {
 
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-1.5 no-underline mb-5" aria-label="La Vall × Shariani — Inicio">
+            <Link href={`/${locale}`} className="inline-flex items-center gap-1.5 no-underline mb-5" aria-label="La Vall × Shariani — Inicio">
               <span className="leading-none tracking-tight font-semibold" style={{ fontSize: '1.1rem', fontFamily: 'var(--font-body)', color: 'var(--ivory)' }}>La Vall</span>
               <span className="opacity-40 text-sm leading-none" style={{ color: 'var(--ivory)' }} aria-hidden="true">×</span>
               <span className="leading-none tracking-tight font-semibold" style={{ fontSize: '1.1rem', fontFamily: 'var(--font-body)', color: 'var(--ivory)' }}>Shariani</span>

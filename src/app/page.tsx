@@ -1,30 +1,8 @@
-import { Navbar } from '@/components/layout/Navbar';
-import { Hero } from '@/components/sections/Hero';
-import { Story } from '@/components/sections/Story';
-import { ImprovementsTeaser } from '@/components/sections/ImprovementsTeaser';
-import { MediaStrip } from '@/components/sections/MediaStrip';
-import { Impact } from '@/components/sections/Impact';
-import { HowToHelp } from '@/components/sections/HowToHelp';
-import { Contact } from '@/components/sections/Contact';
-import { Footer } from '@/components/layout/Footer';
-import { ScrollReveal } from '@/components/ui/ScrollReveal';
+// This file exists only as a fallback.
+// The next.config.ts redirects "/" → "/es" before this renders.
+// If somehow reached (e.g. ISR cache miss during redirect), redirect client-side.
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <>
-      <ScrollReveal />
-      <Navbar />
-      <main>
-        <Hero />
-        <Story />
-        <ImprovementsTeaser />
-        <Impact />
-        <HowToHelp />
-        <Contact />
-        <MediaStrip />
-      </main>
-
-      <Footer />
-    </>
-  );
+export default function RootPage() {
+  redirect('/es');
 }

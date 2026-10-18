@@ -7,12 +7,30 @@ import { Menu, X, Globe } from 'lucide-react';
 import { useLang } from '@/context/LangContext';
 import { Lang } from '@/data/translations';
 
-const LANGUAGES: Lang[] = ['CA', 'ES', 'EN'];
+const LANGUAGES: { code: Lang; locale: string; hrefLang: string }[] = [
+  { code: 'CA', locale: 'ca', hrefLang: 'ca' },
+  { code: 'ES', locale: 'es', hrefLang: 'es' },
+  { code: 'EN', locale: 'en', hrefLang: 'en' },
+];
+
+/** Derive the equivalent URL in another locale by swapping the first path segment. */
+function switchLocale(pathname: string, toLocale: string): string {
+  // pathname is like /es, /es/blog, /es/obra-real
+  const segments = pathname.split('/').filter(Boolean);
+  if (segments.length === 0) return `/${toLocale}`;
+  // Replace first segment (current locale) with new locale
+  segments[0] = toLocale;
+  return `/${segments.join('/')}`;
+}
 
 export function Navbar() {
   const { lang, setLang, tr } = useLang();
   const pathname = usePathname();
-  const isHome = pathname === '/';
+
+  // Detect current locale from URL path
+  const currentLocale = LANGUAGES.find((l) => l.code === lang)?.locale ?? 'es';
+  const isHome = pathname === `/${currentLocale}` || pathname === '/';
+
   const [isScrolled, setIsScrolled] = useState(!isHome);
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -20,16 +38,14 @@ export function Navbar() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const navLinks = [
-    { href: '/', label: tr.nav.home },
-    { href: '/#proyecto', label: tr.nav.project },
-    { href: '/obra-real', label: tr.nav.obres },
-    { href: '/#impacto', label: tr.nav.impact },
-    { href: '/blog', label: tr.nav.blog },
+    { href: `/${currentLocale}`, label: tr.nav.home },
+    { href: `/${currentLocale}#proyecto`, label: tr.nav.project },
+    { href: `/${currentLocale}/obra-real`, label: tr.nav.obres },
+    { href: `/${currentLocale}#impacto`, label: tr.nav.impact },
+    { href: `/${currentLocale}/blog`, label: tr.nav.blog },
   ];
 
   useEffect(() => {
-    // On home: start transparent, go opaque after 12px scroll
-    // On subpages: always opaque (reset if navigating)
     if (!isHome) {
       setIsScrolled(true);
       return;
@@ -63,11 +79,6 @@ export function Navbar() {
 
   const handleNavClick = () => setMenuOpen(false);
 
-  const handleLangSelect = (l: Lang) => {
-    setLang(l);
-    setLangOpen(false);
-  };
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -80,7 +91,7 @@ export function Navbar() {
       <div className="container-page h-full flex items-center justify-between gap-6">
         {/* Wordmark */}
         <Link
-          href="/"
+          href={`/${currentLocale}`}
           className="flex-shrink-0 flex items-center gap-1.5 no-underline"
           aria-label="La Vall × Shariani — Inicio"
         >
@@ -113,27 +124,22 @@ export function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1" aria-label="Navegació principal">
           {navLinks.map((link) => {
-            const isPage = link.href.startsWith('/');
             const cls = `px-3 py-1.5 text-sm transition-colors duration-300 rounded link-underline ${
               isScrolled || menuOpen
                 ? 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
                 : 'text-white/80 hover:text-white'
             }`;
-            return isPage ? (
+            return (
               <Link key={link.href} href={link.href} className={cls} style={{ fontWeight: 400 }}>
                 {link.label}
               </Link>
-            ) : (
-              <a key={link.href} href={link.href} className={cls} style={{ fontWeight: 400 }}>
-                {link.label}
-              </a>
             );
           })}
         </nav>
 
         {/* Right controls — desktop */}
         <div className="hidden md:flex items-center gap-3">
-          {/* Language selector */}
+          {/* Language selector — real <Link> with hrefLang */}
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
@@ -164,27 +170,32 @@ export function Navbar() {
                 className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-lg shadow-md z-10 min-w-[88px] overflow-hidden"
               >
                 {LANGUAGES.map((l) => (
-                  <button
-                    key={l}
+                  <Link
+                    key={l.code}
+                    href={switchLocale(pathname, l.locale)}
+                    hrefLang={l.hrefLang}
                     role="option"
-                    aria-selected={lang === l}
-                    onClick={() => handleLangSelect(l)}
+                    aria-selected={lang === l.code}
+                    onClick={() => {
+                      setLang(l.code);
+                      setLangOpen(false);
+                    }}
                     className={`w-full text-left text-[0.8125rem] px-3.5 py-2 hover:bg-[var(--paper)] transition-colors flex items-center justify-between gap-2 ${
-                      lang === l ? 'text-[var(--forest)] font-semibold' : 'text-[var(--ink-muted)]'
+                      lang === l.code ? 'text-[var(--forest)] font-semibold' : 'text-[var(--ink-muted)]'
                     }`}
                   >
-                    <span>{l}</span>
-                    {lang === l && (
+                    <span>{l.code}</span>
+                    {lang === l.code && (
                       <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)]" aria-hidden="true" />
                     )}
-                  </button>
+                  </Link>
                 ))}
               </div>
             )}
           </div>
 
           {/* Donar CTA */}
-          <Link href="/#ayuda" className="btn-primary text-sm px-5 py-2">
+          <Link href={`/${currentLocale}#ayuda`} className="btn-primary text-sm px-5 py-2">
             {tr.nav.donate}
           </Link>
         </div>
@@ -208,15 +219,20 @@ export function Navbar() {
             {langOpen && (
               <div className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-lg shadow-md z-50 min-w-[80px] overflow-hidden">
                 {LANGUAGES.map((l) => (
-                  <button
-                    key={l}
-                    onClick={() => handleLangSelect(l)}
-                    className={`w-full text-left text-[0.8125rem] px-3 py-2 hover:bg-[var(--paper)] transition-colors ${
-                      lang === l ? 'text-[var(--forest)] font-semibold' : 'text-[var(--ink-muted)]'
+                  <Link
+                    key={l.code}
+                    href={switchLocale(pathname, l.locale)}
+                    hrefLang={l.hrefLang}
+                    onClick={() => {
+                      setLang(l.code);
+                      setLangOpen(false);
+                    }}
+                    className={`w-full text-left text-[0.8125rem] px-3 py-2 hover:bg-[var(--paper)] transition-colors block ${
+                      lang === l.code ? 'text-[var(--forest)] font-semibold' : 'text-[var(--ink-muted)]'
                     }`}
                   >
-                    {l}
-                  </button>
+                    {l.code}
+                  </Link>
                 ))}
               </div>
             )}
@@ -252,24 +268,21 @@ export function Navbar() {
           aria-label="Menú de navegació"
         >
           <nav className="flex flex-col px-6 py-8 gap-1" aria-label="Menú principal">
-            {navLinks.map((link) => {
-              const isPage = link.href.startsWith('/');
-              const cls = 'py-3.5 text-lg text-[var(--ink)] border-b border-[var(--border-light)] hover:text-[var(--forest)] transition-colors';
-              const style = { fontFamily: 'var(--font-sans)', fontWeight: 400 };
-              return isPage ? (
-                <Link key={link.href} href={link.href} onClick={handleNavClick} className={cls} style={style}>
-                  {link.label}
-                </Link>
-              ) : (
-                <a key={link.href} href={link.href} onClick={handleNavClick} className={cls} style={style}>
-                  {link.label}
-                </a>
-              );
-            })}
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={handleNavClick}
+                className="py-3.5 text-lg text-[var(--ink)] border-b border-[var(--border-light)] hover:text-[var(--forest)] transition-colors"
+                style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
           <div className="px-6 mt-2">
             <Link
-              href="/#ayuda"
+              href={`/${currentLocale}#ayuda`}
               onClick={handleNavClick}
               className="btn-primary w-full justify-center text-base py-3"
             >
@@ -278,17 +291,22 @@ export function Navbar() {
           </div>
           <div className="px-6 mt-6 flex gap-3">
             {LANGUAGES.map((l) => (
-              <button
-                key={l}
-                onClick={() => handleLangSelect(l)}
+              <Link
+                key={l.code}
+                href={switchLocale(pathname, l.locale)}
+                hrefLang={l.hrefLang}
+                onClick={() => {
+                  setLang(l.code);
+                  setMenuOpen(false);
+                }}
                 className={`text-sm px-4 py-2 rounded-lg border transition-colors font-medium ${
-                  lang === l
+                  lang === l.code
                     ? 'bg-[var(--forest)] text-white border-[var(--forest)]'
                     : 'text-[var(--ink-muted)] border-[var(--border)] hover:border-[var(--forest)]'
                 }`}
               >
-                {l}
-              </button>
+                {l.code}
+              </Link>
             ))}
           </div>
         </div>
