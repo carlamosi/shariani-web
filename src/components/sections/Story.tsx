@@ -76,6 +76,7 @@ export function Story() {
 
   return (
     <section
+      id="proyecto"
       className="relative w-full"
       style={{ backgroundColor: 'var(--ivory)', borderTop: '1px solid var(--border-light)' }}
       aria-label={tr.story.ariaLabel}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Menu, X, Globe } from 'lucide-react';
@@ -40,28 +40,119 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(!isHome);
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
+
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const navContainerRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  const navLinks = [
-    { href: `/${currentLocale}`, label: tr.nav.home },
-    { href: `/${currentLocale}#proyecto`, label: tr.nav.project },
-    { href: `/${currentLocale}/obra-real`, label: tr.nav.obres },
-    { href: `/${currentLocale}#impacto`, label: tr.nav.impact },
-    { href: `/${currentLocale}/blog`, label: tr.nav.blog },
-  ];
+  // ── Nav items in page order as in-page anchors ─────────────────────────────
+  // 1. El proyecto (#proyecto)
+  // 2. [Obras, from i18n] (#obras)
+  // 3. Impacto (#impacto)
+  // 4. Colabora (#colabora)
+  const navItems = useMemo(
+    () => [
+      {
+        id: 'proyecto',
+        href: `/${currentLocale}#proyecto`,
+        label: tr.nav.project,
+      },
+      {
+        id: 'obras',
+        href: `/${currentLocale}#obras`,
+        label: tr.nav.obres,
+      },
+      {
+        id: 'impacto',
+        href: `/${currentLocale}#impacto`,
+        label: tr.nav.impact,
+      },
+      {
+        id: 'colabora',
+        href: `/${currentLocale}#colabora`,
+        label: tr.nav.colabora,
+      },
+    ],
+    [currentLocale, tr.nav.project, tr.nav.obres, tr.nav.impact, tr.nav.colabora]
+  );
 
+  // ── Scroll & Header Height ────────────────────────────────────────────────
   useEffect(() => {
     if (!isHome) {
       setIsScrolled(true);
       return;
     }
-    setIsScrolled(window.scrollY > 12);
-    const handleScroll = () => setIsScrolled(window.scrollY > 12);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHome]);
 
+  // ── Active section detection + URL hash update ─────────────────────────────
+  useEffect(() => {
+    if (!isHome) return;
+
+    const sectionIds = ['proyecto', 'obras', 'impacto', 'donar', 'colabora'];
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    const currentHash = window.location.hash.replace('#', '');
+    if (currentHash && sectionIds.includes(currentHash)) {
+      setActiveSection(currentHash);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            setActiveSection(id);
+            // Update URL hash smoothly without jump
+            if (window.location.hash !== `#${id}`) {
+              window.history.replaceState(null, '', `/${currentLocale}#${id}`);
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '-30% 0px -40% 0px',
+        threshold: [0, 0.2, 0.5],
+      }
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+
+    return () => observer.disconnect();
+  }, [isHome, currentLocale]);
+
+  // ── Sliding underline calculation (250ms) ──────────────────────────────────
+  const [sliderStyle, setSliderStyle] = useState({ left: 0, width: 0, opacity: 0 });
+
+  useEffect(() => {
+    const activeIndex = navItems.findIndex((item) => item.id === activeSection);
+    if (activeIndex !== -1 && linkRefs.current[activeIndex]) {
+      const el = linkRefs.current[activeIndex];
+      if (el) {
+        setSliderStyle({
+          left: el.offsetLeft,
+          width: el.offsetWidth,
+          opacity: 1,
+        });
+        return;
+      }
+    }
+    // Fade out indicator when hero or donar is active
+    setSliderStyle((prev) => ({ ...prev, opacity: 0 }));
+  }, [activeSection, navItems]);
+
+  // ── Escape key closes menus ────────────────────────────────────────────────
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -74,32 +165,37 @@ export function Navbar() {
     return () => document.removeEventListener('keydown', handleKey);
   }, []);
 
+  // ── Body scroll lock on mobile menu ────────────────────────────────────────
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [menuOpen]);
 
-  const handleNavClick = () => setMenuOpen(false);
+  const handleNavClick = () => {
+    setMenuOpen(false);
+    setLangOpen(false);
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
         isScrolled || menuOpen
-          ? 'bg-[var(--ivory)] border-b border-[var(--border)]'
-          : 'bg-transparent border-b border-transparent'
+          ? 'h-14 bg-[var(--ivory)] border-b border-[var(--border)] shadow-xs'
+          : 'h-16 bg-transparent border-b border-transparent'
       }`}
-      style={{ height: '64px' }}
     >
-      <div className="container-page h-full flex items-center justify-between gap-6">
+      <div className="container-page h-full flex items-center justify-between gap-4">
         {/* Wordmark */}
         <Link
           href={`/${currentLocale}`}
-          className="flex-shrink-0 flex items-center gap-1.5 no-underline"
-          aria-label="La Vall × Shariani — Inicio"
+          className="flex-shrink-0 flex items-center gap-1.5 no-underline focus-visible:outline-2 focus-visible:outline-[var(--forest)]"
+          aria-label="La Vall × Shariani"
         >
           <span
             className={`text-[1.125rem] leading-none tracking-tight font-semibold transition-colors duration-300 ${
@@ -111,7 +207,9 @@ export function Navbar() {
           </span>
           <span
             className={`text-sm leading-none opacity-60 transition-colors duration-300 ${
-              isScrolled || menuOpen ? 'text-[var(--text-secondary)]' : 'text-white/60'
+              isScrolled || menuOpen
+                ? 'text-[var(--text-secondary)]'
+                : 'text-white/60'
             }`}
             aria-hidden="true"
           >
@@ -127,33 +225,61 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1" aria-label="Navegació principal">
-          {navLinks.map((link) => {
-            const cls = `px-3 py-1.5 text-sm transition-colors duration-300 rounded link-underline ${
-              isScrolled || menuOpen
-                ? 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
-                : 'text-white/80 hover:text-white'
-            }`;
+        {/* Desktop Nav: in-page anchors with 250ms sliding underline */}
+        <nav
+          ref={navContainerRef}
+          className="hidden md:flex items-center gap-1 relative py-1"
+          aria-label="Navegación principal"
+        >
+          {navItems.map((link, idx) => {
+            const isActive = activeSection === link.id;
             return (
-              <Link key={link.href} href={link.href} className={cls} style={{ fontWeight: 400 }}>
+              <a
+                key={link.id}
+                ref={(el) => {
+                  linkRefs.current[idx] = el;
+                }}
+                href={link.href}
+                className={`relative px-3.5 py-1.5 text-sm font-medium transition-colors duration-200 rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--forest)] ${
+                  isScrolled || menuOpen
+                    ? isActive
+                      ? 'text-[var(--forest)] font-semibold'
+                      : 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
+                    : isActive
+                    ? 'text-white font-semibold'
+                    : 'text-white/80 hover:text-white'
+                }`}
+              >
                 {link.label}
-              </Link>
+              </a>
             );
           })}
+
+          {/* Sliding underline indicator (250ms cubic-bezier) */}
+          <span
+            className="absolute bottom-0 h-[2px] rounded-full pointer-events-none transition-all duration-250 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{
+              left: `${sliderStyle.left}px`,
+              width: `${sliderStyle.width}px`,
+              opacity: sliderStyle.opacity,
+              backgroundColor:
+                isScrolled || menuOpen ? 'var(--forest)' : '#FFFFFF',
+            }}
+            aria-hidden="true"
+          />
         </nav>
 
-        {/* Right controls — desktop */}
+        {/* Right Controls: Desktop */}
         <div className="hidden md:flex items-center gap-3">
-          {/* Language selector — real <Link> with hrefLang */}
+          {/* Language selector dropdown */}
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className={`flex items-center gap-1.5 text-[0.8125rem] transition-colors duration-300 px-2.5 py-1.5 rounded-lg border ${
+              className={`flex items-center gap-1.5 text-[0.8125rem] transition-colors duration-200 px-2.5 py-1.5 rounded-lg border cursor-pointer ${
                 isScrolled || menuOpen
                   ? 'text-[var(--ink-muted)] hover:text-[var(--ink)] border-[var(--border)] hover:border-[var(--forest)] bg-transparent hover:bg-[var(--paper)]'
-                  : 'text-white/80 hover:text-white border-white/20 hover:border-white/50 bg-transparent'
-              } transition-all duration-200`}
+                  : 'text-white/85 hover:text-white border-white/20 hover:border-white/50 bg-transparent'
+              }`}
               aria-expanded={langOpen}
               aria-haspopup="listbox"
               aria-label={tr.nav.langLabel(lang)}
@@ -161,11 +287,22 @@ export function Navbar() {
               <Globe size={13} strokeWidth={1.5} aria-hidden="true" />
               <span className="font-semibold">{lang}</span>
               <svg
-                width="8" height="5" viewBox="0 0 8 5" fill="none"
-                className={`transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`}
+                width="8"
+                height="5"
+                viewBox="0 0 8 5"
+                fill="none"
+                className={`transition-transform duration-200 ${
+                  langOpen ? 'rotate-180' : ''
+                }`}
                 aria-hidden="true"
               >
-                <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M1 1l3 3 3-3"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
 
@@ -173,7 +310,7 @@ export function Navbar() {
               <div
                 role="listbox"
                 aria-label="Seleccionar idioma"
-                className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-lg shadow-md z-10 min-w-[88px] overflow-hidden"
+                className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-lg shadow-md z-20 min-w-[92px] overflow-hidden"
               >
                 {LANGUAGES.map((l) => (
                   <Link
@@ -187,12 +324,17 @@ export function Navbar() {
                       setLangOpen(false);
                     }}
                     className={`w-full text-left text-[0.8125rem] px-3.5 py-2 hover:bg-[var(--paper)] transition-colors flex items-center justify-between gap-2 ${
-                      lang === l.code ? 'text-[var(--forest)] font-semibold' : 'text-[var(--ink-muted)]'
+                      lang === l.code
+                        ? 'text-[var(--forest)] font-semibold'
+                        : 'text-[var(--ink-muted)]'
                     }`}
                   >
                     <span>{l.code}</span>
                     {lang === l.code && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)]" aria-hidden="true" />
+                      <span
+                        className="w-1.5 h-1.5 rounded-full bg-[var(--forest)]"
+                        aria-hidden="true"
+                      />
                     )}
                   </Link>
                 ))}
@@ -200,22 +342,25 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Donar CTA */}
-          <Link href={`/${currentLocale}#ayuda`} className="btn-primary text-sm px-5 py-2">
+          {/* Donar (filled button to #donar) */}
+          <a
+            href={`/${currentLocale}#donar`}
+            className="btn-primary text-sm px-5 py-2 focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
             {tr.nav.donate}
-          </Link>
+          </a>
         </div>
 
-        {/* Mobile: lang + menu */}
+        {/* Mobile controls: "Donar" button stays visible outside the menu */}
         <div className="md:hidden flex items-center gap-2">
-          {/* Compact lang pill on mobile */}
+          {/* Mobile language toggle */}
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className={`flex items-center gap-1 px-2 py-1 rounded border text-[0.75rem] font-semibold transition-all duration-200 ${
+              className={`flex items-center gap-1 px-2 py-1 rounded border text-[0.75rem] font-semibold transition-all duration-200 cursor-pointer ${
                 isScrolled || menuOpen
                   ? 'text-[var(--ink-muted)] border-[var(--border)]'
-                  : 'text-white/80 border-white/25'
+                  : 'text-white/85 border-white/25'
               }`}
               aria-label={`Idioma: ${lang}`}
             >
@@ -234,7 +379,9 @@ export function Navbar() {
                       setLangOpen(false);
                     }}
                     className={`w-full text-left text-[0.8125rem] px-3 py-2 hover:bg-[var(--paper)] transition-colors block ${
-                      lang === l.code ? 'text-[var(--forest)] font-semibold' : 'text-[var(--ink-muted)]'
+                      lang === l.code
+                        ? 'text-[var(--forest)] font-semibold'
+                        : 'text-[var(--ink-muted)]'
                     }`}
                   >
                     {l.code}
@@ -244,10 +391,19 @@ export function Navbar() {
             )}
           </div>
 
+          {/* Donar filled button stays visible outside mobile menu */}
+          <a
+            href={`/${currentLocale}#donar`}
+            className="btn-primary text-xs px-3.5 py-1.5 h-8 min-h-[32px] inline-flex items-center justify-center font-semibold"
+          >
+            {tr.nav.donate}
+          </a>
+
+          {/* Hamburger toggle */}
           <button
             ref={menuButtonRef}
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`p-1.5 rounded transition-colors duration-300 ${
+            className={`p-1.5 rounded transition-colors duration-200 cursor-pointer ${
               isScrolled || menuOpen ? 'text-[var(--ink)]' : 'text-white'
             }`}
             aria-expanded={menuOpen}
@@ -263,57 +419,58 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile Menu Overlay */}
       {menuOpen && (
         <div
           id="mobile-menu"
           ref={mobileMenuRef}
-          className="md:hidden fixed inset-0 top-16 bg-[var(--ivory)] z-40 flex flex-col"
+          className="md:hidden fixed inset-0 top-14 bg-[var(--ivory)] z-40 flex flex-col justify-between"
           role="dialog"
           aria-modal="true"
-          aria-label="Menú de navegació"
+          aria-label="Menú de navegación"
         >
-          <nav className="flex flex-col px-6 py-8 gap-1" aria-label="Menú principal">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
+          <nav
+            className="flex flex-col px-6 py-8 gap-1 overflow-y-auto"
+            aria-label="Menú principal móvil"
+          >
+            {navItems.map((link) => (
+              <a
+                key={link.id}
                 href={link.href}
                 onClick={handleNavClick}
                 className="py-3.5 text-lg text-[var(--ink)] border-b border-[var(--border-light)] hover:text-[var(--forest)] transition-colors"
-                style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </nav>
-          <div className="px-6 mt-2">
-            <Link
-              href={`/${currentLocale}#ayuda`}
-              onClick={handleNavClick}
-              className="btn-primary w-full justify-center text-base py-3"
-            >
-              {tr.nav.donate}
-            </Link>
-          </div>
-          <div className="px-6 mt-6 flex gap-3">
-            {LANGUAGES.map((l) => (
-              <Link
-                key={l.code}
-                href={switchLocale(pathname, l.locale)}
-                hrefLang={l.hrefLang}
-                onClick={() => {
-                  setLang(l.code);
-                  setMenuOpen(false);
-                }}
-                className={`text-sm px-4 py-2 rounded-lg border transition-colors font-medium ${
-                  lang === l.code
-                    ? 'bg-[var(--forest)] text-white border-[var(--forest)]'
-                    : 'text-[var(--ink-muted)] border-[var(--border)] hover:border-[var(--forest)]'
-                }`}
-              >
-                {l.code}
-              </Link>
-            ))}
+
+          {/* Bottom language options */}
+          <div className="p-6 border-t border-[var(--border)] bg-[var(--paper)] flex items-center justify-between">
+            <span className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider">
+              {tr.nav.langLabel(lang)}
+            </span>
+            <div className="flex gap-2">
+              {LANGUAGES.map((l) => (
+                <Link
+                  key={l.code}
+                  href={switchLocale(pathname, l.locale)}
+                  hrefLang={l.hrefLang}
+                  onClick={() => {
+                    setLang(l.code);
+                    setMenuOpen(false);
+                  }}
+                  className={`text-xs px-3 py-1.5 rounded-lg border transition-colors font-semibold ${
+                    lang === l.code
+                      ? 'bg-[var(--forest)] text-white border-[var(--forest)]'
+                      : 'text-[var(--ink-muted)] border-[var(--border)] bg-white hover:border-[var(--forest)]'
+                  }`}
+                >
+                  {l.code}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}

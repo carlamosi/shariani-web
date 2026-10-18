@@ -12,6 +12,7 @@ export function ImprovementsTeaser() {
 
   return (
     <section
+      id="obras"
       className="py-16 md:py-24 border-t border-[var(--border)] overflow-hidden"
       style={{ background: 'var(--paper)' }}
       aria-labelledby="obra-real-title"

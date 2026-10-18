@@ -25,7 +25,11 @@ export function Contact() {
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleHash = () => { if (window.location.hash === '#contacto') setIsOpen(true); };
+    const handleHash = () => {
+      if (window.location.hash === '#contacto' || window.location.hash === '#colabora') {
+        setIsOpen(true);
+      }
+    };
     handleHash();
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
@@ -72,10 +76,11 @@ export function Contact() {
   return (
     <section
       ref={sectionRef}
-      id="contacto"
+      id="colabora"
       className="relative w-full bg-[var(--ivory)] py-14 md:py-20 text-[var(--ink)] border-t border-[var(--border)] overflow-hidden"
       aria-labelledby="contacto-heading"
     >
+      <span id="contacto" className="absolute -top-20" aria-hidden="true" />
       <div className="container-page">
         <div className="rounded-xl border border-[var(--border)] bg-[var(--paper)] p-6 sm:p-10 transition-all duration-300 shadow-xs">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
