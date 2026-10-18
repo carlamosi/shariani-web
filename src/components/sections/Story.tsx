@@ -92,7 +92,10 @@ export function Story() {
               </span>
               <div className="h-px bg-[var(--border)] flex-1" />
             </div>
-            <h2 style={{ fontFamily: 'var(--font-editorial)' }} className="font-normal text-2xl sm:text-3xl leading-tight text-[var(--ink)]">
+            <h2
+              style={{ fontFamily: 'var(--font-editorial)', lineHeight: 1.3, padding: '0.1em 0' }}
+              className="font-normal text-2xl sm:text-3xl text-[var(--ink)] overflow-visible"
+            >
               {chapter.title}
             </h2>
             <div className="relative -mx-6 w-[calc(100%+3rem)] sm:mx-0 sm:w-full overflow-hidden" style={{ aspectRatio: '16/10' }}>
@@ -147,7 +150,19 @@ export function Story() {
                     <span className="font-mono font-bold text-xs tracking-widest text-[var(--forest)]">{IDS[i]}</span>
                     <span className="text-[var(--text-secondary)] font-body text-xs uppercase tracking-wider">· {chapter.tag}</span>
                   </div>
-                  <h2 style={{ fontFamily: 'var(--font-editorial)', fontSize: 'clamp(28px, 2.6vw, 36px)', letterSpacing: '-0.02em', color: 'var(--ink)', lineHeight: 1.15, marginBottom: '1.25rem' }}>
+                  <h2
+                    style={{
+                      fontFamily: 'var(--font-editorial)',
+                      fontSize: 'clamp(28px, 2.6vw, 36px)',
+                      letterSpacing: '-0.02em',
+                      color: 'var(--ink)',
+                      lineHeight: 1.3,
+                      paddingTop: '0.1em',
+                      paddingBottom: '0.1em',
+                      marginBottom: '1.25rem',
+                      overflow: 'visible',
+                    }}
+                  >
                     {chapter.title}
                   </h2>
                   <p style={{ fontFamily: 'var(--font-body)', fontSize: '15.5px', lineHeight: 1.75, color: 'var(--ink-muted)' }}>
