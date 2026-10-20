@@ -52,8 +52,8 @@ export interface DonationConfigType {
 export const DONATION_CONFIG: DonationConfigType = {
   bizumCode: '03367',
   bizumQr: null,
-  ihelpUrl: null,
-  teamingUrl: 'https://www.teaming.net/lavallshariani',
+  ihelpUrl: null, // Pendiente de URL específica de campaña; enlaza por defecto a la plataforma iHelp https://www.ihelp.org.es/
+  teamingUrl: 'https://www.teaming.net/unaescuela-milesdesuenosenkenia',
   deductible: {
     bizum: null,
     ihelp: null,
