@@ -66,24 +66,6 @@ function IconInstagram() {
   );
 }
 
-function IconLeaf() {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" />
-      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-    </svg>
-  );
-}
 
 export function Contact() {
   return (
@@ -96,8 +78,9 @@ export function Contact() {
       <span id="contacto" className="absolute -top-20" aria-hidden="true" />
 
       <div className="container-page">
+        <div className="max-w-4xl mx-auto">
         {/* ── Desktop: two-column grid ─── Mobile: single column ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
 
           {/* ── LEFT COLUMN ─────────────────────────────────────── */}
           <div className="flex flex-col gap-8">
@@ -196,7 +179,7 @@ export function Contact() {
                     className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors block leading-snug"
                     style={{ fontFamily: 'var(--font-body)' }}
                   >
-                    Escuela La Vall
+                    Institució La Vall
                   </a>
                   <p
                     className="mt-1 text-[13px] text-[var(--ink-muted)] leading-relaxed"
@@ -222,21 +205,6 @@ export function Contact() {
               </div>
             </div>
 
-            {/* Divider */}
-            <hr className="border-none h-px bg-[var(--border)]" aria-hidden="true" />
-
-            {/* Closing message */}
-            <div className="flex items-center gap-4">
-              <span className="shrink-0 text-[var(--forest)] opacity-70">
-                <IconLeaf />
-              </span>
-              <p
-                className="text-[17px] sm:text-xl font-normal text-[var(--ink)] leading-snug"
-                style={{ fontFamily: 'var(--font-editorial)' }}
-              >
-                Gracias por formar parte<br className="sm:hidden" /> de este proyecto.
-              </p>
-            </div>
           </div>
 
           {/* ── RIGHT COLUMN — Photograph ───────────────────────── */}
@@ -264,24 +232,9 @@ export function Contact() {
               />
             </div>
 
-            {/* Handwritten-style caption overlay */}
-            <div
-              className="absolute bottom-8 right-6 text-right pointer-events-none select-none"
-              aria-hidden="true"
-            >
-              <span
-                className="block text-white/90 leading-tight drop-shadow-sm"
-                style={{
-                  fontFamily: 'var(--font-editorial)',
-                  fontSize: 'clamp(1rem, 2.5vw, 1.35rem)',
-                  fontStyle: 'italic',
-                }}
-              >
-                Juntos<br />llegamos<br />más lejos
-              </span>
-            </div>
           </div>
 
+        </div>
         </div>
       </div>
     </section>

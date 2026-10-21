@@ -10,7 +10,6 @@ import {
   Heart,
   HeartHandshake,
   Info,
-  Sprout,
   Users,
 } from 'lucide-react';
 import { useLang } from '@/context/LangContext';
@@ -369,24 +368,6 @@ export function HowToHelp() {
           </div>
         </div>
 
-        {/* ── Pie con divisor sutil, icono minimalista y mensaje ──────────── */}
-        <div className="border-t border-white/15 mt-12 sm:mt-16 pt-8 flex items-center gap-4">
-          <div className="shrink-0 text-white" aria-hidden="true">
-            <Sprout size={28} strokeWidth={1.6} />
-          </div>
-
-          <div className="w-px h-8 bg-white/20 shrink-0" aria-hidden="true" />
-
-          <div
-            className="text-xs sm:text-sm text-white/85 leading-snug"
-            style={{ fontFamily: 'var(--font-body)' }}
-          >
-            <p>{d.footerNote1 || 'Estamos preparando nuevas formas de colaborar.'}</p>
-            <p className="font-semibold text-white">
-              {d.footerNote2 || 'Gracias por ayudarnos a hacerlas posibles.'}
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );

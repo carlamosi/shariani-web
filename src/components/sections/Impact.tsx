@@ -12,7 +12,7 @@ export function Impact() {
       className="py-16 md:py-24 bg-[var(--paper)] text-[var(--ink)] border-t border-[var(--border)] overflow-hidden"
       aria-labelledby="impacto-heading"
     >
-      <div className="container-page max-w-4xl">
+      <div className="container-page max-w-3xl">
         {/* Editorial Section Header */}
         <div className="max-w-2xl mb-12 md:mb-16">
           <p className="section-label mb-3" style={{ color: 'var(--forest)' }}>
