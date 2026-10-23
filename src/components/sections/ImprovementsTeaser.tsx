@@ -67,6 +67,15 @@ export function ImprovementsTeaser() {
 
             {/* Year Chips as links */}
             <div className="flex flex-wrap items-center gap-2 pt-1">
+              {/* 2023 */}
+              <Link
+                href={`/${locale}/obra-real#2023`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[var(--ink)] bg-white border border-[var(--border)] cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 transition-all"
+              >
+                <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" aria-hidden="true" />
+                <span>2023 · Escolta inicial</span>
+              </Link>
+
               {/* 2024 */}
               <Link
                 href={`/${locale}/obra-real#2024`}

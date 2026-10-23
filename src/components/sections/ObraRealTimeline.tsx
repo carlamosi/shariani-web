@@ -7,19 +7,19 @@ import { t } from '@/data/translations';
 import { images } from '@/data/images';
 
 /* ─────────────────────────────────────────────────────────────
-   Photo mapping per year (reusing existing photos and alt text)
-   2023: colaborarOngs (first photo -> eager / priority)
-   2024: mesas (wooden desks built by local carpenters)
-   2025: higieneBucal (oral hygiene kits and lessons)
-   2026: ninaFalda (300 skirts project)
-   2027: valla (upcoming project / school perimeter facilities)
+   Photo mapping per milestone across all five years (2023–2027)
+   2023: colaborarOngs (initial dialogue and listening with community)
+   2024: mesas (wooden desks & chairs built by local carpenters)
+   2025: higieneBucal (oral hygiene workshops and classroom painting)
+   2026: ninaFalda (300 school skirts project & entrance mural)
+   2027: valla (school grounds where well & safe water system are planned)
    ───────────────────────────────────────────────────────────── */
 const YEAR_PHOTOS = [
-  { img: images.colaborarOngs, isFirst: true },
-  { img: images.mesas,         isFirst: false },
-  { img: images.higieneBucal,  isFirst: false },
-  { img: images.ninaFalda,     isFirst: false },
-  { img: images.valla,         isFirst: false },
+  { img: images.colaborarOngs, isFirst: true,  alt: 'Reunión y escucha activa con docentes y familias de Shariani en 2023' },
+  { img: images.mesas,         isFirst: false, alt: 'Pupitres y mesas de madera construidos con carpinteros locales en 2024' },
+  { img: images.higieneBucal,  isFirst: false, alt: 'Talleres prácticos de higiene bucodental y aulas restauradas en 2025' },
+  { img: images.ninaFalda,     isFirst: false, alt: 'Alumna con falda escolar confeccionada en el proyecto de 300 faldas en 2026' },
+  { img: images.valla,         isFirst: false, alt: 'Recinto e instalaciones de Shariani donde se proyecta el pozo y sistema de agua para 2027' },
 ];
 
 /* ─────────────────────────────────────────────────────────────
@@ -38,9 +38,9 @@ function useReducedMotion() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   useInView hook — triggers once at 20% visibility
+   useInView hook — triggers once at 15% visibility
    ───────────────────────────────────────────────────────────── */
-function useInView(threshold = 0.2) {
+function useInView(threshold = 0.15) {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
@@ -62,15 +62,14 @@ function useInView(threshold = 0.2) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   ThreadLine — vertical stitched SVG line
-   Sews itself with scroll via stroke-dashoffset; needle dot at tip.
-   After 2026 (last segment), dashed line pulses opacity (0.5 to 1)
-   over 3s to signal "to be continued".
+   ThreadLine — vertical progress line through the milestones
+   Progresses with scroll via stroke-dashoffset.
+   Completed milestones (2023–2026, 80% of track) draw with solid/stitched
+   accent; the final segment into 2027 uses a subtle dashed pattern.
    ───────────────────────────────────────────────────────────── */
 function ThreadLine({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) {
   const svgRef = useRef<SVGSVGElement>(null);
   const sewnLineRef = useRef<SVGLineElement>(null);
-  const needleDotRef = useRef<SVGCircleElement>(null);
   const futureLineRef = useRef<SVGLineElement>(null);
   const reduced = useReducedMotion();
 
@@ -78,28 +77,26 @@ function ThreadLine({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
     if (reduced) return;
     const svg = svgRef.current;
     const sewnLine = sewnLineRef.current;
-    const needleDot = needleDotRef.current;
     const futureLine = futureLineRef.current;
     const container = containerRef.current;
-    if (!svg || !sewnLine || !needleDot || !futureLine || !container) return;
+    if (!svg || !sewnLine || !futureLine || !container) return;
 
     const onScroll = () => {
       const totalH = container.scrollHeight;
       svg.setAttribute('height', String(totalH));
 
-      // 4 completed years (2023-2026) out of 5 total rows = 80% of line
+      // 4 completed years (2023–2026) out of 5 total milestones = 80%
       const completedH = totalH * 0.8;
       futureLine.setAttribute('y1', String(completedH));
       futureLine.setAttribute('y2', String(totalH));
 
       const rect = container.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + totalH * 0.75)));
+      const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + totalH * 0.8)));
       const drawn = Math.min(progress * completedH, completedH);
 
       sewnLine.setAttribute('y2', String(completedH));
       sewnLine.setAttribute('stroke-dasharray', String(completedH));
       sewnLine.setAttribute('stroke-dashoffset', String(completedH - drawn));
-      needleDot.setAttribute('cy', String(drawn));
     };
 
     onScroll();
@@ -115,15 +112,7 @@ function ThreadLine({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
     return (
       <div
         aria-hidden="true"
-        style={{
-          position: 'absolute',
-          left: '12px',
-          top: 0,
-          bottom: 0,
-          width: '1px',
-          background: 'var(--forest)',
-          opacity: 0.4,
-        }}
+        className="absolute left-[14px] sm:left-[21px] md:left-[25px] top-6 bottom-6 w-px bg-[var(--forest)] opacity-35"
       />
     );
   }
@@ -132,14 +121,7 @@ function ThreadLine({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
     <svg
       ref={svgRef}
       aria-hidden="true"
-      style={{
-        position: 'absolute',
-        left: '12px',
-        top: 0,
-        width: '1px',
-        pointerEvents: 'none',
-        overflow: 'visible',
-      }}
+      className="absolute left-[14px] sm:left-[21px] md:left-[25px] top-0 pointer-events-none overflow-visible"
       width="1"
       height="100%"
     >
@@ -169,16 +151,7 @@ function ThreadLine({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
         strokeDashoffset="9999"
       />
 
-      {/* Needle dot at current tip */}
-      <circle
-        ref={needleDotRef}
-        cx="0"
-        cy="0"
-        r="3.5"
-        fill="var(--forest)"
-      />
-
-      {/* Future segment (2026-2027): unfinished, soft 3s opacity pulse */}
+      {/* Future segment (2027): quiet dashed line */}
       <line
         ref={futureLineRef}
         x1="0"
@@ -186,35 +159,31 @@ function ThreadLine({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
         x2="0"
         y2="0"
         stroke="var(--forest)"
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeDasharray="4 6"
         strokeLinecap="round"
-        className="thread-future"
+        opacity="0.5"
       />
     </svg>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   ThreeStepStrip — editorial 3-step strip with drawing top border
+   ThreeStepStrip — editorial 3-step summary with interactive indicator
    ───────────────────────────────────────────────────────────── */
 type Step = { label: string; action: string };
 
 function ThreeStepStrip({ steps, note }: { steps: readonly Step[]; note: string }) {
   return (
-    <div className="mb-16 md:mb-24">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4">
+    <div className="mb-10 sm:mb-12 md:mb-14">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
         {steps.map((s, i) => (
           <StepItem key={i} label={s.label} action={s.action} />
         ))}
       </div>
       <p
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: '13.5px',
-          color: 'var(--text-secondary)',
-          marginTop: '1.25rem',
-        }}
+        className="mt-3 text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed"
+        style={{ fontFamily: 'var(--font-body)' }}
       >
         {note}
       </p>
@@ -223,51 +192,30 @@ function ThreeStepStrip({ steps, note }: { steps: readonly Step[]; note: string 
 }
 
 function StepItem({ label, action }: { label: string; action: string }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
       tabIndex={0}
-      className="relative pt-4 pr-4 pb-2 outline-none cursor-default group"
+      className="relative pt-3.5 pr-2 pb-1.5 outline-none cursor-default group"
     >
       {/* Base hairline border */}
       <div
         className="absolute top-0 left-0 right-0 h-px bg-[var(--border)]"
         aria-hidden="true"
       />
-      {/* Accent border that draws left to right on hover or focus in 300ms */}
+      {/* Accent border that draws on hover/focus in 250ms */}
       <div
-        className="absolute top-0 left-0 h-[2px] bg-[var(--forest)] transition-all duration-300 ease-out"
-        style={{
-          width: hovered ? '100%' : '0%',
-        }}
+        className="absolute top-0 left-0 h-[2px] bg-[var(--forest)] transition-all duration-300 ease-out w-0 group-hover:w-full group-focus-within:w-full"
         aria-hidden="true"
       />
       <p
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: '11px',
-          fontWeight: 600,
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          color: 'var(--text-secondary)',
-          marginBottom: '0.35rem',
-        }}
+        className="text-[10.5px] sm:text-[11px] font-semibold tracking-[0.14em] uppercase text-[var(--forest)] mb-1"
+        style={{ fontFamily: 'var(--font-body)' }}
       >
         {label}
       </p>
       <p
-        style={{
-          fontFamily: 'var(--font-editorial)',
-          fontSize: '16px',
-          color: 'var(--ink)',
-          lineHeight: 1.3,
-          fontWeight: 400,
-        }}
+        className="text-base sm:text-[17px] font-normal text-[var(--ink)] leading-snug"
+        style={{ fontFamily: 'var(--font-editorial)' }}
       >
         {action}
       </p>
@@ -277,7 +225,7 @@ function StepItem({ label, action }: { label: string; action: string }) {
 
 /* ─────────────────────────────────────────────────────────────
    VideoLightbox — accessible modal with focus trap, Esc close,
-   backdrop close, return focus, and lite facade (no iframe before click)
+   backdrop close, return focus
    ───────────────────────────────────────────────────────────── */
 function VideoLightbox({
   open,
@@ -331,7 +279,7 @@ function VideoLightbox({
           ref={closeBtnRef}
           onClick={onClose}
           aria-label="Cerrar vídeo"
-          className="absolute top-3 right-3 z-10 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-xl transition-colors cursor-pointer"
+          className="absolute top-3 right-3 z-10 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-xl transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
           ✕
         </button>
@@ -350,12 +298,12 @@ function VideoLightbox({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   YearRow — single editorial row
-   Numeral + tag left, title + text middle, photo right.
-   Desktop alternates photo side (even rows mirrored).
-   Mobile stacks photo first.
-   Separated by a 1px hairline (dashed on upcoming 2027).
-   Keyboard tab order matches visual order via CSS order.
+   YearRow — single editorial milestone row
+   Desktop alternates:
+     - Even rows (0, 2, 4): Numeral left (2 cols), Story middle (5 cols), Photo right (5 cols)
+     - Odd rows (1, 3): Photo left (5 cols), Numeral middle (2 cols), Story right (5 cols)
+   Mobile reading order:
+     - Year numeral & tag -> Photo -> Heading & body text & actions
    ───────────────────────────────────────────────────────────── */
 interface YearRowData {
   year: string;
@@ -368,6 +316,7 @@ interface YearRowData {
   upcoming: boolean;
   ctaPrimary: string | null;
   ctaSecondary: string | null;
+  caption?: string;
 }
 
 function YearRow({
@@ -376,102 +325,87 @@ function YearRow({
   photo,
   onVideoClick,
   donateHref,
+  projectHref,
 }: {
   data: YearRowData;
   index: number;
   photo: typeof YEAR_PHOTOS[number];
   onVideoClick: (btn: HTMLElement) => void;
   donateHref: string;
+  projectHref: string;
 }) {
-  const { ref, inView } = useInView(0.2);
+  const { ref, inView } = useInView(0.15);
   const reduced = useReducedMotion();
-  const [parallaxY, setParallaxY] = useState(0);
   const articleRef = useRef<HTMLElement>(null);
 
-  // Light parallax max 8px on scroll
-  useEffect(() => {
-    if (reduced) return;
-    const onScroll = () => {
-      const el = articleRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const mid = rect.top + rect.height / 2;
-      const offset = ((mid / window.innerHeight) - 0.5) * 8;
-      setParallaxY(Math.max(-8, Math.min(8, Math.round(offset))));
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [reduced]);
-
   const visible = reduced || inView;
-  const isEven = index % 2 === 0; // index 0 (2023) is photo right, index 1 (2024) is photo left on desktop
+  const isEven = index % 2 === 0;
 
   return (
     <article
       ref={(node) => {
-        // assign both refs
         (ref as React.MutableRefObject<HTMLElement | null>).current = node;
         (articleRef as React.MutableRefObject<HTMLElement | null>).current = node;
       }}
-      className={`relative py-12 md:py-16 border-t ${
-        data.upcoming ? 'border-dashed border-[var(--forest)]' : 'border-[var(--border)]'
+      id={data.year}
+      className={`relative py-10 sm:py-12 md:py-14 border-t ${
+        data.upcoming ? 'border-dashed border-[var(--forest)]/50' : 'border-[var(--border)]'
       }`}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(16px)',
+        transform: visible ? 'translateY(0)' : 'translateY(12px)',
         transition: reduced
           ? 'none'
-          : `opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80}ms, transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80}ms`,
+          : `opacity 500ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 60}ms, transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 60}ms`,
       }}
     >
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+      {/* ── Aligned Year Marker on Timeline Spine ── */}
+      <div
+        className={`absolute -left-[24px] sm:-left-[33px] md:-left-[37px] top-10 sm:top-12 md:top-14 w-3.5 h-3.5 -translate-y-1/2 rounded-full transition-all duration-300 ${
+          data.upcoming
+            ? 'border-2 border-dashed border-[var(--forest)] bg-[var(--ivory)] ring-4 ring-[var(--forest)]/10'
+            : visible
+            ? 'bg-[var(--forest)] ring-4 ring-[var(--forest)]/20'
+            : 'bg-[var(--border)] ring-4 ring-transparent'
+        }`}
+        aria-hidden="true"
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 md:gap-8 lg:gap-10 items-start">
         {/*
-          Mobile: Photo first (CSS order: -1), Numeral (order: 0), Content (order: 1)
-          Desktop:
-            - Even row (0, 2, 4): Numeral left (order: 0, col-span-3), Content middle (order: 1, col-span-5), Photo right (order: 2, col-span-4)
-            - Odd row (1, 3): Photo left (order: 0, col-span-4), Numeral middle (order: 1, col-span-3), Content right (order: 2, col-span-5)
-            Visual & keyboard focus order match naturally!
+          Reading sequence on Mobile (< md):
+            1. Numeral + Tag (order-0)
+            2. Photo (order-1)
+            3. Story / Content (order-2)
+          Desktop layout:
+            Even: Numeral (col 1-2, order-0), Story (col 3-7, order-1), Photo (col 8-12, order-2)
+            Odd: Photo (col 1-5, order-0), Numeral (col 6-7, order-1), Story (col 8-12, order-2)
         */}
 
         {/* 1. Year Numeral + Tag */}
         <div
-          className={`flex flex-col gap-1.5 ${
+          className={`flex flex-col gap-1 ${
             isEven
-              ? 'md:col-span-3 md:order-0 order-1'
-              : 'md:col-span-3 md:order-1 order-1'
+              ? 'md:col-span-2 md:order-0 order-0'
+              : 'md:col-span-2 md:order-1 order-0'
           }`}
         >
           <span
+            className="text-3xl sm:text-4xl md:text-[42px] lg:text-[46px] font-normal tracking-tight block leading-none transition-colors duration-300"
             style={{
               fontFamily: 'var(--font-editorial)',
-              fontSize: 'clamp(52px, 6.5vw, 84px)',
-              letterSpacing: '-0.04em',
-              lineHeight: 0.88,
-              color: data.upcoming ? 'var(--text-secondary)' : 'var(--ink)',
-              display: 'block',
-              overflow: 'hidden',
-              clipPath: visible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
-              transition: reduced
-                ? 'none'
-                : `clip-path 500ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 80}ms`,
+              color: data.upcoming
+                ? 'var(--forest)'
+                : visible
+                ? 'var(--ink)'
+                : 'var(--text-secondary)',
             }}
-            aria-hidden="true"
           >
             {data.year}
           </span>
           <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '11px',
-              fontWeight: 600,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: data.upcoming ? 'var(--forest)' : 'var(--text-secondary)',
-              opacity: visible ? 1 : 0,
-              transition: reduced
-                ? 'none'
-                : `opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80 + 80}ms`,
-            }}
+            className="text-[10.5px] sm:text-[11px] font-semibold tracking-[0.14em] uppercase text-[var(--text-secondary)] mt-1.5 block"
+            style={{ fontFamily: 'var(--font-body)' }}
           >
             {data.tag}
           </span>
@@ -485,113 +419,70 @@ function YearRow({
               : 'md:col-span-5 md:order-2 order-2'
           }`}
         >
-          {/* Level 2 Heading for year title */}
           <h2
-            style={{
-              fontFamily: 'var(--font-editorial)',
-              fontSize: 'clamp(21px, 2.4vw, 28px)',
-              letterSpacing: '-0.02em',
-              lineHeight: 1.18,
-              fontWeight: 400,
-              color: 'var(--ink)',
-              marginBottom: '0.85rem',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(16px)',
-              transition: reduced
-                ? 'none'
-                : `opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80 + 80}ms, transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80 + 80}ms`,
-            }}
+            className="text-xl sm:text-2xl lg:text-[26px] font-normal leading-[1.2] tracking-tight text-[var(--ink)] mb-2.5 sm:mb-3"
+            style={{ fontFamily: 'var(--font-editorial)' }}
           >
             {data.title}
           </h2>
 
           <p
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '14.5px',
-              lineHeight: 1.68,
-              color: 'var(--ink-muted)',
-              marginBottom: data.pullQuote || data.videoLink || data.upcoming ? '1.15rem' : 0,
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(16px)',
-              transition: reduced
-                ? 'none'
-                : `opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80 + 160}ms, transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80 + 160}ms`,
-            }}
+            className="text-sm sm:text-[15px] leading-relaxed text-[var(--ink-muted)]"
+            style={{ fontFamily: 'var(--font-body)' }}
           >
             {data.body}
           </p>
 
-          {/* Pull-quote for 2024 */}
+          {/* Pull-quote (verified testimony for 2024) */}
           {data.pullQuote && (
             <blockquote
-              style={{
-                fontFamily: 'var(--font-editorial)',
-                fontStyle: 'italic',
-                fontSize: 'clamp(15px, 1.5vw, 17px)',
-                lineHeight: 1.45,
-                color: 'var(--ink)',
-                borderLeft: '2px solid var(--forest)',
-                paddingLeft: '1rem',
-                margin: '0.5rem 0 1rem 0',
-                opacity: visible ? 1 : 0,
-                transition: reduced
-                  ? 'none'
-                  : `opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80 + 240}ms`,
-              }}
+              className="border-l-2 border-[var(--forest)] pl-3.5 my-3 sm:my-3.5 text-sm sm:text-[15px] italic text-[var(--ink)] leading-snug"
+              style={{ fontFamily: 'var(--font-editorial)' }}
             >
-              {data.pullQuote}
+              “{data.pullQuote.replace(/^[“"«]\s*|\s*[”"»]$/g, '')}”
             </blockquote>
           )}
 
           {/* Video link for 2026 */}
           {data.videoLink && (
-            <div className="pt-1 pb-2">
+            <div className="pt-2">
               <button
                 type="button"
                 onClick={(e) => onVideoClick(e.currentTarget)}
-                className="editorial-link group inline-flex items-center min-h-[44px] cursor-pointer"
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '14.5px',
-                  fontWeight: 600,
-                  color: 'var(--forest)',
-                  background: 'none',
-                  border: 'none',
-                  padding: 0,
-                }}
+                className="editorial-link group inline-flex items-center gap-1.5 py-1 text-sm font-semibold text-[var(--forest)] hover:text-[var(--forest-dark)] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] rounded"
+                style={{ fontFamily: 'var(--font-body)' }}
               >
                 <span className="editorial-link-text relative">
                   {data.videoLink.replace(' →', '')}
                   <span className="editorial-link-underline" />
                 </span>
-                <span className="editorial-link-arrow transition-transform duration-200 pl-1" aria-hidden="true">
+                <span className="editorial-link-arrow transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
                   →
                 </span>
               </button>
             </div>
           )}
 
-          {/* Upcoming CTAs for 2027 */}
+          {/* Upcoming 2027 Objective CTAs */}
           {data.upcoming && (
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-3.5">
               {data.ctaPrimary && (
                 <a
                   href={donateHref}
-                  className="editorial-btn-primary inline-flex items-center justify-center gap-2 min-h-[44px] px-6 rounded-full text-sm font-semibold text-white bg-[var(--forest)] cursor-pointer"
+                  className="editorial-btn-primary inline-flex items-center justify-center gap-2 min-h-[44px] px-5 sm:px-6 rounded-full text-xs sm:text-sm font-semibold text-white bg-[var(--forest)] hover:bg-[var(--forest-dark)] active:scale-[0.98] transition-all cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2"
+                  style={{ fontFamily: 'var(--font-body)' }}
                 >
                   <span>{data.ctaPrimary}</span>
-                  <span className="btn-arrow transition-transform duration-200" aria-hidden="true">
+                  <span className="btn-arrow transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
                     →
                   </span>
                 </a>
               )}
               {data.ctaSecondary && (
                 <a
-                  href="https://www.teaming.net/lavallshariani"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="editorial-btn-secondary inline-flex items-center justify-center min-h-[44px] px-5 rounded-full text-sm font-semibold text-[var(--ink)] border border-[var(--border)] cursor-pointer"
+                  href={projectHref}
+                  className="editorial-btn-secondary inline-flex items-center justify-center min-h-[44px] px-4.5 sm:px-5 rounded-full text-xs sm:text-sm font-semibold text-[var(--ink)] bg-white/70 hover:bg-white border border-[var(--border)] active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2"
+                  style={{ fontFamily: 'var(--font-body)' }}
                 >
                   {data.ctaSecondary}
                 </a>
@@ -604,46 +495,35 @@ function YearRow({
         <div
           className={`flex flex-col ${
             isEven
-              ? 'md:col-span-4 md:order-2 order-0'
-              : 'md:col-span-4 md:order-0 order-0'
+              ? 'md:col-span-5 md:order-2 order-1'
+              : 'md:col-span-5 md:order-0 order-1'
           }`}
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(16px)',
-            transition: reduced
-              ? 'none'
-              : `opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80 + 240}ms, transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1) ${index * 80 + 240}ms`,
-          }}
         >
           <figure
-            className="photo-card relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-[var(--border)] group bg-[var(--paper)]"
-            style={{
-              opacity: data.upcoming ? 0.7 : 1,
-            }}
+            className={`photo-card relative w-full aspect-[4/3] rounded-xl overflow-hidden border ${
+              data.upcoming
+                ? 'border-dashed border-[var(--forest)]/50 bg-[var(--paper)]'
+                : 'border-[var(--border)] bg-[var(--paper)] shadow-sm'
+            } group`}
           >
-            <div
-              className="w-full h-full relative"
-              style={{
-                transform: reduced ? 'none' : `translateY(${parallaxY}px)`,
-                transition: 'transform 100ms ease-out',
-              }}
-            >
+            <div className="w-full h-full relative overflow-hidden">
               <Image
                 src={photo.img.src}
-                alt={photo.img.alt}
+                alt={photo.alt || data.caption || photo.img.alt}
                 fill
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 40vw"
                 priority={photo.isFirst}
                 loading={photo.isFirst ? 'eager' : 'lazy'}
                 placeholder="blur"
                 blurDataURL={photo.img.placeholderSrc || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjMiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjMiIGZpbGw9IiNmM2VmZTciLz48L3N2Zz4='}
-                className="photo-img object-cover"
+                className="photo-img object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.025]"
               />
             </div>
-            {/* Caption slides up 6px and fades in on hover (touch: no hover) */}
-            <figcaption className="photo-caption absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/75 to-transparent text-white text-xs leading-snug">
-              <span className="font-semibold block">{data.year} · {data.tag}</span>
-              <span className="opacity-85 text-[11px] line-clamp-1">{photo.img.alt}</span>
+            {/* Documentary caption */}
+            <figcaption className="photo-caption absolute bottom-0 inset-x-0 p-3 sm:p-3.5 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-white text-xs leading-snug">
+              <span className="font-medium text-[11.5px] sm:text-xs text-white/95 block drop-shadow-sm">
+                {data.caption || photo.img.alt}
+              </span>
             </figcaption>
           </figure>
         </div>
@@ -672,8 +552,9 @@ export function ObraRealTimeline() {
     setLightboxOpen(false);
   }, []);
 
-  // Donate link anchors to home page help section if on /obra-real
-  const donateHref = `/${lang.toLowerCase()}#ayuda`;
+  // Functional navigation destinations
+  const donateHref = `/${lang.toLowerCase()}#donar`;
+  const projectHref = `/${lang.toLowerCase()}#proyecto`;
 
   const videoRow = content.years.find((y) => y.videoLink);
   const videoLabel = videoRow?.videoLabel || 'Vídeo Shariani';
@@ -682,32 +563,23 @@ export function ObraRealTimeline() {
     <section
       id="obra-real"
       aria-label={content.eyebrow}
-      className="pt-32 pb-20 md:pt-40 md:pb-28"
+      className="pt-28 pb-16 md:pt-36 md:pb-24"
       style={{ background: 'var(--ivory)' }}
     >
       {/* Component-scoped microinteractions */}
       <style>{`
-        /* Thread line unfinished segment pulse */
-        @keyframes thread-pulse {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 1; }
-        }
-        .thread-future {
-          animation: thread-pulse 3s ease-in-out infinite;
-        }
-
         /* Photo hover zoom */
         .photo-img {
           transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
         }
         @media (hover: hover) and (pointer: fine) {
           .photo-card:hover .photo-img {
-            transform: scale(1.03);
+            transform: scale(1.025);
           }
           .photo-caption {
-            opacity: 0;
-            transform: translateY(6px);
-            transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.88;
+            transform: translateY(2px);
+            transition: opacity 300ms ease, transform 300ms ease;
           }
           .photo-card:hover .photo-caption {
             opacity: 1;
@@ -737,36 +609,19 @@ export function ObraRealTimeline() {
         .editorial-link:focus-visible .editorial-link-underline {
           transform: scaleX(1);
         }
-        .editorial-link:hover .editorial-link-arrow,
-        .editorial-link:focus-visible .editorial-link-arrow {
-          transform: translateX(4px);
-        }
 
-        /* Button microinteractions: hover raises 1px, active scales 0.97 in 120ms */
+        /* Button microinteractions: hover raises 1px, active scales 0.98 in 120ms */
         .editorial-btn-primary,
         .editorial-btn-secondary {
           transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), background-color 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
         }
-        .editorial-btn-primary:hover {
-          transform: translateY(-1px);
-          background-color: var(--forest-dark);
-        }
-        .editorial-btn-primary:hover .btn-arrow {
-          transform: translateX(4px);
-        }
+        .editorial-btn-primary:hover,
         .editorial-btn-secondary:hover {
           transform: translateY(-1px);
-          background-color: var(--paper);
-          border-color: var(--ink);
         }
         .editorial-btn-primary:active,
         .editorial-btn-secondary:active {
-          transform: scale(0.97);
-        }
-        .editorial-btn-primary:focus-visible,
-        .editorial-btn-secondary:focus-visible {
-          outline: 2px solid var(--forest);
-          outline-offset: 2px;
+          transform: scale(0.98);
         }
 
         /* Lightbox fade + scale */
@@ -786,11 +641,9 @@ export function ObraRealTimeline() {
 
         /* Prefers-reduced-motion overrides */
         @media (prefers-reduced-motion: reduce) {
-          .thread-future { animation: none !important; opacity: 0.6 !important; }
           .photo-img { transform: none !important; transition: none !important; }
           .photo-caption { opacity: 1 !important; transform: none !important; transition: none !important; }
           .editorial-link-underline { transform: scaleX(1) !important; transition: none !important; }
-          .editorial-link-arrow { transform: none !important; transition: none !important; }
           .editorial-btn-primary, .editorial-btn-secondary { transform: none !important; transition: none !important; }
           .animate-lightbox-open { animation: none !important; }
         }
@@ -798,30 +651,33 @@ export function ObraRealTimeline() {
 
       <div className="container-page">
         {/* 1. Eyebrow */}
-        <p className="section-label mb-4" style={{ color: 'var(--forest)' }}>
+        <p
+          className="text-xs sm:text-[13px] font-semibold tracking-[0.2em] text-[var(--forest)] uppercase mb-3"
+          style={{ fontFamily: 'var(--font-body)' }}
+        >
           {content.eyebrow}
         </p>
 
         {/* 2. Single H1 */}
         <h1
-          className="text-[var(--ink)] mb-6"
+          className="text-[var(--ink)] mb-4 sm:mb-5"
           style={{
             fontFamily: 'var(--font-editorial)',
-            fontSize: 'clamp(34px, 5.2vw, 64px)',
+            fontSize: 'clamp(32px, 4.8vw, 56px)',
             letterSpacing: '-0.025em',
-            lineHeight: 1.06,
+            lineHeight: 1.08,
             fontWeight: 400,
           }}
         >
           {content.h1}
         </h1>
 
-        {/* 3. Lead */}
+        {/* 3. Lead text */}
         <p
-          className="text-[var(--ink-muted)] mb-12 sm:mb-14"
+          className="text-[var(--ink-muted)] mb-8 sm:mb-10"
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(15.5px, 1.7vw, 19px)',
+            fontSize: 'clamp(15px, 1.6vw, 17.5px)',
             lineHeight: 1.68,
             maxWidth: '680px',
           }}
@@ -829,11 +685,11 @@ export function ObraRealTimeline() {
           {content.lead}
         </p>
 
-        {/* 4. Three-step strip */}
+        {/* 4. Three-step summary strip */}
         <ThreeStepStrip steps={content.steps} note={content.stepsNote} />
 
-        {/* 5. Year rows with vertical stitched thread line */}
-        <div ref={containerRef} className="relative pl-6 sm:pl-10">
+        {/* 5. Year rows with vertical timeline spine & markers */}
+        <div ref={containerRef} className="relative pl-8 sm:pl-12 md:pl-14">
           <ThreadLine containerRef={containerRef} />
 
           {content.years.map((yearData, idx) => (
@@ -844,6 +700,7 @@ export function ObraRealTimeline() {
               photo={YEAR_PHOTOS[idx]}
               onVideoClick={handleOpenVideo}
               donateHref={donateHref}
+              projectHref={projectHref}
             />
           ))}
         </div>

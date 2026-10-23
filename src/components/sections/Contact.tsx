@@ -11,8 +11,8 @@ const MAPS_URL =
 function IconMail() {
   return (
     <svg
-      width="20"
-      height="20"
+      width="16"
+      height="16"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -30,8 +30,8 @@ function IconMail() {
 function IconMapPin() {
   return (
     <svg
-      width="20"
-      height="20"
+      width="16"
+      height="16"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -49,8 +49,8 @@ function IconMapPin() {
 function IconInstagram() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="15"
+      height="15"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -71,7 +71,7 @@ export function Contact() {
   return (
     <section
       id="colabora"
-      className="relative w-full bg-[var(--ivory)] py-16 md:py-24 text-[var(--ink)] overflow-hidden"
+      className="relative w-full bg-[var(--ivory)] py-10 sm:py-12 lg:py-14 text-[var(--ink)] overflow-hidden"
       aria-labelledby="contacto-heading"
     >
       {/* Anchor for nav */}
@@ -80,15 +80,15 @@ export function Contact() {
       <div className="container-page">
         <div className="max-w-4xl mx-auto">
         {/* ── Desktop: two-column grid ─── Mobile: single column ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 items-center">
 
           {/* ── LEFT COLUMN ─────────────────────────────────────── */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4 sm:gap-5">
 
             {/* Section label + rule */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <span
-                className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]"
+                className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
                 Contacto
@@ -103,13 +103,13 @@ export function Contact() {
             <div>
               <h2
                 id="contacto-heading"
-                className="text-5xl sm:text-6xl md:text-7xl font-normal leading-[1.02] tracking-[-0.025em] text-[var(--ink)] mb-5"
+                className="text-4xl sm:text-5xl lg:text-[44px] font-normal leading-[1.08] tracking-[-0.02em] text-[var(--ink)] mb-2.5 sm:mb-3"
                 style={{ fontFamily: 'var(--font-editorial)' }}
               >
                 ¿Hablamos?
               </h2>
               <p
-                className="text-[15px] leading-relaxed text-[var(--ink-muted)] max-w-[440px]"
+                className="text-sm sm:text-[15px] leading-relaxed text-[var(--ink-muted)] max-w-[420px]"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
                 Si tienes alguna duda, quieres colaborar, conocernos mejor o
@@ -119,88 +119,86 @@ export function Contact() {
             </div>
 
             {/* ── Contact blocks: Email | Dirección ── */}
-            <div className="flex flex-col sm:flex-row gap-0">
+            <div className="flex flex-col sm:flex-row gap-0 pt-1 sm:pt-2">
               {/* Email */}
-              <div className="flex-1 flex flex-col gap-3 pr-0 sm:pr-8 pb-6 sm:pb-0">
-                {/* Icon badge */}
-                <span
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-[var(--forest)] bg-[var(--forest)]/[0.08] shrink-0"
-                >
-                  <IconMail />
-                </span>
-
-                <div>
+              <div className="flex-1 pr-0 sm:pr-6 lg:pr-7 pb-4 sm:pb-0">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span
+                    className="w-7 h-7 rounded-md flex items-center justify-center text-[var(--forest)] bg-[var(--forest)]/[0.08] shrink-0"
+                  >
+                    <IconMail />
+                  </span>
                   <p
-                    className="text-[13px] font-semibold uppercase tracking-[0.1em] text-[var(--ink)] mb-1"
+                    className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--ink)]"
                     style={{ fontFamily: 'var(--font-body)' }}
                   >
                     Email
                   </p>
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}`}
-                    className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors"
-                    style={{ fontFamily: 'var(--font-body)' }}
-                  >
-                    {CONTACT_EMAIL}
-                  </a>
-                  <p
-                    className="mt-2 text-[13px] text-[var(--ink-muted)] leading-relaxed"
-                    style={{ fontFamily: 'var(--font-body)' }}
-                  >
-                    Escríbenos y te responderemos a la mayor brevedad posible.
-                  </p>
                 </div>
+
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors block break-words"
+                  style={{ fontFamily: 'var(--font-body)' }}
+                >
+                  {CONTACT_EMAIL}
+                </a>
+                <p
+                  className="mt-1 text-xs sm:text-[13px] text-[var(--ink-muted)] leading-relaxed"
+                  style={{ fontFamily: 'var(--font-body)' }}
+                >
+                  Escríbenos y te responderemos a la mayor brevedad posible.
+                </p>
               </div>
 
               {/* Vertical divider (desktop) / Horizontal divider (mobile) */}
-              <div className="hidden sm:block w-px bg-[var(--border)] mx-2 self-stretch" aria-hidden="true" />
-              <div className="block sm:hidden h-px bg-[var(--border)] mb-6" aria-hidden="true" />
+              <div className="hidden sm:block w-px bg-[var(--border)] mx-1 self-stretch" aria-hidden="true" />
+              <div className="block sm:hidden h-px bg-[var(--border)] my-4" aria-hidden="true" />
 
               {/* Dirección */}
-              <div className="flex-1 flex flex-col gap-3 pl-0 sm:pl-8">
-                {/* Icon badge */}
-                <span
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-[var(--forest)] bg-[var(--forest)]/[0.08] shrink-0"
-                >
-                  <IconMapPin />
-                </span>
-
-                <div>
+              <div className="flex-1 pl-0 sm:pl-6 lg:pl-7">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span
+                    className="w-7 h-7 rounded-md flex items-center justify-center text-[var(--forest)] bg-[var(--forest)]/[0.08] shrink-0"
+                  >
+                    <IconMapPin />
+                  </span>
                   <p
-                    className="text-[13px] font-semibold uppercase tracking-[0.1em] text-[var(--ink)] mb-1"
+                    className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--ink)]"
                     style={{ fontFamily: 'var(--font-body)' }}
                   >
                     Dirección
                   </p>
+                </div>
+
+                <a
+                  href={MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors block leading-snug"
+                  style={{ fontFamily: 'var(--font-body)' }}
+                >
+                  Institució La Vall
+                </a>
+                <p
+                  className="mt-1 text-xs sm:text-[13px] text-[var(--ink-muted)] leading-relaxed"
+                  style={{ fontFamily: 'var(--font-body)' }}
+                >
+                  Ctra. Sabadell a Bellaterra km. 4,6<br />
+                  08205 Sabadell, Barcelona
+                </p>
+
+                {/* Social links — only Instagram is verified */}
+                <div className="mt-2.5 flex items-center gap-2">
                   <a
-                    href={MAPS_URL}
+                    href={INSTAGRAM_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors block leading-snug"
-                    style={{ fontFamily: 'var(--font-body)' }}
+                    aria-label="Instagram de La Vall × Shariani"
+                    className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--ink-muted)] hover:text-[var(--forest)] hover:border-[var(--forest)] transition-all duration-200"
                   >
-                    Institució La Vall
+                    <IconInstagram />
                   </a>
-                  <p
-                    className="mt-1 text-[13px] text-[var(--ink-muted)] leading-relaxed"
-                    style={{ fontFamily: 'var(--font-body)' }}
-                  >
-                    Ctra. Sabadell a Bellaterra km. 4,6<br />
-                    08205 Sabadell, Barcelona
-                  </p>
-
-                  {/* Social links — only Instagram is verified */}
-                  <div className="mt-3 flex items-center gap-2">
-                    <a
-                      href={INSTAGRAM_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Instagram de La Vall × Shariani"
-                      className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--ink-muted)] hover:text-[var(--forest)] hover:border-[var(--forest)] transition-all duration-200"
-                    >
-                      <IconInstagram />
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
@@ -216,10 +214,10 @@ export function Contact() {
               Replicates the reference's architectural rounded shape.
             */}
             <div
-              className="relative w-full overflow-hidden shadow-xl"
+              className="relative w-full overflow-hidden shadow-lg mx-auto max-w-sm sm:max-w-md lg:max-w-none"
               style={{
-                borderRadius: '120px 120px 24px 120px',
-                aspectRatio: '4 / 5',
+                borderRadius: '72px 72px 20px 72px',
+                aspectRatio: '4 / 3',
               }}
             >
               <Image

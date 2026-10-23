@@ -160,7 +160,7 @@ export const images: Record<string, ImageEntry> = {
   },
   ninaFalda: {
     key: 'ninaFalda',
-    src: '/images/niña-falda.jpeg',
+    src: '/images/nina-falda.jpeg',
     placeholderSrc: '/images/placeholders/student-learning.svg',
     subject: 'Alumna de Shariani somrient amb la nova faldilla escolar blava',
     alt: 'Alumna de Shariani amb la faldilla escolar del projecte 300 faldilles',

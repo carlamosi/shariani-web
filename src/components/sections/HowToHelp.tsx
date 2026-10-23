@@ -69,7 +69,7 @@ export function HowToHelp() {
     <section
       id="donar"
       style={{ backgroundColor: '#0D4A8D' }}
-      className="relative w-full py-16 sm:py-20 lg:py-24 text-white overflow-hidden"
+      className="relative w-full py-10 sm:py-12 lg:py-14 text-white overflow-hidden"
       aria-labelledby="donar-heading"
     >
       {/* Legacy anchor compatibility */}
@@ -77,8 +77,8 @@ export function HowToHelp() {
 
       <div className="container-page max-w-6xl mx-auto px-6 sm:px-10 lg:px-12">
         {/* ── Encabezado superior ──────────────────────────────────────────── */}
-        <div className="max-w-3xl mb-12 lg:mb-16">
-          <div className="flex items-center gap-3 mb-4">
+        <div className="max-w-3xl mb-8 sm:mb-9 lg:mb-10">
+          <div className="flex items-center gap-3 mb-2.5 sm:mb-3">
             <span
               className="text-xs sm:text-[13px] font-semibold tracking-[0.25em] text-white/90 uppercase"
               style={{ fontFamily: 'var(--font-body)' }}
@@ -93,7 +93,7 @@ export function HowToHelp() {
 
           <h2
             id="donar-heading"
-            className="text-4xl sm:text-5xl lg:text-[52px] font-normal leading-[1.12] text-white tracking-tight mb-4"
+            className="text-3xl sm:text-4xl lg:text-[44px] font-normal leading-[1.15] text-white tracking-tight mb-2.5 sm:mb-3"
             style={{ fontFamily: 'var(--font-editorial)' }}
           >
             {d.headline}
@@ -110,12 +110,12 @@ export function HowToHelp() {
         {/* ── Layout de dos columnas con divisores ───────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 items-start">
           {/* ── COLUMNA IZQUIERDA: Bizum ───────────────────────────────── */}
-          <div className="lg:pr-12 xl:pr-16 lg:border-r lg:border-white/20 pb-12 lg:pb-0">
+          <div className="lg:pr-10 xl:pr-14 lg:border-r lg:border-white/20 pb-8 sm:pb-9 lg:pb-0">
             {/* Cabecera Bizum: icono + título */}
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-2.5 sm:mb-3">
               <svg
-                width="26"
-                height="26"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -145,16 +145,16 @@ export function HowToHelp() {
 
             {/* Instrucciones breves */}
             <p
-              className="text-sm sm:text-base text-white/85 leading-relaxed mb-6 max-w-md"
+              className="text-sm text-white/85 leading-relaxed mb-3.5 sm:mb-4 max-w-md"
               style={{ fontFamily: 'var(--font-body)' }}
             >
               {d.bizumExplanation}
             </p>
 
             {/* Código 03367 en tamaño grande */}
-            <div className="mb-4">
+            <div className="mb-2.5 sm:mb-3">
               <span
-                className="text-6xl sm:text-7xl font-normal tracking-tight text-white select-all block leading-none"
+                className="text-5xl sm:text-6xl font-normal tracking-tight text-white select-all block leading-none"
                 style={{ fontFamily: 'var(--font-editorial)' }}
               >
                 {DONATION_CONFIG.bizumCode}
@@ -162,15 +162,15 @@ export function HowToHelp() {
             </div>
 
             {/* Fila del botón "Copiar código" y confirmación */}
-            <div className="flex items-center gap-4 flex-wrap mb-8">
+            <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap mb-4 sm:mb-5">
               <button
                 type="button"
                 onClick={handleCopyBizum}
                 aria-label={`Copiar código Bizum ${DONATION_CONFIG.bizumCode}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 bg-white/5 hover:bg-white/15 active:scale-[0.98] text-white text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="inline-flex items-center gap-2 px-4.5 py-2 rounded-full border border-white/40 bg-white/5 hover:bg-white/15 active:scale-[0.98] text-white text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
-                <Copy size={16} strokeWidth={2} aria-hidden="true" />
+                <Copy size={15} strokeWidth={2} aria-hidden="true" />
                 <span>{d.bizumCopy || 'Copiar código'}</span>
               </button>
 
@@ -189,7 +189,7 @@ export function HowToHelp() {
                 {bizumCopied ? (
                   <>
                     <Check
-                      size={16}
+                      size={15}
                       strokeWidth={2.5}
                       className="text-cyan-200"
                       aria-hidden="true"
@@ -212,13 +212,13 @@ export function HowToHelp() {
                 aria-expanded={bizumFaqOpen}
                 aria-controls="bizum-faq-content"
                 id="bizum-faq-trigger"
-                className="w-full flex items-center justify-between p-4 sm:p-5 text-left text-white hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+                className="w-full flex items-center justify-between p-3.5 sm:p-4 text-left text-white hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
                     <Info
-                      size={14}
+                      size={13}
                       strokeWidth={2.2}
                       className="text-white"
                       aria-hidden="true"
@@ -242,12 +242,12 @@ export function HowToHelp() {
                 id="bizum-faq-content"
                 role="region"
                 aria-labelledby="bizum-faq-trigger"
-                className={`px-4 sm:px-5 pb-4 sm:pb-5 pt-0 transition-all duration-200 ${
+                className={`px-3.5 sm:px-4 pb-3.5 sm:pb-4 pt-0 transition-all duration-200 ${
                   bizumFaqOpen ? 'block' : 'hidden'
                 }`}
               >
                 <p
-                  className="text-xs sm:text-sm text-white/85 leading-relaxed pl-9"
+                  className="text-xs sm:text-sm text-white/85 leading-relaxed pl-7 sm:pl-9"
                   style={{ fontFamily: 'var(--font-body)' }}
                 >
                   {d.bizumFaqContent ||
@@ -258,22 +258,22 @@ export function HowToHelp() {
           </div>
 
           {/* ── COLUMNA DERECHA: Otras formas de colaborar ─────────────── */}
-          <div className="lg:pl-12 xl:pl-16 pt-12 lg:pt-0 border-t border-white/20 lg:border-t-0">
+          <div className="lg:pl-10 xl:pl-14 pt-8 sm:pt-9 lg:pt-0 border-t border-white/20 lg:border-t-0">
             {/* Título de la columna */}
             <h3
-              className="text-2xl sm:text-3xl font-normal text-white mb-6 sm:mb-8"
+              className="text-2xl sm:text-3xl font-normal text-white mb-4 sm:mb-5"
               style={{ fontFamily: 'var(--font-editorial)' }}
             >
               {d.otherWaysTitle || 'Otras formas de colaborar'}
             </h3>
 
             {/* Bloque 1: iHelp */}
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-3.5 sm:gap-4">
               <div
-                className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-white shrink-0 mt-0.5"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-white/15 flex items-center justify-center text-white shrink-0 mt-0.5"
                 aria-hidden="true"
               >
-                <Heart size={22} strokeWidth={1.8} className="text-white" />
+                <Heart size={20} strokeWidth={1.8} className="text-white" />
               </div>
 
               <div className="flex-1 min-w-0">
@@ -285,18 +285,18 @@ export function HowToHelp() {
                 </h4>
 
                 <p
-                  className="text-xs sm:text-sm text-white/85 leading-relaxed mt-1 mb-4"
+                  className="text-xs sm:text-sm text-white/85 leading-relaxed mt-1 mb-2.5 sm:mb-3"
                   style={{ fontFamily: 'var(--font-body)' }}
                 >
                   {d.ihelpDesc}
                 </p>
 
-                <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap">
                   <a
                     href={ihelpUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    className="inline-flex items-center gap-1.5 px-4 py-1.5 sm:py-2 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     style={{ fontFamily: 'var(--font-body)' }}
                   >
                     <ExternalLink size={14} strokeWidth={2} aria-hidden="true" />
@@ -316,15 +316,15 @@ export function HowToHelp() {
             </div>
 
             {/* Divisor horizontal entre iHelp y Teaming */}
-            <hr className="border-0 border-t border-white/15 my-6 sm:my-8 w-full" />
+            <hr className="border-0 border-t border-white/15 my-3.5 sm:my-4 w-full" />
 
             {/* Bloque 2: Teaming */}
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-3.5 sm:gap-4">
               <div
-                className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-white shrink-0 mt-0.5"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-white/15 flex items-center justify-center text-white shrink-0 mt-0.5"
                 aria-hidden="true"
               >
-                <Users size={22} strokeWidth={1.8} className="text-white" />
+                <Users size={20} strokeWidth={1.8} className="text-white" />
               </div>
 
               <div className="flex-1 min-w-0">
@@ -336,18 +336,18 @@ export function HowToHelp() {
                 </h4>
 
                 <p
-                  className="text-xs sm:text-sm text-white/85 leading-relaxed mt-1 mb-4"
+                  className="text-xs sm:text-sm text-white/85 leading-relaxed mt-1 mb-2.5 sm:mb-3"
                   style={{ fontFamily: 'var(--font-body)' }}
                 >
                   {d.teamingExplanation}
                 </p>
 
-                <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap">
                   <a
                     href={teamingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    className="inline-flex items-center gap-1.5 px-4 py-1.5 sm:py-2 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     style={{ fontFamily: 'var(--font-body)' }}
                   >
                     <ExternalLink size={14} strokeWidth={2} aria-hidden="true" />
