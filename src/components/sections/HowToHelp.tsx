@@ -74,6 +74,7 @@ export function HowToHelp() {
     >
       {/* Legacy anchor compatibility */}
       <span id="ayuda" className="absolute -top-20" aria-hidden="true" />
+      <span id="colabora" className="absolute -top-20" aria-hidden="true" />
 
       <div className="container-page max-w-6xl mx-auto px-6 sm:px-10 lg:px-12">
         {/* ── Encabezado superior ──────────────────────────────────────────── */}

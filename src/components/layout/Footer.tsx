@@ -257,7 +257,7 @@ export function Footer() {
             {[
               { label: f.privacy, href: '#' },
               { label: f.cookies, href: '#' },
-              { label: f.contact, href: `/${locale}#contacto` },
+              { label: f.contact, href: `mailto:${f.email}` },
             ].map((item, i) => (
               <span key={item.label} className="inline-flex items-center gap-4">
                 {i > 0 && <span aria-hidden="true">·</span>}
