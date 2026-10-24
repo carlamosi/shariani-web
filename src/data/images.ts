@@ -69,7 +69,7 @@ export const images: Record<string, ImageEntry> = {
   },
   fase1_3: {
     key: 'fase1_3',
-    src: '/images/mesas.jpg',
+    src: '/images/mesas-1.jpg',
     placeholderSrc: '/images/placeholders/classroom.svg',
     subject: 'Mobiliari escolar, taules i bancs fabricats a Kilifi',
     alt: 'Noves taules i cadires fabricades per fusters locals',

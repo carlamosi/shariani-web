@@ -26,12 +26,11 @@ export function buildHomeJsonLd(lang: string): string {
         name: 'Kilifi, Kenya',
       },
       knowsLanguage: ['ca', 'es', 'en'],
-      // sameAs: only URLs confirmed in the codebase (Footer.tsx)
+      email: 'shariani@la-vall.org',
       sameAs: [
         'https://www.teaming.net/unaescuela-milesdesuenosenkenia',
         'https://www.instagram.com/amara.la_vall/',
       ],
-      // No email found in codebase — omitted per task rule
       // NGO status not stated on-site — using Organization per task rule
       parentOrganization: {
         '@type': 'EducationalOrganization',
