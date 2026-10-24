@@ -37,7 +37,7 @@ export function Story() {
 
     textRefs.current.forEach((ref) => { if (ref) observer.observe(ref); });
     return () => observer.disconnect();
-  }, []);
+  }, [chapters]);
 
   const imageKeys: ('schoolBuilding' | 'colaborarOngs' | 'laContinuidad')[] = [
     'schoolBuilding',

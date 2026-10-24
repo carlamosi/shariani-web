@@ -49,7 +49,7 @@ export function BlogContent() {
     document.body.style.overflow = 'hidden';
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     };
   }, [readingEntryIndex]);
 
@@ -180,7 +180,15 @@ export function BlogContent() {
 
       {/* Reader Modal */}
       {activeEntry && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--ink)]/60 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeEntry.title}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setReadingEntryIndex(null);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--ink)]/60 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto"
+        >
           <div className="relative max-w-3xl w-full bg-[var(--ivory)] border border-[var(--border)] rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col">
             {/* Modal Header */}
             <div className="p-4 sm:p-6 pb-0 flex justify-between items-center z-10">

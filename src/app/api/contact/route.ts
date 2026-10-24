@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 // Correo de destino en el servidor — COMPLETAMENTE OCULTO para el cliente
-const RECIPIENT_EMAIL = process.env.CONTACT_RECIPIENT_EMAIL || 'cmonte@la-vall.org';
+const RECIPIENT_EMAIL = process.env.CONTACT_RECIPIENT_EMAIL || 'shariani@la-vall.org';
 
 interface ContactRequestBody {
   name: string;
@@ -16,7 +16,15 @@ interface ContactRequestBody {
 
 export async function POST(req: Request) {
   try {
-    const body: ContactRequestBody = await req.json();
+    let body: ContactRequestBody;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: 'Solicitud no válida o cuerpo JSON mal formado.' },
+        { status: 400 }
+      );
+    }
     const { name, email, topic, organization, phone, message, botCheck } = body;
 
     // 1. Detección silenciosa de bots (Honeypot)

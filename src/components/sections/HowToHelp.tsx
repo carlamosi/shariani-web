@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Copy,
   Check,
@@ -22,6 +22,15 @@ export function HowToHelp() {
   // ── Bizum Copy State & Feedback ──────────────────────────────────────────
   const [bizumCopied, setBizumCopied] = useState(false);
   const [bizumError, setBizumError] = useState(false);
+  const copyTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const errorTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
+    };
+  }, []);
 
   // ── Bizum Accordion State (open by default like in reference) ────────────
   const [bizumFaqOpen, setBizumFaqOpen] = useState(true);
@@ -39,7 +48,8 @@ export function HowToHelp() {
             // Ignore if vibration is unsupported or disabled
           }
         }
-        setTimeout(() => setBizumCopied(false), 2600);
+        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+        copyTimerRef.current = setTimeout(() => setBizumCopied(false), 2600);
       } else {
         // Fallback for older browsers
         const textArea = document.createElement('textarea');
@@ -52,11 +62,13 @@ export function HowToHelp() {
         document.body.removeChild(textArea);
         setBizumCopied(true);
         setBizumError(false);
-        setTimeout(() => setBizumCopied(false), 2600);
+        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+        copyTimerRef.current = setTimeout(() => setBizumCopied(false), 2600);
       }
     } catch {
       setBizumError(true);
-      setTimeout(() => setBizumError(false), 3000);
+      if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
+      errorTimerRef.current = setTimeout(() => setBizumError(false), 3000);
     }
   };
 

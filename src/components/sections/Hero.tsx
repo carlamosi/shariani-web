@@ -32,7 +32,10 @@ export function Hero() {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const heroH = hero.offsetHeight;
-        if (sy > heroH) return;
+        if (sy > heroH) {
+          content.style.opacity = '0';
+          return;
+        }
 
         const bgOffset = sy * 0.28;
         bg.style.transform = `translate3d(0, ${bgOffset}px, 0) scale(1.18)`;
@@ -44,6 +47,7 @@ export function Hero() {
       });
     };
 
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);

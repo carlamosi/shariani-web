@@ -96,8 +96,8 @@ export function MediaStrip() {
       <div className="relative w-full overflow-hidden media-mask-fade media-marquee-container">
         <div
           className="animate-media-marquee flex items-center py-2 gap-14 sm:gap-20 md:gap-24 lg:gap-28 select-none"
-          role="marquee"
-          aria-live="off"
+          role="region"
+          aria-label={tr.media.heading}
         >
           {repeatedOutlets.map((outlet, index) => {
             const itemKey = `${outlet.id}-${index}`;

@@ -44,6 +44,8 @@ export function Navbar() {
 
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const desktopLangRef = useRef<HTMLDivElement>(null);
+  const mobileLangRef = useRef<HTMLDivElement>(null);
   const navContainerRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
@@ -136,21 +138,42 @@ export function Navbar() {
   const [sliderStyle, setSliderStyle] = useState({ left: 0, width: 0, opacity: 0 });
 
   useEffect(() => {
-    const activeIndex = navItems.findIndex((item) => item.id === activeSection);
-    if (activeIndex !== -1 && linkRefs.current[activeIndex]) {
-      const el = linkRefs.current[activeIndex];
-      if (el) {
-        setSliderStyle({
-          left: el.offsetLeft,
-          width: el.offsetWidth,
-          opacity: 1,
-        });
-        return;
+    const updateSlider = () => {
+      const activeIndex = navItems.findIndex((item) => item.id === activeSection);
+      if (activeIndex !== -1 && linkRefs.current[activeIndex]) {
+        const el = linkRefs.current[activeIndex];
+        if (el) {
+          setSliderStyle({
+            left: el.offsetLeft,
+            width: el.offsetWidth,
+            opacity: 1,
+          });
+          return;
+        }
       }
-    }
-    // Fade out indicator when hero or donar is active
-    setSliderStyle((prev) => ({ ...prev, opacity: 0 }));
+      // Fade out indicator when hero or donar is active
+      setSliderStyle((prev) => ({ ...prev, opacity: 0 }));
+    };
+
+    updateSlider();
+    window.addEventListener('resize', updateSlider);
+    return () => window.removeEventListener('resize', updateSlider);
   }, [activeSection, navItems]);
+
+  // ── Outside click closes language selector ─────────────────────────────────
+  useEffect(() => {
+    if (!langOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      const clickedInsideDesktop = desktopLangRef.current?.contains(target);
+      const clickedInsideMobile = mobileLangRef.current?.contains(target);
+      if (!clickedInsideDesktop && !clickedInsideMobile) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [langOpen]);
 
   // ── Escape key closes menus ────────────────────────────────────────────────
   useEffect(() => {
@@ -272,7 +295,7 @@ export function Navbar() {
         {/* Right Controls: Desktop */}
         <div className="hidden md:flex items-center gap-3">
           {/* Language selector dropdown */}
-          <div className="relative">
+          <div ref={desktopLangRef} className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
               className={`flex items-center gap-1.5 text-[0.8125rem] transition-colors duration-200 px-2.5 py-1.5 rounded-lg border cursor-pointer ${
@@ -354,7 +377,7 @@ export function Navbar() {
         {/* Mobile controls: "Donar" button stays visible outside the menu */}
         <div className="md:hidden flex items-center gap-2">
           {/* Mobile language toggle */}
-          <div className="relative">
+          <div ref={mobileLangRef} className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
               className={`flex items-center gap-1 px-2 py-1 rounded border text-[0.75rem] font-semibold transition-all duration-200 cursor-pointer ${
