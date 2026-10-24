@@ -16,6 +16,10 @@ export const t = {
       langLabel: (l: string) => `Idioma actual: ${l}`,
       openMenu: 'Obrir menú',
       closeMenu: 'Tancar menú',
+      mainNavAria: 'Navegació principal',
+      selectLangAria: 'Seleccionar idioma',
+      navMenuAria: 'Menú de navegació',
+      mobileNavAria: 'Menú principal mòbil',
     },
 
     /* ── Hero ── */
@@ -32,6 +36,11 @@ export const t = {
     /* ── Story ── */
     story: {
       ariaLabel: 'Història del projecte',
+      imageAlts: [
+        'Edifici principal de Shariani Primary School a Kilifi County',
+        'Col·laboració sobre el terreny amb organitzacions locals',
+        'Evolució i continuïtat de les millores a Shariani',
+      ],
       chapters: [
         {
           tag: 'El punt de partida',
@@ -221,10 +230,22 @@ export const t = {
       quote: '«Cada any veiem arribar les voluntàries de La Vall no només amb eines i pintura, sinó amb un compromís que es queda quan marxen. Els nens ara aprenen en aules dignes i saben que no estan sols.»',
       quoteAuthor: 'Mwalimu Juma, docent a Shariani Primary School',
       photoCaption: 'Docents de Shariani i voluntàries de La Vall durant les jornades de treball a Kilifi.',
+      copyBizumAria: (code: string) => `Copiar codi Bizum ${code}`,
     },
 
     /* ── Contact ── */
     contact: {
+      sectionLabel: 'Contacte',
+      editorialHeading: 'Parlem?',
+      editorialBody: 'Si tens algun dubte, vols col·laborar, conèixer-nos millor o simplement vols saber més sobre el projecte, estem aquí per ajudar-te.',
+      emailLabel: 'Email',
+      emailPrompt: 'Escriu-nos i et respondrem com més aviat millor.',
+      addressLabel: 'Adreça',
+      addressSchool: 'Institució La Vall',
+      addressStreet: 'Ctra. Sabadell a Bellaterra, km 4,6',
+      addressCity: '08205 Sabadell, Barcelona',
+      instagramAria: 'Instagram de La Vall × Shariani',
+      imageAlt: 'Estudiants de Shariani Primary School, Kilifi, Kènia',
       channelLabel: 'Canal d\'Enllaç Oficial · La Vall × Shariani',
       heading: 'Parlem de com sumar junts.',
       body: "Per proposar una aliança empresarial, donar materials d'obra, resoldre dubtes sobre el projecte o coordinar una visita a La Vall: responem personalment a cada missatge.",
@@ -335,10 +356,27 @@ export const t = {
       activeNow: 'Ara',
       photoCaption: 'Shariani Primary School',
       photoSubCaption: 'Kilifi County · Kènia',
+      teaserEyebrow: 'UN PROJECTE QUE CREIX CADA ANY',
+      teaserHeadline: 'A Shariani, cada any deixa empremta.',
+      teaserSubtext: 'Tornem cada juny a Shariani per impulsar millores a l’escola i contribuir al benestar dels alumnes. Cada actuació respon a necessitats reals i dona continuïtat al nostre compromís amb la comunitat educativa.',
+      teaserCtaHelp: 'Ajuda\'ns a continuar →',
+      teaserCtaWorks: 'Mira què hem aconseguit',
+      chip2023: '2023 · Escolta inicial',
+      chip2024: '2024 · Mobiliari i seguretat',
+      chip2025: '2025 · Aules i salut',
+      chip2026: '2026 · Mural i faldilles',
+      chip2027: '2027 · Juny',
+      badgeUpcoming: 'Properament',
+      desksLabel: 'taules',
+      hygieneLabel: 'Higiene bucal',
+      fenceLabel: 'de tanca',
+      skirtsLabel: 'faldilles',
     },
 
     /* ── Obra Real (editorial timeline) ── */
     obraReal: {
+      closeVideo: 'Tancar vídeo',
+      defaultVideoLabel: 'Vídeo Shariani',
       eyebrow: 'Shariani Primary School · 2023–2027',
       h1: 'Cada juny, alguna cosa que es queda.',
       lead: "Durant tot el curs recaptem fons. Dues setmanes després de la selectivitat, les alumnes de 2n de Batxillerat viatgen a Kilifi per convertir aquest esforç en millores concretes per a Shariani Primary School. Les necessitats les decidim allà, escoltant qui coneix l'escola cada dia.",
@@ -475,6 +513,10 @@ export const t = {
       langLabel: (l: string) => `Idioma actual: ${l}`,
       openMenu: 'Abrir menú',
       closeMenu: 'Cerrar menú',
+      mainNavAria: 'Navegación principal',
+      selectLangAria: 'Seleccionar idioma',
+      navMenuAria: 'Menú de navegación',
+      mobileNavAria: 'Menú principal móvil',
     },
     hero: {
       eyebrow: 'DOS ESCUELAS, UNA ALIANZA · BELLATERRA (BARCELONA) – KILIFI (KENIA)',
@@ -487,6 +529,11 @@ export const t = {
     },
     story: {
       ariaLabel: 'Historia del proyecto',
+      imageAlts: [
+        'Edificio principal de Shariani Primary School en Kilifi County',
+        'Colaboración sobre el terreno con organizaciones locales',
+        'Evolución y continuidad de las mejoras en Shariani',
+      ],
       chapters: [
         {
           tag: 'El punto de partida',
@@ -668,9 +715,21 @@ export const t = {
       quote: '«Cada año vemos llegar a las voluntarias de La Vall no solo con herramientas y pintura, sino con un compromiso que se queda cuando se marchan. Los niños ahora aprenden en aulas dignas y saben que no están solos.»',
       quoteAuthor: 'Mwalimu Juma, docente en Shariani Primary School',
       photoCaption: 'Docentes de Shariani y voluntarias de La Vall durante las jornadas de trabajo en Kilifi.',
+      copyBizumAria: (code: string) => `Copiar código Bizum ${code}`,
     },
 
     contact: {
+      sectionLabel: 'Contacto',
+      editorialHeading: '¿Hablamos?',
+      editorialBody: 'Si tienes alguna duda, quieres colaborar, conocernos mejor o simplemente quieres saber más sobre el proyecto, estamos aquí para ayudarte.',
+      emailLabel: 'Email',
+      emailPrompt: 'Escríbenos y te responderemos a la mayor brevedad posible.',
+      addressLabel: 'Dirección',
+      addressSchool: 'Institució La Vall',
+      addressStreet: 'Ctra. Sabadell a Bellaterra km. 4,6',
+      addressCity: '08205 Sabadell, Barcelona',
+      instagramAria: 'Instagram de La Vall × Shariani',
+      imageAlt: 'Estudiantes de Shariani Primary School, Kilifi, Kenia',
       channelLabel: 'Canal de Enlace Oficial · La Vall × Shariani',
       heading: 'Hablemos de cómo sumar juntos.',
       body: 'Para proponer una alianza empresarial, donar materiales de obra, resolver dudas sobre el proyecto o coordinar una visita a La Vall: respondemos personalmente a cada mensaje.',
@@ -778,10 +837,27 @@ export const t = {
       activeNow: 'Ahora',
       photoCaption: 'Shariani Primary School',
       photoSubCaption: 'Kilifi County · Kenia',
+      teaserEyebrow: 'UN PROYECTO QUE CRECE CADA AÑO',
+      teaserHeadline: 'En Shariani, cada año deja huella.',
+      teaserSubtext: 'Volvemos cada junio a Shariani para impulsar mejoras en la escuela y contribuir al bienestar de los alumnos. Cada actuación responde a necesidades reales y da continuidad a nuestro compromiso con la comunidad educativa.',
+      teaserCtaHelp: 'Ayúdanos a continuar →',
+      teaserCtaWorks: 'Mira lo que hemos conseguido',
+      chip2023: '2023 · Escucha inicial',
+      chip2024: '2024 · Mobiliario y seguridad',
+      chip2025: '2025 · Aulas y salud',
+      chip2026: '2026 · Mural y faldas',
+      chip2027: '2027 · Junio',
+      badgeUpcoming: 'Próximamente',
+      desksLabel: 'pupitres',
+      hygieneLabel: 'Higiene bucal',
+      fenceLabel: 'de valla',
+      skirtsLabel: 'faldas',
     },
 
     /* ── Obra Real (editorial timeline) ── */
     obraReal: {
+      closeVideo: 'Cerrar vídeo',
+      defaultVideoLabel: 'Vídeo Shariani',
       eyebrow: 'Shariani Primary School · 2023–2027',
       h1: 'Cada junio, algo que se queda.',
       lead: 'Durante todo el curso recaudamos fondos. Dos semanas después de la selectividad, las alumnas de 2.º de Bachillerato viajan a Kilifi para convertir ese esfuerzo en mejoras concretas para Shariani Primary School. Las necesidades las decidimos allí, escuchando a quienes conocen la escuela cada día.',
@@ -916,6 +992,10 @@ export const t = {
       langLabel: (l: string) => `Current language: ${l}`,
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
+      mainNavAria: 'Main navigation',
+      selectLangAria: 'Select language',
+      navMenuAria: 'Navigation menu',
+      mobileNavAria: 'Mobile navigation menu',
     },
     hero: {
       eyebrow: 'TWO SCHOOLS, ONE ALLIANCE · BELLATERRA (BARCELONA) – KILIFI (KENYA)',
@@ -928,6 +1008,11 @@ export const t = {
     },
     story: {
       ariaLabel: 'Project story',
+      imageAlts: [
+        'Main building of Shariani Primary School in Kilifi County',
+        'On-the-ground collaboration with local organizations',
+        'Evolution and continuity of improvements at Shariani',
+      ],
       chapters: [
         {
           tag: 'The starting point',
@@ -1109,9 +1194,21 @@ export const t = {
       quote: '«Every year we see the volunteers from La Vall arrive not only with tools and paint, but with a commitment that stays when they leave. The children now learn in decent classrooms and know they are not alone.»',
       quoteAuthor: 'Mwalimu Juma, teacher at Shariani Primary School',
       photoCaption: 'Shariani teachers and La Vall volunteers during the work days in Kilifi.',
+      copyBizumAria: (code: string) => `Copy Bizum code ${code}`,
     },
 
     contact: {
+      sectionLabel: 'Contact',
+      editorialHeading: 'Shall we talk?',
+      editorialBody: 'If you have any questions, want to collaborate, get to know us better or simply learn more about the project, we are here to help.',
+      emailLabel: 'Email',
+      emailPrompt: 'Write to us and we will reply as soon as possible.',
+      addressLabel: 'Address',
+      addressSchool: 'Institució La Vall',
+      addressStreet: 'Ctra. Sabadell a Bellaterra, km 4,6',
+      addressCity: '08205 Sabadell, Barcelona',
+      instagramAria: 'La Vall × Shariani Instagram',
+      imageAlt: 'Shariani Primary School students, Kilifi, Kenya',
       channelLabel: 'Official Contact Channel · La Vall × Shariani',
       heading: 'Let\'s talk about how we can work together.',
       body: 'To propose a corporate partnership, donate construction materials, ask questions about the project or arrange a visit to La Vall: we reply personally to every message.',
@@ -1219,10 +1316,27 @@ export const t = {
       activeNow: 'Now',
       photoCaption: 'Shariani Primary School',
       photoSubCaption: 'Kilifi County · Kenya',
+      teaserEyebrow: 'A PROJECT THAT GROWS EVERY YEAR',
+      teaserHeadline: 'At Shariani, every year leaves a lasting mark.',
+      teaserSubtext: 'We return to Shariani every June to drive improvements at the school and contribute to the well-being of the students. Each initiative responds to real needs and provides continuity to our commitment to the educational community.',
+      teaserCtaHelp: 'Help us continue →',
+      teaserCtaWorks: 'See what we have achieved',
+      chip2023: '2023 · Initial listening',
+      chip2024: '2024 · Furniture & security',
+      chip2025: '2025 · Classrooms & health',
+      chip2026: '2026 · Mural & skirts',
+      chip2027: '2027 · June',
+      badgeUpcoming: 'Upcoming',
+      desksLabel: 'desks',
+      hygieneLabel: 'Oral hygiene',
+      fenceLabel: 'of perimeter fence',
+      skirtsLabel: 'skirts',
     },
 
     /* ── Obra Real (editorial timeline) ── */
     obraReal: {
+      closeVideo: 'Close video',
+      defaultVideoLabel: 'Shariani video',
       eyebrow: 'Shariani Primary School · 2023–2027',
       h1: 'Every June, something that stays.',
       lead: 'Throughout the school year we raise funds. Two weeks after university entrance exams, Year 13 students travel to Kilifi to turn that dedication into tangible improvements for Shariani Primary School. We decide on priorities on the ground, listening to those who know the school best every day.',

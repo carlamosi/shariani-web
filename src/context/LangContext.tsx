@@ -36,10 +36,19 @@ export function LangProvider({
   useEffect(() => {
     if (initialLang && LOCALE_TO_LANG[initialLang]) {
       setLangState(LOCALE_TO_LANG[initialLang]);
+      if (typeof document !== 'undefined') {
+        document.cookie = `NEXT_LOCALE=${initialLang}; path=/; max-age=31536000; SameSite=Lax`;
+      }
     }
   }, [initialLang]);
 
-  const setLang = (l: Lang) => setLangState(l);
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    if (typeof document !== 'undefined') {
+      const loc = l.toLowerCase();
+      document.cookie = `NEXT_LOCALE=${loc}; path=/; max-age=31536000; SameSite=Lax`;
+    }
+  };
 
   // Each t[lang] satisfies Translations (union of CA | ES | EN)
   const tr: Translations = t[lang];

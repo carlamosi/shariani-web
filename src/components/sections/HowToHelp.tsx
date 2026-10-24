@@ -166,7 +166,7 @@ export function HowToHelp() {
               <button
                 type="button"
                 onClick={handleCopyBizum}
-                aria-label={`Copiar código Bizum ${DONATION_CONFIG.bizumCode}`}
+                aria-label={d.copyBizumAria(DONATION_CONFIG.bizumCode)}
                 className="inline-flex items-center gap-2 px-4.5 py-2 rounded-full border border-white/40 bg-white/5 hover:bg-white/15 active:scale-[0.98] text-white text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 style={{ fontFamily: 'var(--font-body)' }}
               >

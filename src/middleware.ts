@@ -1,21 +1,41 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { LOCALES, DEFAULT_LOCALE } from '@/lib/site';
+import { LOCALES, DEFAULT_LOCALE, type Locale } from '@/lib/site';
 
-// Minimal middleware — no redirects, no IP/Accept-Language detection.
-// Only purpose: forward the first path segment as x-lang header so the
-// root layout can set <html lang> correctly for SSG pre-rendering.
 export function middleware(request: NextRequest) {
-  const first = request.nextUrl.pathname.split('/').filter(Boolean)[0] ?? '';
-  const lang = (LOCALES as readonly string[]).includes(first)
-    ? first
-    : DEFAULT_LOCALE;
+  const { pathname } = request.nextUrl;
+  const first = pathname.split('/').filter(Boolean)[0] ?? '';
 
-  const response = NextResponse.next();
-  response.headers.set('x-lang', lang);
-  return response;
+  // 1. Bare routes without locale segment: redirect to persisted locale or default
+  if (!first || first === 'blog' || first === 'obra-real') {
+    const rawCookie = request.cookies.get('NEXT_LOCALE')?.value;
+    const targetLocale: Locale =
+      rawCookie && (LOCALES as readonly string[]).includes(rawCookie)
+        ? (rawCookie as Locale)
+        : DEFAULT_LOCALE;
+
+    const rest = pathname.replace(/^\/(blog|obra-real)/, '/$1');
+    const destination = `/${targetLocale}${rest === '/' ? '' : rest}`;
+    const redirectUrl = new URL(destination, request.url);
+    redirectUrl.search = request.nextUrl.search;
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  // 2. Localized routes: set x-lang header and persist NEXT_LOCALE cookie
+  if ((LOCALES as readonly string[]).includes(first)) {
+    const response = NextResponse.next();
+    response.headers.set('x-lang', first);
+    response.cookies.set('NEXT_LOCALE', first, {
+      path: '/',
+      maxAge: 31536000,
+      sameSite: 'lax',
+    });
+    return response;
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/(ca|es|en)/:path*'],
+  matcher: ['/', '/blog', '/obra-real', '/(ca|es|en)/:path*'],
 };

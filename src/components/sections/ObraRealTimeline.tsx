@@ -231,11 +231,13 @@ function VideoLightbox({
   open,
   onClose,
   label,
+  closeAriaLabel,
   triggerEl,
 }: {
   open: boolean;
   onClose: () => void;
   label: string;
+  closeAriaLabel: string;
   triggerEl: HTMLElement | null;
 }) {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
@@ -278,7 +280,7 @@ function VideoLightbox({
         <button
           ref={closeBtnRef}
           onClick={onClose}
-          aria-label="Cerrar vídeo"
+          aria-label={closeAriaLabel}
           className="absolute top-3 right-3 z-10 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-xl transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
           ✕
@@ -509,7 +511,7 @@ function YearRow({
             <div className="w-full h-full relative overflow-hidden">
               <Image
                 src={photo.img.src}
-                alt={photo.alt || data.caption || photo.img.alt}
+                alt={data.caption || photo.alt || photo.img.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 40vw"
                 priority={photo.isFirst}
@@ -557,7 +559,7 @@ export function ObraRealTimeline() {
   const projectHref = `/${lang.toLowerCase()}#proyecto`;
 
   const videoRow = content.years.find((y) => y.videoLink);
-  const videoLabel = videoRow?.videoLabel || 'Vídeo Shariani';
+  const videoLabel = videoRow?.videoLabel || content.defaultVideoLabel;
 
   return (
     <section
@@ -711,6 +713,7 @@ export function ObraRealTimeline() {
         open={lightboxOpen}
         onClose={handleCloseVideo}
         label={videoLabel}
+        closeAriaLabel={content.closeVideo}
         triggerEl={triggerEl}
       />
     </section>

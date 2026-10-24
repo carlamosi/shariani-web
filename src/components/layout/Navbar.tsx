@@ -229,7 +229,7 @@ export function Navbar() {
         <nav
           ref={navContainerRef}
           className="hidden md:flex items-center gap-1 relative py-1"
-          aria-label="Navegación principal"
+          aria-label={tr.nav.mainNavAria}
         >
           {navItems.map((link, idx) => {
             const isActive = activeSection === link.id;
@@ -309,7 +309,7 @@ export function Navbar() {
             {langOpen && (
               <div
                 role="listbox"
-                aria-label="Seleccionar idioma"
+                aria-label={tr.nav.selectLangAria}
                 className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-lg shadow-md z-20 min-w-[92px] overflow-hidden"
               >
                 {LANGUAGES.map((l) => (
@@ -362,7 +362,7 @@ export function Navbar() {
                   ? 'text-[var(--ink-muted)] border-[var(--border)]'
                   : 'text-white/85 border-white/25'
               }`}
-              aria-label={`Idioma: ${lang}`}
+              aria-label={tr.nav.langLabel(lang)}
             >
               <Globe size={12} strokeWidth={1.5} />
               <span>{lang}</span>
@@ -427,11 +427,11 @@ export function Navbar() {
           className="md:hidden fixed inset-0 top-14 bg-[var(--ivory)] z-40 flex flex-col justify-between"
           role="dialog"
           aria-modal="true"
-          aria-label="Menú de navegación"
+          aria-label={tr.nav.navMenuAria}
         >
           <nav
             className="flex flex-col px-6 py-8 gap-1 overflow-y-auto"
-            aria-label="Menú principal móvil"
+            aria-label={tr.nav.mobileNavAria}
           >
             {navItems.map((link) => (
               <a

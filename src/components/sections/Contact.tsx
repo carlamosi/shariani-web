@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
+import { useLang } from '@/context/LangContext';
 
-const CONTACT_EMAIL = 'cmonte@la-vall.org';
-const INSTAGRAM_URL = 'https://www.instagram.com/amara.la_vall/';
 const MAPS_URL =
   'https://www.google.com/maps/place//data=!4m2!3m1!1s0x12a4942497a6cf55:0xef891ebd88b4d839?sa=X&ved=1t:8290&ictx=111';
+const INSTAGRAM_URL = 'https://www.instagram.com/amara.la_vall/';
 
 /* ── SVG icons (inline, no extra deps) ─────────────────────────────────── */
 function IconMail() {
@@ -66,8 +66,11 @@ function IconInstagram() {
   );
 }
 
-
 export function Contact() {
+  const { tr } = useLang();
+  const c = tr.contact;
+  const contactEmail = tr.footer.email || 'shariani@la-vall.org';
+
   return (
     <section
       id="colabora"
@@ -79,160 +82,152 @@ export function Contact() {
 
       <div className="container-page">
         <div className="max-w-4xl mx-auto">
-        {/* ── Desktop: two-column grid ─── Mobile: single column ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 items-center">
+          {/* ── Desktop: two-column grid ─── Mobile: single column ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 items-center">
 
-          {/* ── LEFT COLUMN ─────────────────────────────────────── */}
-          <div className="flex flex-col gap-4 sm:gap-5">
+            {/* ── LEFT COLUMN ─────────────────────────────────────── */}
+            <div className="flex flex-col gap-4 sm:gap-5">
 
-            {/* Section label + rule */}
-            <div className="flex items-center gap-3">
-              <span
-                className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]"
-                style={{ fontFamily: 'var(--font-body)' }}
-              >
-                Contacto
-              </span>
-              <span
-                className="flex-1 h-px bg-[var(--border)]"
-                aria-hidden="true"
-              />
-            </div>
-
-            {/* Headline */}
-            <div>
-              <h2
-                id="contacto-heading"
-                className="text-4xl sm:text-5xl lg:text-[44px] font-normal leading-[1.08] tracking-[-0.02em] text-[var(--ink)] mb-2.5 sm:mb-3"
-                style={{ fontFamily: 'var(--font-editorial)' }}
-              >
-                ¿Hablamos?
-              </h2>
-              <p
-                className="text-sm sm:text-[15px] leading-relaxed text-[var(--ink-muted)] max-w-[420px]"
-                style={{ fontFamily: 'var(--font-body)' }}
-              >
-                Si tienes alguna duda, quieres colaborar, conocernos mejor o
-                simplemente quieres saber más sobre el proyecto, estamos aquí
-                para ayudarte.
-              </p>
-            </div>
-
-            {/* ── Contact blocks: Email | Dirección ── */}
-            <div className="flex flex-col sm:flex-row gap-0 pt-1 sm:pt-2">
-              {/* Email */}
-              <div className="flex-1 pr-0 sm:pr-6 lg:pr-7 pb-4 sm:pb-0">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span
-                    className="w-7 h-7 rounded-md flex items-center justify-center text-[var(--forest)] bg-[var(--forest)]/[0.08] shrink-0"
-                  >
-                    <IconMail />
-                  </span>
-                  <p
-                    className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--ink)]"
-                    style={{ fontFamily: 'var(--font-body)' }}
-                  >
-                    Email
-                  </p>
-                </div>
-
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors block break-words"
+              {/* Section label + rule */}
+              <div className="flex items-center gap-3">
+                <span
+                  className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]"
                   style={{ fontFamily: 'var(--font-body)' }}
                 >
-                  {CONTACT_EMAIL}
-                </a>
+                  {c.sectionLabel}
+                </span>
+                <span
+                  className="flex-1 h-px bg-[var(--border)]"
+                  aria-hidden="true"
+                />
+              </div>
+
+              {/* Headline */}
+              <div>
+                <h2
+                  id="contacto-heading"
+                  className="text-4xl sm:text-5xl lg:text-[44px] font-normal leading-[1.08] tracking-[-0.02em] text-[var(--ink)] mb-2.5 sm:mb-3"
+                  style={{ fontFamily: 'var(--font-editorial)' }}
+                >
+                  {c.editorialHeading}
+                </h2>
                 <p
-                  className="mt-1 text-xs sm:text-[13px] text-[var(--ink-muted)] leading-relaxed"
+                  className="text-sm sm:text-[15px] leading-relaxed text-[var(--ink-muted)] max-w-[420px]"
                   style={{ fontFamily: 'var(--font-body)' }}
                 >
-                  Escríbenos y te responderemos a la mayor brevedad posible.
+                  {c.editorialBody}
                 </p>
               </div>
 
-              {/* Vertical divider (desktop) / Horizontal divider (mobile) */}
-              <div className="hidden sm:block w-px bg-[var(--border)] mx-1 self-stretch" aria-hidden="true" />
-              <div className="block sm:hidden h-px bg-[var(--border)] my-4" aria-hidden="true" />
+              {/* ── Contact blocks: Email | Dirección ── */}
+              <div className="flex flex-col sm:flex-row gap-0 pt-1 sm:pt-2">
+                {/* Email */}
+                <div className="flex-1 pr-0 sm:pr-6 lg:pr-7 pb-4 sm:pb-0">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span
+                      className="w-7 h-7 rounded-md flex items-center justify-center text-[var(--forest)] bg-[var(--forest)]/[0.08] shrink-0"
+                    >
+                      <IconMail />
+                    </span>
+                    <p
+                      className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--ink)]"
+                      style={{ fontFamily: 'var(--font-body)' }}
+                    >
+                      {c.emailLabel}
+                    </p>
+                  </div>
 
-              {/* Dirección */}
-              <div className="flex-1 pl-0 sm:pl-6 lg:pl-7">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span
-                    className="w-7 h-7 rounded-md flex items-center justify-center text-[var(--forest)] bg-[var(--forest)]/[0.08] shrink-0"
-                  >
-                    <IconMapPin />
-                  </span>
-                  <p
-                    className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--ink)]"
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors block break-words"
                     style={{ fontFamily: 'var(--font-body)' }}
                   >
-                    Dirección
+                    {contactEmail}
+                  </a>
+                  <p
+                    className="mt-1 text-xs sm:text-[13px] text-[var(--ink-muted)] leading-relaxed"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                  >
+                    {c.emailPrompt}
                   </p>
                 </div>
 
-                <a
-                  href={MAPS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors block leading-snug"
-                  style={{ fontFamily: 'var(--font-body)' }}
-                >
-                  Institució La Vall
-                </a>
-                <p
-                  className="mt-1 text-xs sm:text-[13px] text-[var(--ink-muted)] leading-relaxed"
-                  style={{ fontFamily: 'var(--font-body)' }}
-                >
-                  Ctra. Sabadell a Bellaterra km. 4,6<br />
-                  08205 Sabadell, Barcelona
-                </p>
+                {/* Vertical divider (desktop) / Horizontal divider (mobile) */}
+                <div className="hidden sm:block w-px bg-[var(--border)] mx-1 self-stretch" aria-hidden="true" />
+                <div className="block sm:hidden h-px bg-[var(--border)] my-4" aria-hidden="true" />
 
-                {/* Social links — only Instagram is verified */}
-                <div className="mt-2.5 flex items-center gap-2">
+                {/* Dirección */}
+                <div className="flex-1 pl-0 sm:pl-6 lg:pl-7">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span
+                      className="w-7 h-7 rounded-md flex items-center justify-center text-[var(--forest)] bg-[var(--forest)]/[0.08] shrink-0"
+                    >
+                      <IconMapPin />
+                    </span>
+                    <p
+                      className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--ink)]"
+                      style={{ fontFamily: 'var(--font-body)' }}
+                    >
+                      {c.addressLabel}
+                    </p>
+                  </div>
+
                   <a
-                    href={INSTAGRAM_URL}
+                    href={MAPS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Instagram de La Vall × Shariani"
-                    className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--ink-muted)] hover:text-[var(--forest)] hover:border-[var(--forest)] transition-all duration-200"
+                    className="text-[var(--forest)] text-sm font-medium hover:underline underline-offset-2 transition-colors block leading-snug"
+                    style={{ fontFamily: 'var(--font-body)' }}
                   >
-                    <IconInstagram />
+                    {c.addressSchool}
                   </a>
+                  <p
+                    className="mt-1 text-xs sm:text-[13px] text-[var(--ink-muted)] leading-relaxed"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                  >
+                    {c.addressStreet}<br />
+                    {c.addressCity}
+                  </p>
+
+                  {/* Social links — only Instagram is verified */}
+                  <div className="mt-2.5 flex items-center gap-2">
+                    <a
+                      href={INSTAGRAM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={c.instagramAria}
+                      className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--ink-muted)] hover:text-[var(--forest)] hover:border-[var(--forest)] transition-all duration-200"
+                    >
+                      <IconInstagram />
+                    </a>
+                  </div>
                 </div>
               </div>
+
+            </div>
+
+            {/* ── RIGHT COLUMN — Photograph ───────────────────────── */}
+            <div className="relative w-full order-first lg:order-last">
+              <div
+                className="relative w-full overflow-hidden shadow-lg mx-auto max-w-sm sm:max-w-md lg:max-w-none"
+                style={{
+                  borderRadius: '72px 72px 20px 72px',
+                  aspectRatio: '4 / 3',
+                }}
+              >
+                <Image
+                  src="/images/hero-school.jpeg"
+                  alt={c.imageAlt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-center"
+                  priority={false}
+                />
+              </div>
+
             </div>
 
           </div>
-
-          {/* ── RIGHT COLUMN — Photograph ───────────────────────── */}
-          <div className="relative w-full order-first lg:order-last">
-            {/*
-              Asymmetric rounded crop matching the reference:
-              top-left = large radius, top-right = large radius,
-              bottom-right = small/none, bottom-left = large radius
-              Replicates the reference's architectural rounded shape.
-            */}
-            <div
-              className="relative w-full overflow-hidden shadow-lg mx-auto max-w-sm sm:max-w-md lg:max-w-none"
-              style={{
-                borderRadius: '72px 72px 20px 72px',
-                aspectRatio: '4 / 3',
-              }}
-            >
-              <Image
-                src="/images/hero-school.jpeg"
-                alt="Estudiantes de Shariani Primary School, Kilifi, Kenia"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center"
-                priority={false}
-              />
-            </div>
-
-          </div>
-
-        </div>
         </div>
       </div>
     </section>

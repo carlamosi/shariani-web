@@ -129,7 +129,7 @@ export function Hero() {
             <a href="#proyecto" className="btn-white group">
               <span>{tr.hero.ctaProject}</span>
             </a>
-            <a href="#ayuda" className="btn-outline group">
+            <a href="#donar" className="btn-outline group">
               <span>{tr.hero.ctaHelp}</span>
               <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
             </a>

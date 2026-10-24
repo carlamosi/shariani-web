@@ -45,11 +45,7 @@ export function Story() {
     'laContinuidad',
   ];
 
-  const imageAlts = [
-    'Edifici principal de Shariani Primary School a Kilifi County',
-    'Col·laboració sobre el terreny amb organitzacions locals',
-    'Evolució i continuïtat de les millores a Shariani',
-  ];
+  const imageAlts = tr.story.imageAlts;
 
   const renderBody = (ch: typeof chapters[number], i: number) => {
     if (i === 1 && 'bodyPrefix' in ch) {
