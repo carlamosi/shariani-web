@@ -11,6 +11,7 @@ import {
   HeartHandshake,
   Info,
   Users,
+  Building2,
 } from 'lucide-react';
 import { useLang } from '@/context/LangContext';
 import { DONATION_CONFIG } from '@/data/donationConfig';
@@ -80,17 +81,31 @@ export function HowToHelp() {
   return (
     <section
       id="donar"
-      style={{ backgroundColor: '#186ed7' }}
-      className="relative w-full py-10 sm:py-12 lg:py-14 text-white overflow-hidden"
+      style={{
+        backgroundColor: '#186ed7',
+        backgroundImage:
+          'radial-gradient(ellipse at 35% 20%, #1f7de8 0%, #186ed7 52%, #1158b0 100%)',
+      }}
+      className="relative w-full py-12 sm:py-16 lg:py-20 text-white overflow-hidden"
       aria-labelledby="donar-heading"
     >
+      {/* Sutil textura táctil imperceptible (elimina sensación de plástico plano sin ser glossy) */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: '180px 180px',
+        }}
+        aria-hidden="true"
+      />
+
       {/* Legacy anchor compatibility */}
       <span id="ayuda" className="absolute -top-20" aria-hidden="true" />
       <span id="colabora" className="absolute -top-20" aria-hidden="true" />
 
-      <div className="container-page max-w-6xl mx-auto px-6 sm:px-10 lg:px-12">
+      <div className="relative z-10 container-page max-w-6xl mx-auto px-6 sm:px-10 lg:px-12">
         {/* ── Encabezado superior ──────────────────────────────────────────── */}
-        <div className="max-w-3xl mb-8 sm:mb-9 lg:mb-10">
+        <div className="max-w-3xl mb-8 sm:mb-10 lg:mb-12">
           <div className="flex items-center gap-3 mb-2.5 sm:mb-3">
             <span
               className="text-xs sm:text-[13px] font-semibold tracking-[0.25em] text-white/90 uppercase"
@@ -120,8 +135,8 @@ export function HowToHelp() {
           </p>
         </div>
 
-        {/* ── Layout de dos columnas con divisores ───────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-start">
+        {/* ── Layout de dos columnas con divisores limpios (sin glossy ni cajitas) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-start gap-8 lg:gap-0">
           {/* ── COLUMNA IZQUIERDA: Bizum ───────────────────────────────── */}
           <div className="lg:pr-10 xl:pr-14 lg:border-r lg:border-white/20 pb-8 sm:pb-9 lg:pb-0">
             {/* Cabecera Bizum: icono + título */}
@@ -158,14 +173,20 @@ export function HowToHelp() {
 
             {/* Instrucciones breves */}
             <p
-              className="text-sm text-white/85 leading-relaxed mb-3.5 sm:mb-4 max-w-md"
+              className="text-sm text-white/85 leading-relaxed mb-4 max-w-md"
               style={{ fontFamily: 'var(--font-body)' }}
             >
               {d.bizumExplanation}
             </p>
 
-            {/* Código 03367 en tamaño grande */}
-            <div className="mb-2.5 sm:mb-3">
+            {/* Código 03367 con presencia tipográfica noble */}
+            <div className="mb-3.5">
+              <span
+                className="text-[11px] font-semibold tracking-[0.2em] text-white/70 uppercase block mb-1"
+                style={{ fontFamily: 'var(--font-body)' }}
+              >
+                CÓDIGO OFICIAL VERIFICADO · ONG
+              </span>
               <span
                 className="text-5xl sm:text-6xl font-normal tracking-tight text-white select-all block leading-none"
                 style={{ fontFamily: 'var(--font-editorial)' }}
@@ -175,12 +196,12 @@ export function HowToHelp() {
             </div>
 
             {/* Fila del botón "Copiar código" y confirmación */}
-            <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap mb-4 sm:mb-5">
+            <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap mb-5 sm:mb-6">
               <button
                 type="button"
                 onClick={handleCopyBizum}
                 aria-label={d.copyBizumAria(DONATION_CONFIG.bizumCode)}
-                className="inline-flex items-center gap-2 px-4.5 py-2 rounded-full border border-white/40 bg-white/5 hover:bg-white/15 active:scale-[0.98] text-white text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 bg-white/10 hover:bg-white hover:text-[#186ed7] active:scale-[0.98] text-white text-sm font-semibold transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shadow-xs"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
                 <Copy size={15} strokeWidth={2} aria-hidden="true" />
@@ -217,15 +238,15 @@ export function HowToHelp() {
               </div>
             </div>
 
-            {/* Acordeón ¿Cómo donar por Bizum? */}
-            <div className="rounded-xl sm:rounded-2xl bg-white/[0.08] border border-white/15 overflow-hidden transition-all duration-200 max-w-lg">
+            {/* Acordeón ¿Cómo donar por Bizum? (líneas sobrias, sin glossy) */}
+            <div className="rounded-xl border border-white/20 bg-white/[0.05] overflow-hidden transition-all duration-200 max-w-lg">
               <button
                 type="button"
                 onClick={() => setBizumFaqOpen(!bizumFaqOpen)}
                 aria-expanded={bizumFaqOpen}
                 aria-controls="bizum-faq-content"
                 id="bizum-faq-trigger"
-                className="w-full flex items-center justify-between p-3.5 sm:p-4 text-left text-white hover:bg-white/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+                className="w-full flex items-center justify-between p-3.5 sm:p-4 text-left text-white hover:bg-white/[0.05] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
                 <div className="flex items-center gap-2.5 sm:gap-3">
@@ -270,7 +291,7 @@ export function HowToHelp() {
             </div>
           </div>
 
-          {/* ── COLUMNA DERECHA: Otras formas de colaborar ─────────────── */}
+          {/* ── COLUMNA DERECHA: Otras formas de colaborar (editorial limpio) ─────────────── */}
           <div className="lg:pl-10 xl:pl-14 pt-8 sm:pt-9 lg:pt-0 border-t border-white/20 lg:border-t-0">
             {/* Título de la columna */}
             <h3
@@ -283,7 +304,7 @@ export function HowToHelp() {
             {/* Bloque 1: iHelp */}
             <div className="flex items-start gap-3.5 sm:gap-4">
               <div
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-white/15 flex items-center justify-center text-white shrink-0 mt-0.5"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg border border-white/30 bg-white/10 flex items-center justify-center text-white shrink-0 mt-0.5"
                 aria-hidden="true"
               >
                 <Heart size={20} strokeWidth={1.8} className="text-white" />
@@ -309,7 +330,7 @@ export function HowToHelp() {
                     href={ihelpUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-1.5 sm:py-2 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    className="inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full border border-white/40 bg-white/10 hover:bg-white hover:text-[#186ed7] text-white text-xs sm:text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shadow-xs"
                     style={{ fontFamily: 'var(--font-body)' }}
                   >
                     <ExternalLink size={14} strokeWidth={2} aria-hidden="true" />
@@ -329,12 +350,12 @@ export function HowToHelp() {
             </div>
 
             {/* Divisor horizontal entre iHelp y Teaming */}
-            <hr className="border-0 border-t border-white/15 my-3.5 sm:my-4 w-full" />
+            <hr className="border-0 border-t border-white/20 my-4 sm:my-5 w-full" />
 
             {/* Bloque 2: Teaming */}
             <div className="flex items-start gap-3.5 sm:gap-4">
               <div
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-white/15 flex items-center justify-center text-white shrink-0 mt-0.5"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg border border-white/30 bg-white/10 flex items-center justify-center text-white shrink-0 mt-0.5"
                 aria-hidden="true"
               >
                 <Users size={20} strokeWidth={1.8} className="text-white" />
@@ -360,7 +381,7 @@ export function HowToHelp() {
                     href={teamingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-1.5 sm:py-2 rounded-full bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    className="inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full border border-white/40 bg-white/10 hover:bg-white hover:text-[#186ed7] text-white text-xs sm:text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shadow-xs"
                     style={{ fontFamily: 'var(--font-body)' }}
                   >
                     <ExternalLink size={14} strokeWidth={2} aria-hidden="true" />
@@ -378,6 +399,43 @@ export function HowToHelp() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* ── Empresas y donaciones de material (alianzas institucionales) ── */}
+        <div className="mt-10 sm:mt-12 pt-8 sm:pt-9 border-t border-white/20">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="flex items-start gap-3.5 sm:gap-4 max-w-2xl">
+              <div
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg border border-white/30 bg-white/10 flex items-center justify-center text-white shrink-0 mt-0.5"
+                aria-hidden="true"
+              >
+                <Building2 size={20} strokeWidth={1.8} className="text-white" />
+              </div>
+              <div>
+                <h4
+                  className="text-xl sm:text-2xl font-normal text-white mb-1.5"
+                  style={{ fontFamily: 'var(--font-editorial)' }}
+                >
+                  {d.companiesTitle}
+                </h4>
+                <p
+                  className="text-xs sm:text-sm text-white/85 leading-relaxed"
+                  style={{ fontFamily: 'var(--font-body)' }}
+                >
+                  {d.companiesDesc}
+                </p>
+              </div>
+            </div>
+
+            <a
+              href="mailto:cmonte@la-vall.org?subject=Colaboracion%20Empresas%20-%20La%20Vall%20x%20Shariani"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/60 bg-white text-[#186ed7] hover:bg-white/90 active:scale-[0.98] text-xs sm:text-sm font-semibold transition-all duration-200 shrink-0 shadow-sm"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              <Building2 size={15} strokeWidth={2} aria-hidden="true" />
+              <span>{d.companiesCta}</span>
+            </a>
           </div>
         </div>
 

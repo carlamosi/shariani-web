@@ -124,19 +124,13 @@ export function Hero() {
         style={{ paddingTop: '130px', paddingBottom: '90px', willChange: 'transform, opacity' }}
       >
         <div className="max-w-2xl sm:max-w-3xl">
-          {/* Eyebrow badge: Frosted glass capsule with subtle characteristic blue indicator dot */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.12] backdrop-blur-md border border-white/20 shadow-xs mb-6 w-fit">
-            <span
-              className="w-1.5 h-1.5 rounded-full bg-[var(--forest-light)] shadow-[0_0_8px_rgba(74,149,240,0.9)] shrink-0"
-              aria-hidden="true"
-            />
-            <span
-              className="font-semibold uppercase tracking-[0.16em] text-[11px] text-white/95"
-              style={{ fontFamily: 'var(--font-body)' }}
-            >
-              {tr.hero.eyebrow}
-            </span>
-          </div>
+          {/* Eyebrow: clean editorial typography without glossy capsule */}
+          <p
+            className="mb-5 font-semibold uppercase text-xs text-white/80 tracking-[0.2em]"
+            style={{ fontFamily: 'var(--font-body)' }}
+          >
+            {tr.hero.eyebrow}
+          </p>
 
           <h1
             className="text-[var(--ivory)] leading-[1.08] mb-6 drop-shadow-[0_2px_14px_rgba(0,0,0,0.38)]"
