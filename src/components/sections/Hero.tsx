@@ -80,15 +80,32 @@ export function Hero() {
         />
       </div>
 
-      {/* Gradients — lighter to let photo breathe */}
+      {/* Gradients — cinematic atmosphere with directional depth and subtle warm brand glow */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: 'linear-gradient(105deg, rgba(10,18,28,0.88) 0%, rgba(10,18,28,0.65) 30%, rgba(10,18,28,0.28) 60%, rgba(10,18,28,0.06) 82%, transparent 100%)' }}
+        style={{
+          background:
+            'linear-gradient(108deg, rgba(8,16,26,0.92) 0%, rgba(8,16,26,0.72) 34%, rgba(8,16,26,0.32) 65%, rgba(8,16,26,0.08) 85%, transparent 100%)',
+        }}
         aria-hidden="true"
       />
+      {/* Subtle brand blue accent glow */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle at 18% 38%, rgba(24,110,215,0.14) 0%, transparent 58%)',
+        }}
+        aria-hidden="true"
+      />
+      {/* Bottom vignette */}
       <div
         className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
-        style={{ height: '35%', background: 'linear-gradient(to top, rgba(10,18,28,0.38) 0%, transparent 100%)' }}
+        style={{
+          height: '38%',
+          background:
+            'linear-gradient(to top, rgba(8,16,26,0.55) 0%, transparent 100%)',
+        }}
         aria-hidden="true"
       />
       <div
@@ -107,35 +124,48 @@ export function Hero() {
         style={{ paddingTop: '130px', paddingBottom: '90px', willChange: 'transform, opacity' }}
       >
         <div className="max-w-2xl sm:max-w-3xl">
-          <p
-            className="mb-5 font-semibold uppercase"
-            style={{ fontFamily: 'var(--font-body)', fontSize: '0.68rem', letterSpacing: '0.18em', color: 'rgba(250,248,244,0.55)' }}
-          >
-            {tr.hero.eyebrow}
-          </p>
+          {/* Eyebrow badge: Frosted glass capsule with subtle characteristic blue indicator dot */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.12] backdrop-blur-md border border-white/20 shadow-xs mb-6 w-fit">
+            <span
+              className="w-1.5 h-1.5 rounded-full bg-[var(--forest-light)] shadow-[0_0_8px_rgba(74,149,240,0.9)] shrink-0"
+              aria-hidden="true"
+            />
+            <span
+              className="font-semibold uppercase tracking-[0.16em] text-[11px] text-white/95"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              {tr.hero.eyebrow}
+            </span>
+          </div>
 
           <h1
-            className="text-[var(--ivory)] leading-[1.08] mb-6"
-            style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400, fontSize: 'clamp(32px, 4.4vw, 56px)', letterSpacing: '-0.02em' }}
+            className="text-[var(--ivory)] leading-[1.08] mb-6 drop-shadow-[0_2px_14px_rgba(0,0,0,0.38)]"
+            style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400, fontSize: 'clamp(34px, 4.6vw, 60px)', letterSpacing: '-0.02em' }}
           >
             <span className="sm:whitespace-nowrap">{tr.hero.headline1}</span><br />
             {tr.hero.headline2}
           </h1>
 
           <p
-            className="mb-10 leading-relaxed"
-            style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 1.5vw, 17px)', color: 'rgba(250,248,244,0.85)', maxWidth: '520px' }}
+            className="mb-10 leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.3)]"
+            style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 1.5vw, 17.5px)', color: 'rgba(250,248,244,0.92)', maxWidth: '530px' }}
           >
             {tr.hero.body}
           </p>
 
           <div className="flex flex-wrap items-center gap-3.5">
-            <a href="#proyecto" className="btn-white group">
+            <a
+              href="#proyecto"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[var(--ink)] bg-white hover:bg-[var(--ivory)] hover:text-[var(--forest)] border border-white/80 shadow-[0_4px_16px_rgba(0,0,0,0.22)] hover:shadow-[0_6px_22px_rgba(255,255,255,0.25)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group"
+            >
               <span>{tr.hero.ctaProject}</span>
             </a>
-            <a href="#donar" className="btn-outline group">
+            <a
+              href="#donar"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white bg-white/10 hover:bg-white/20 border border-white/25 hover:border-white/50 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group"
+            >
               <span>{tr.hero.ctaHelp}</span>
-              <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
             </a>
           </div>
         </div>

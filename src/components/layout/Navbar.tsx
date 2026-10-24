@@ -209,8 +209,8 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
         isScrolled || menuOpen
-          ? 'h-14 bg-[var(--ivory)] border-b border-[var(--border)] shadow-xs'
-          : 'h-16 bg-transparent border-b border-transparent'
+          ? 'h-14 bg-[var(--ivory)]/92 backdrop-blur-md border-b border-[var(--border)]/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)]'
+          : 'h-16 bg-gradient-to-b from-black/60 via-black/20 to-transparent backdrop-blur-[2px] border-b border-white/[0.08]'
       }`}
     >
       <div className="container-page h-full flex items-center justify-between gap-4">
@@ -222,7 +222,9 @@ export function Navbar() {
         >
           <span
             className={`text-[1.125rem] leading-none tracking-tight font-semibold transition-colors duration-300 ${
-              isScrolled || menuOpen ? 'text-[var(--ink)]' : 'text-white'
+              isScrolled || menuOpen
+                ? 'text-[var(--ink)]'
+                : 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]'
             }`}
             style={{ fontFamily: 'var(--font-body)' }}
           >
@@ -232,7 +234,7 @@ export function Navbar() {
             className={`text-sm leading-none opacity-60 transition-colors duration-300 ${
               isScrolled || menuOpen
                 ? 'text-[var(--text-secondary)]'
-                : 'text-white/60'
+                : 'text-white/70'
             }`}
             aria-hidden="true"
           >
@@ -240,7 +242,9 @@ export function Navbar() {
           </span>
           <span
             className={`text-[1.125rem] leading-none tracking-tight font-semibold transition-colors duration-300 ${
-              isScrolled || menuOpen ? 'text-[var(--ink)]' : 'text-white'
+              isScrolled || menuOpen
+                ? 'text-[var(--ink)]'
+                : 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]'
             }`}
             style={{ fontFamily: 'var(--font-body)' }}
           >
@@ -263,14 +267,14 @@ export function Navbar() {
                   linkRefs.current[idx] = el;
                 }}
                 href={link.href}
-                className={`relative px-3.5 py-1.5 text-sm font-medium transition-colors duration-200 rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--forest)] ${
+                className={`relative px-3.5 py-1.5 text-sm font-medium transition-colors duration-200 rounded-full focus-visible:outline-2 focus-visible:outline-[var(--forest)] ${
                   isScrolled || menuOpen
                     ? isActive
                       ? 'text-[var(--forest)] font-semibold'
                       : 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
                     : isActive
-                    ? 'text-white font-semibold'
-                    : 'text-white/80 hover:text-white'
+                    ? 'text-white font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]'
+                    : 'text-white/85 hover:text-white hover:drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]'
                 }`}
               >
                 {link.label}
@@ -287,6 +291,10 @@ export function Navbar() {
               opacity: sliderStyle.opacity,
               backgroundColor:
                 isScrolled || menuOpen ? 'var(--forest)' : '#FFFFFF',
+              boxShadow:
+                isScrolled || menuOpen
+                  ? 'none'
+                  : '0 0 8px rgba(255,255,255,0.6)',
             }}
             aria-hidden="true"
           />
@@ -298,10 +306,10 @@ export function Navbar() {
           <div ref={desktopLangRef} className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className={`flex items-center gap-1.5 text-[0.8125rem] transition-colors duration-200 px-2.5 py-1.5 rounded-lg border cursor-pointer ${
+              className={`flex items-center gap-1.5 text-[0.8125rem] transition-all duration-200 px-3 py-1.5 rounded-full border cursor-pointer ${
                 isScrolled || menuOpen
-                  ? 'text-[var(--ink-muted)] hover:text-[var(--ink)] border-[var(--border)] hover:border-[var(--forest)] bg-transparent hover:bg-[var(--paper)]'
-                  : 'text-white/85 hover:text-white border-white/20 hover:border-white/50 bg-transparent'
+                  ? 'text-[var(--ink-muted)] hover:text-[var(--ink)] border-[var(--border)] hover:border-[var(--forest)] bg-white/70 hover:bg-white backdrop-blur-xs'
+                  : 'text-white/90 hover:text-white border-white/25 hover:border-white/50 bg-white/10 backdrop-blur-md shadow-xs'
               }`}
               aria-expanded={langOpen}
               aria-haspopup="listbox"
@@ -333,7 +341,7 @@ export function Navbar() {
               <div
                 role="listbox"
                 aria-label={tr.nav.selectLangAria}
-                className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-lg shadow-md z-20 min-w-[92px] overflow-hidden"
+                className="absolute right-0 top-full mt-1.5 bg-[var(--ivory)] border border-[var(--border)] rounded-xl shadow-lg z-20 min-w-[96px] overflow-hidden py-1"
               >
                 {LANGUAGES.map((l) => (
                   <Link
@@ -365,10 +373,10 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Donar (filled button to #donar) */}
+          {/* Donar (characteristic blue pill button with soft elevation) */}
           <a
             href={`/${currentLocale}#donar`}
-            className="btn-primary text-sm px-5 py-2 focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="relative inline-flex items-center justify-center text-sm font-semibold px-5 py-2 rounded-full text-white bg-[var(--forest)] hover:bg-[var(--forest-dark)] border border-white/20 shadow-[0_2px_10px_rgba(24,110,215,0.35)] hover:shadow-[0_4px_16px_rgba(24,110,215,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             {tr.nav.donate}
           </a>
@@ -380,10 +388,10 @@ export function Navbar() {
           <div ref={mobileLangRef} className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className={`flex items-center gap-1 px-2 py-1 rounded border text-[0.75rem] font-semibold transition-all duration-200 cursor-pointer ${
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-[0.75rem] font-semibold transition-all duration-200 cursor-pointer ${
                 isScrolled || menuOpen
-                  ? 'text-[var(--ink-muted)] border-[var(--border)]'
-                  : 'text-white/85 border-white/25'
+                  ? 'text-[var(--ink-muted)] border-[var(--border)] bg-white/70'
+                  : 'text-white/90 border-white/30 bg-white/10 backdrop-blur-md'
               }`}
               aria-label={tr.nav.langLabel(lang)}
             >
@@ -417,7 +425,7 @@ export function Navbar() {
           {/* Donar filled button stays visible outside mobile menu */}
           <a
             href={`/${currentLocale}#donar`}
-            className="btn-primary text-xs px-3.5 py-1.5 h-8 min-h-[32px] inline-flex items-center justify-center font-semibold"
+            className="relative inline-flex items-center justify-center text-xs font-semibold px-3.5 py-1.5 h-8 min-h-[32px] rounded-full text-white bg-[var(--forest)] hover:bg-[var(--forest-dark)] border border-white/20 shadow-[0_2px_8px_rgba(24,110,215,0.3)] transition-all duration-200"
           >
             {tr.nav.donate}
           </a>
