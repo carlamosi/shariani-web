@@ -68,7 +68,7 @@ export function HowToHelp() {
   return (
     <section
       id="donar"
-      style={{ backgroundColor: '#0D4A8D' }}
+      style={{ backgroundColor: '#186ed7' }}
       className="relative w-full py-10 sm:py-12 lg:py-14 text-white overflow-hidden"
       aria-labelledby="donar-heading"
     >
