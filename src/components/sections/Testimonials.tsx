@@ -274,7 +274,7 @@ export function Testimonials() {
       className="relative w-full bg-[#FAF8F4] py-16 sm:py-20 lg:py-28 border-t border-[var(--border)] overflow-hidden"
       aria-labelledby="testimonios-heading"
     >
-      <div className="container-page max-w-6xl mx-auto px-6 sm:px-10 lg:px-12">
+      <div className="container-page max-w-5xl mx-auto px-6 sm:px-10 lg:px-12">
 
         {/* ── Section header ──────────────────────────────────────────── */}
         <div

@@ -241,10 +241,10 @@ export const t = {
       eyebrow: 'VEUS DEL PROJECTE',
       headlinePart1: 'Qui ho viu,',
       headlinePart2: 'ho explica millor.',
-      intro: "Tres edicions, dos continents, una mateixa convicció: l'educació transforma quan hi ha persones disposades a comprometre's de debò.",
+      intro: "Tres edicions, una mateixa convicció: l'educació transforma quan hi ha persones disposades a comprometre's de debò.",
       teamHeading: 'El vincle que ho fa possible.',
       teamCaption: 'Professorat de La Vall i mestres de Shariani Primary School davant la biblioteca de l\u0027escola, a Kilifi County, Kenya.',
-      teamImageAlt: 'Professorat de La Vall i mestres de Shariani Primary School reunits davant la biblioteca de Shariani, Kilifi County, Kenya',
+      teamImageAlt: 'Professorat de La Vall i mestres de Shariani Primary School reunits a Kilifi, Kenya',
       ariaLabel: 'Testimonis del projecte La Vall × Shariani',
       items: [
         {
@@ -255,11 +255,11 @@ export const t = {
           imageAlt: 'Júlia, alumna de 2n de Batxillerat de La Vall, fotografiada a Shariani Primary School durant el projecte',
         },
         {
-          name: 'Miss Ana',
+          name: 'Miss Martha',
           roleLine: 'Mestra · Shariani Primary School',
           metaLine: 'Kilifi County · Kenya',
           quote: "\u201cQuan arriben les noies de La Vall, els nostres alumnes entenen que el món és molt més gran del que imaginen —i que algú de molt lluny s'ha esforçat tot un curs per arribar fins aquí. Això val més que qualsevol material que portin.\u201d",
-          imageAlt: "Miss Ana, mestra de Shariani Primary School, fotografiada a les instal·lacions de l'escola a Kilifi",
+          imageAlt: "Miss Martha, mestra de Shariani Primary School, fotografiada a les instal·lacions de l'escola a Kilifi",
         },
         {
           name: 'Pilar Hurtado',
@@ -766,10 +766,10 @@ export const t = {
       eyebrow: 'VOCES DEL PROYECTO',
       headlinePart1: 'Quien lo vive,',
       headlinePart2: 'lo cuenta mejor.',
-      intro: 'Tres ediciones, dos continentes, una misma convicción: la educación transforma cuando hay personas dispuestas a comprometerse de verdad.',
+      intro: 'Tres ediciones, una misma convicción: la educación transforma cuando hay personas dispuestas a comprometerse de verdad.',
       teamHeading: 'El vínculo que lo hace posible.',
-      teamCaption: 'Profesoras de La Vall y maestros de Shariani Primary School frente a la biblioteca de la escuela, en Kilifi County, Kenia.',
-      teamImageAlt: 'Profesoras de La Vall y equipo docente de Shariani Primary School reunidos frente a la biblioteca de Shariani, Kilifi County, Kenia',
+      teamCaption: 'Profesoras de La Vall y maestros de Shariani Primary School, juntos en Kilifi, Kenia.',
+      teamImageAlt: 'Profesoras de La Vall y equipo docente de Shariani Primary School reunidos en Kilifi, Kenia',
       ariaLabel: 'Testimonios del proyecto La Vall × Shariani',
       items: [
         {
@@ -780,11 +780,11 @@ export const t = {
           imageAlt: 'Júlia, alumna de 2.º de Bachillerato de La Vall, fotografiada en Shariani Primary School durante el proyecto',
         },
         {
-          name: 'Miss Ana',
+          name: 'Miss Martha',
           roleLine: 'Maestra · Shariani Primary School',
           metaLine: 'Kilifi County · Kenia',
           quote: '\u201cCuando llegan las chicas de La Vall, nuestros alumnos entienden que el mundo es mucho más grande de lo que imaginan —y que alguien de muy lejos se ha esforzado todo un curso para llegar hasta aquí. Eso vale más que cualquier material que traigan.\u201d',
-          imageAlt: 'Miss Ana, maestra de Shariani Primary School, fotografiada en las instalaciones de la escuela en Kilifi',
+          imageAlt: 'Miss Martha, maestra de Shariani Primary School, fotografiada en las instalaciones de la escuela en Kilifi',
         },
         {
           name: 'Pilar Hurtado',
@@ -1283,10 +1283,10 @@ export const t = {
       eyebrow: 'VOICES FROM THE PROJECT',
       headlinePart1: 'Those who live it',
       headlinePart2: 'tell it best.',
-      intro: 'Three editions, two continents, one shared conviction: education transforms when people are willing to truly commit.',
+      intro: 'Three editions, one shared conviction: education transforms when people are willing to truly commit.',
       teamHeading: 'The bond that makes it possible.',
-      teamCaption: 'La Vall teachers and Shariani Primary School staff in front of the school library in Kilifi County, Kenya.',
-      teamImageAlt: 'La Vall teachers and Shariani Primary School staff gathered in front of the Shariani library, Kilifi County, Kenya',
+      teamCaption: 'La Vall teachers and Shariani Primary School staff together in Kilifi, Kenya.',
+      teamImageAlt: 'La Vall teachers and Shariani Primary School staff in Kilifi, Kenya',
       ariaLabel: 'La Vall × Shariani project testimonials',
       items: [
         {
@@ -1297,11 +1297,11 @@ export const t = {
           imageAlt: 'Júlia, Year 13 student from La Vall, photographed at Shariani Primary School during the project',
         },
         {
-          name: 'Miss Ana',
+          name: 'Miss Martha',
           roleLine: 'Teacher · Shariani Primary School',
           metaLine: 'Kilifi County · Kenya',
           quote: '\u201cWhen the girls from La Vall arrive, our pupils understand that the world is much bigger than they imagined —and that someone from very far away spent an entire school year working hard just to reach them. That means more than any materials they bring.\u201d',
-          imageAlt: 'Miss Ana, teacher at Shariani Primary School, photographed at the school in Kilifi',
+          imageAlt: 'Miss Martha, teacher at Shariani Primary School, photographed at the school in Kilifi',
         },
         {
           name: 'Pilar Hurtado',
