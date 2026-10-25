@@ -11,7 +11,7 @@ const TESTIMONIAL_IMAGES = [
   '/images/testimonials/pilar-hurtado.jpg',
 ];
 
-const TEAM_IMAGE = '/images/testimonials/equipo.jpg';
+const TEAM_IMAGE = '/images/testimonials/profes.jpeg';
 
 // ── Open-quote SVG (large, editorial, blue) ────────────────────────────────
 function QuoteMark() {
@@ -219,8 +219,9 @@ function TeamBanner({ heading, caption, imageAlt }: { heading: string; caption: 
           alt={imageAlt}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 90vw, 1200px"
-          className="object-cover object-center"
+          className="object-cover"
           style={{
+            objectPosition: 'center 55%',
             transform: 'scale(1)',
             transition: 'transform 0.8s cubic-bezier(0.22,1,0.36,1)',
           }}

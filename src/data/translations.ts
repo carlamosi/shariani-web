@@ -1,4 +1,4 @@
-export type Lang = 'CA' | 'ES' | 'EN';
+﻿export type Lang = 'CA' | 'ES' | 'EN';
 
 export const t = {
   CA: {
@@ -243,8 +243,8 @@ export const t = {
       headlinePart2: 'ho explica millor.',
       intro: "Tres edicions, dos continents, una mateixa convicció: l'educació transforma quan hi ha persones disposades a comprometre's de debò.",
       teamHeading: 'El vincle que ho fa possible.',
-      teamCaption: 'Alumnes de La Vall i equip docent de Shariani, units per un projecte que creix any rere any.',
-      teamImageAlt: "Alumnes de La Vall i professorat de Shariani Primary School junts a l'aeroport abans de partir cap a Kenya",
+      teamCaption: 'Professorat de La Vall i mestres de Shariani Primary School davant la biblioteca de l\u0027escola, a Kilifi County, Kenya.',
+      teamImageAlt: 'Professorat de La Vall i mestres de Shariani Primary School reunits davant la biblioteca de Shariani, Kilifi County, Kenya',
       ariaLabel: 'Testimonis del projecte La Vall × Shariani',
       items: [
         {
@@ -768,8 +768,8 @@ export const t = {
       headlinePart2: 'lo cuenta mejor.',
       intro: 'Tres ediciones, dos continentes, una misma convicción: la educación transforma cuando hay personas dispuestas a comprometerse de verdad.',
       teamHeading: 'El vínculo que lo hace posible.',
-      teamCaption: 'Alumnas de La Vall y equipo docente de Shariani, unidos por un proyecto que crece año tras año.',
-      teamImageAlt: 'Alumnas de La Vall y profesorado de Shariani Primary School juntos en el aeropuerto antes de partir hacia Kenya',
+      teamCaption: 'Profesoras de La Vall y maestros de Shariani Primary School frente a la biblioteca de la escuela, en Kilifi County, Kenia.',
+      teamImageAlt: 'Profesoras de La Vall y equipo docente de Shariani Primary School reunidos frente a la biblioteca de Shariani, Kilifi County, Kenia',
       ariaLabel: 'Testimonios del proyecto La Vall × Shariani',
       items: [
         {
@@ -1285,8 +1285,8 @@ export const t = {
       headlinePart2: 'tell it best.',
       intro: 'Three editions, two continents, one shared conviction: education transforms when people are willing to truly commit.',
       teamHeading: 'The bond that makes it possible.',
-      teamCaption: 'La Vall students and Shariani teaching staff, united by a project that grows stronger every year.',
-      teamImageAlt: 'La Vall students and Shariani Primary School teachers together at the airport before departing for Kenya',
+      teamCaption: 'La Vall teachers and Shariani Primary School staff in front of the school library in Kilifi County, Kenya.',
+      teamImageAlt: 'La Vall teachers and Shariani Primary School staff gathered in front of the Shariani library, Kilifi County, Kenya',
       ariaLabel: 'La Vall × Shariani project testimonials',
       items: [
         {
