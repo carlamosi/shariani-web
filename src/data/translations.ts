@@ -236,6 +236,38 @@ export const t = {
       copyBizumAria: (code: string) => `Copiar codi Bizum ${code}`,
     },
 
+    /* ── Testimonials ── */
+    testimonials: {
+      eyebrow: 'TESTIMONIS',
+      headlinePart1: 'Històries que',
+      headlinePart2: 'ens impulsen.',
+      intro: 'Darrere de cada projecte hi ha persones que el fan possible. Aquestes són algunes de les seves veus.',
+      ariaLabel: 'Testimonis del projecte La Vall × Shariani',
+      items: [
+        {
+          name: 'Carla',
+          roleLine: 'Estudiant de 2n de Batxillerat',
+          metaLine: 'La Vall · Espanya',
+          quote: '“Shariani em va ensenyar que la tecnologia no és només codi, sinó una eina per millorar vides reals. Tornar a veure els infants i compartir amb ells em va fer veure el gran impacte que pot tenir un projecte, encara que comenci amb una cosa tan petita com una idea.”',
+          imageAlt: 'Carla, estudiant voluntària de La Vall a Shariani',
+        },
+        {
+          name: 'Peter Mwangi',
+          roleLine: 'Professor · Shariani Primary School',
+          metaLine: 'Kilifi County · Kenya',
+          quote: '“La implicació d\'estudiants com la Carla ens dona energia i ens recorda que, fins i tot des de lluny, es pot generar un canvi real. La seva curiositat, respecte i ganes d\'aprendre són un exemple per a tota la comunitat de Shariani.”',
+          imageAlt: 'Peter Mwangi, professor a Shariani Primary School',
+        },
+        {
+          name: 'Inma',
+          roleLine: 'Professora · La Vall',
+          metaLine: 'Bellaterra · Espanya',
+          quote: '“Gràcies a la col·laboració entre La Vall i Shariani, el nostre alumnat no només aprèn, sinó que també comprèn el valor de la solidaritat i del treball en equip. És una experiència que deixa empremta dins i fora de l\'aula.”',
+          imageAlt: 'Inma, professora de La Vall participant en el projecte Shariani',
+        },
+      ],
+    },
+
     /* ── Contact ── */
     contact: {
       sectionLabel: 'Contacte',
@@ -724,6 +756,38 @@ export const t = {
       copyBizumAria: (code: string) => `Copiar código Bizum ${code}`,
     },
 
+    /* ── Testimonials ── */
+    testimonials: {
+      eyebrow: 'TESTIMONIOS',
+      headlinePart1: 'Historias que',
+      headlinePart2: 'nos impulsan.',
+      intro: 'Detrás de cada proyecto hay personas que lo hacen posible. Estas son algunas de sus voces.',
+      ariaLabel: 'Testimonios del proyecto La Vall × Shariani',
+      items: [
+        {
+          name: 'Carla',
+          roleLine: 'Estudiante de 2º de Bachillerato',
+          metaLine: 'La Vall · España',
+          quote: '“Shariani me enseñó que la tecnología no es solo código, sino una herramienta para mejorar vidas reales. Volver a ver a los niños y compartir con ellos me hizo ver el impacto tan grande que puede tener un proyecto, aunque empiece con algo tan pequeño como una idea.”',
+          imageAlt: 'Carla, estudiante voluntaria de La Vall en Shariani',
+        },
+        {
+          name: 'Peter Mwangi',
+          roleLine: 'Profesor · Shariani Primary School',
+          metaLine: 'Kilifi County · Kenia',
+          quote: '“La implicación de estudiantes como Carla nos da energía y nos recuerda que, incluso desde lejos, se puede generar un cambio real. Su curiosidad, respeto y ganas de aprender son un ejemplo para toda la comunidad de Shariani.”',
+          imageAlt: 'Peter Mwangi, profesor en Shariani Primary School',
+        },
+        {
+          name: 'Inma',
+          roleLine: 'Profesora · La Vall',
+          metaLine: 'Bellaterra · España',
+          quote: '“Gracias a la colaboración entre La Vall y Shariani, nuestros alumnos y alumnas no solo aprenden, también comprenden el valor de la solidaridad y del trabajo en equipo. Es una experiencia que deja huella dentro y fuera del aula.”',
+          imageAlt: 'Inma, profesora de La Vall participante en el proyecto Shariani',
+        },
+      ],
+    },
+
     contact: {
       sectionLabel: 'Contacto',
       editorialHeading: '¿Hablamos?',
@@ -1204,6 +1268,38 @@ export const t = {
       quoteAuthor: 'Mwalimu Juma, teacher at Shariani Primary School',
       photoCaption: 'Shariani teachers and La Vall volunteers during the work days in Kilifi.',
       copyBizumAria: (code: string) => `Copy Bizum code ${code}`,
+    },
+
+    /* ── Testimonials ── */
+    testimonials: {
+      eyebrow: 'TESTIMONIALS',
+      headlinePart1: 'Stories that',
+      headlinePart2: 'inspire us.',
+      intro: 'Behind every project are the people who make it possible. These are some of their voices.',
+      ariaLabel: 'La Vall × Shariani project testimonials',
+      items: [
+        {
+          name: 'Carla',
+          roleLine: 'High School Senior (2nd Bachillerato)',
+          metaLine: 'La Vall · Spain',
+          quote: '“Shariani taught me that technology isn\'t just about code, but a tool to improve real lives. Seeing the children again and sharing time with them made me realize the profound impact a project can have, even when it starts with something as small as an idea.”',
+          imageAlt: 'Carla, student volunteer from La Vall in Shariani',
+        },
+        {
+          name: 'Peter Mwangi',
+          roleLine: 'Teacher · Shariani Primary School',
+          metaLine: 'Kilifi County · Kenya',
+          quote: '“The dedication of students like Carla gives us energy and reminds us that, even from afar, real change is possible. Their curiosity, respect, and enthusiasm to learn are an inspiration for the entire Shariani community.”',
+          imageAlt: 'Peter Mwangi, teacher at Shariani Primary School',
+        },
+        {
+          name: 'Inma',
+          roleLine: 'Teacher · La Vall',
+          metaLine: 'Bellaterra · Spain',
+          quote: '“Thanks to the collaboration between La Vall and Shariani, our students not only learn, but also understand the true value of solidarity and teamwork. It is an experience that leaves a lasting mark both inside and outside the classroom.”',
+          imageAlt: 'Inma, teacher from La Vall participating in the Shariani project',
+        },
+      ],
     },
 
     contact: {
