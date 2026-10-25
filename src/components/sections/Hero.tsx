@@ -123,7 +123,7 @@ export function Hero() {
         className="relative z-10 container-page h-full flex flex-col justify-center"
         style={{ paddingTop: '130px', paddingBottom: '90px', willChange: 'transform, opacity' }}
       >
-        <div className="max-w-2xl sm:max-w-3xl">
+        <div className="max-w-2xl sm:max-w-3xl lg:max-w-4xl">
           {/* Eyebrow: clean editorial typography without glossy capsule */}
           <p
             className="mb-5 font-semibold uppercase text-xs text-white/80 tracking-[0.2em]"
@@ -137,7 +137,7 @@ export function Hero() {
             style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400, fontSize: 'clamp(34px, 4.6vw, 60px)', letterSpacing: '-0.02em' }}
           >
             <span className="sm:whitespace-nowrap">{tr.hero.headline1}</span><br />
-            {tr.hero.headline2}
+            <span className="md:whitespace-nowrap">{tr.hero.headline2}</span>
           </h1>
 
           <p
