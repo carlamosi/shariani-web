@@ -7,6 +7,7 @@ import { Menu, X, Globe } from 'lucide-react';
 import { useLang } from '@/context/LangContext';
 import { Lang } from '@/data/translations';
 import { LOCALES } from '@/lib/site';
+import { saveLangSwitchScroll } from '@/components/ui/ScrollRestorer';
 
 const LANGUAGES: { code: Lang; locale: string; hrefLang: string }[] = [
   { code: 'ES', locale: 'es', hrefLang: 'es' },
@@ -351,6 +352,7 @@ export function Navbar() {
                     role="option"
                     aria-selected={lang === l.code}
                     onClick={() => {
+                      saveLangSwitchScroll();
                       setLang(l.code);
                       setLangOpen(false);
                     }}
@@ -406,6 +408,7 @@ export function Navbar() {
                     href={switchLocale(pathname, l.locale)}
                     hrefLang={l.hrefLang}
                     onClick={() => {
+                      saveLangSwitchScroll();
                       setLang(l.code);
                       setLangOpen(false);
                     }}
@@ -489,6 +492,7 @@ export function Navbar() {
                   href={switchLocale(pathname, l.locale)}
                   hrefLang={l.hrefLang}
                   onClick={() => {
+                    saveLangSwitchScroll();
                     setLang(l.code);
                     setMenuOpen(false);
                   }}

@@ -13,6 +13,7 @@ import { Testimonials } from '@/components/sections/Testimonials';
 import { MediaStrip } from '@/components/sections/MediaStrip';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { ScrollRestorer } from '@/components/ui/ScrollRestorer';
 
 export const dynamicParams = false;
 
@@ -47,6 +48,7 @@ export default async function HomePage({
         dangerouslySetInnerHTML={{ __html: jsonLd }}
       />
       <ScrollReveal />
+      <ScrollRestorer />
       <Navbar />
       <main>
         <Hero />
