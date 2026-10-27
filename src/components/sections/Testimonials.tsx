@@ -8,7 +8,7 @@ import { useLang } from '@/context/LangContext';
 const TESTIMONIAL_IMAGES = [
   '/images/testimonials/julia.jpg',
   '/images/testimonials/miss-ana.jpg',
-  '/images/testimonials/pilar-hurtado.jpg',
+  '/images/testimonials/pilar-hurtado.jpeg',
 ];
 
 const TEAM_IMAGE = '/images/testimonials/profes.jpeg';
