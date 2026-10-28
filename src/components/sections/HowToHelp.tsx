@@ -243,7 +243,10 @@ export function HowToHelp() {
 
               {/* QR Code sutil y elegante */}
               {DONATION_CONFIG.bizumQr && (
-                <div className="inline-flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-xs self-start sm:self-auto shrink-0 shadow-sm">
+                <div
+                  className="flex flex-col items-center justify-center p-2 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-xs self-start sm:self-auto shrink-0 shadow-sm transition-transform duration-200 hover:scale-105"
+                  title="Bizum ONG 03367"
+                >
                   <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white p-1 rounded-xl shadow-xs shrink-0 flex items-center justify-center">
                     <Image
                       src={DONATION_CONFIG.bizumQr}
@@ -253,21 +256,13 @@ export function HowToHelp() {
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <div className="text-left pr-1">
-                    <span
-                      className="text-[10px] font-semibold text-white/90 uppercase tracking-wider flex items-center gap-1"
-                      style={{ fontFamily: 'var(--font-body)' }}
-                    >
-                      <QrCode size={12} strokeWidth={2.2} className="text-white/80" aria-hidden="true" />
-                      Bizum QR
-                    </span>
-                    <span
-                      className="text-[11px] text-white/75 block leading-tight mt-0.5"
-                      style={{ fontFamily: 'var(--font-body)' }}
-                    >
-                      {d.bizumQrHint || 'Escanea con tu cámara'}
-                    </span>
-                  </div>
+                  <span
+                    className="text-[10px] font-semibold text-white/90 uppercase tracking-wider flex items-center gap-1 mt-1.5"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                  >
+                    <QrCode size={11} strokeWidth={2.2} className="text-white/80" aria-hidden="true" />
+                    Bizum QR
+                  </span>
                 </div>
               )}
             </div>
