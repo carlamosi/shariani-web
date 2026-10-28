@@ -1,4 +1,4 @@
-﻿export type Lang = 'CA' | 'ES' | 'EN';
+export type Lang = 'CA' | 'ES' | 'EN';
 
 export const t = {
   CA: {
@@ -248,11 +248,11 @@ export const t = {
       ariaLabel: 'Testimonis del projecte La Vall × Shariani',
       items: [
         {
-          name: 'Júlia',
+          name: 'Júlia Duaso',
           roleLine: 'Alumna de 2n de Batxillerat',
           metaLine: 'La Vall · Bellaterra, Espanya',
           quote: '\u201cAnaves a Shariani pensant que ajudaries, i tornes sabent que has rebut molt més del que has donat. Veure els nens i nenes aprendre als pupitres que havíem muntat junts —i saber que hi seguiran anys— és la millor recompensa que pots imaginar.\u201d',
-          imageAlt: 'Júlia, alumna de 2n de Batxillerat de La Vall, fotografiada a Shariani Primary School durant el projecte',
+          imageAlt: 'Júlia Duaso, alumna de 2n de Batxillerat de La Vall, fotografiada a Shariani Primary School durant el projecte',
         },
         {
           name: 'Miss Martha',
@@ -773,11 +773,11 @@ export const t = {
       ariaLabel: 'Testimonios del proyecto La Vall × Shariani',
       items: [
         {
-          name: 'Júlia',
+          name: 'Júlia Duaso',
           roleLine: 'Alumna de 2.º de Bachillerato',
           metaLine: 'La Vall · Bellaterra, España',
           quote: '\u201cVas a Shariani pensando que vas a ayudar, y vuelves sabiendo que has recibido mucho más de lo que has dado. Ver a los niños y niñas aprender en los pupitres que montamos juntos —y saber que seguirán ahí años— es la mejor recompensa que puedes imaginar.\u201d',
-          imageAlt: 'Júlia, alumna de 2.º de Bachillerato de La Vall, fotografiada en Shariani Primary School durante el proyecto',
+          imageAlt: 'Júlia Duaso, alumna de 2.º de Bachillerato de La Vall, fotografiada en Shariani Primary School durante el proyecto',
         },
         {
           name: 'Miss Martha',
@@ -1290,11 +1290,11 @@ export const t = {
       ariaLabel: 'La Vall × Shariani project testimonials',
       items: [
         {
-          name: 'Júlia',
+          name: 'Júlia Duaso',
           roleLine: 'Year 13 Student',
           metaLine: 'La Vall · Bellaterra, Spain',
           quote: '\u201cYou go to Shariani thinking you are going to help, and you come back knowing you received far more than you gave. Seeing the children learning at the desks we built together —knowing they will still be there years from now— is the best reward you could imagine.\u201d',
-          imageAlt: 'Júlia, Year 13 student from La Vall, photographed at Shariani Primary School during the project',
+          imageAlt: 'Júlia Duaso, Year 13 student from La Vall, photographed at Shariani Primary School during the project',
         },
         {
           name: 'Miss Martha',
