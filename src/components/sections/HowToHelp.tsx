@@ -1,10 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import {
-  Copy,
-  Check,
   ChevronDown,
   ChevronRight,
   ExternalLink,
@@ -22,58 +20,8 @@ export function HowToHelp() {
   const { tr } = useLang();
   const d = tr.donar;
 
-  // ── Bizum Copy State & Feedback ──────────────────────────────────────────
-  const [bizumCopied, setBizumCopied] = useState(false);
-  const [bizumError, setBizumError] = useState(false);
-  const copyTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const errorTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-      if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
-    };
-  }, []);
-
-  // ── Bizum Accordion State (open by default like in reference) ────────────
+  // ── Bizum Accordion State ────────────────────────────────────────────────
   const [bizumFaqOpen, setBizumFaqOpen] = useState(true);
-
-  const handleCopyBizum = async () => {
-    try {
-      if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(DONATION_CONFIG.bizumCode);
-        setBizumCopied(true);
-        setBizumError(false);
-        if ('vibrate' in navigator) {
-          try {
-            navigator.vibrate(12);
-          } catch {
-            // Ignore if vibration is unsupported or disabled
-          }
-        }
-        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-        copyTimerRef.current = setTimeout(() => setBizumCopied(false), 2600);
-      } else {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = DONATION_CONFIG.bizumCode;
-        textArea.style.position = 'fixed';
-        textArea.style.opacity = '0';
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        setBizumCopied(true);
-        setBizumError(false);
-        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-        copyTimerRef.current = setTimeout(() => setBizumCopied(false), 2600);
-      }
-    } catch {
-      setBizumError(true);
-      if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
-      errorTimerRef.current = setTimeout(() => setBizumError(false), 3000);
-    }
-  };
 
   const ihelpUrl = DONATION_CONFIG.ihelpUrl || 'https://www.ihelp.org.es/';
   const teamingUrl =
@@ -192,53 +140,11 @@ export function HowToHelp() {
                   CÓDIGO OFICIAL VERIFICADO · ONG
                 </span>
                 <span
-                  className="text-5xl sm:text-6xl font-normal tracking-tight text-white select-all block leading-none mb-3.5"
+                  className="text-5xl sm:text-6xl font-normal tracking-tight text-white select-all block leading-none"
                   style={{ fontFamily: 'var(--font-editorial)' }}
                 >
                   {DONATION_CONFIG.bizumCode}
                 </span>
-
-                <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap">
-                  <button
-                    type="button"
-                    onClick={handleCopyBizum}
-                    aria-label={d.copyBizumAria(DONATION_CONFIG.bizumCode)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 bg-white/10 hover:bg-white hover:text-[#186ed7] active:scale-[0.98] text-white text-sm font-semibold transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shadow-xs"
-                    style={{ fontFamily: 'var(--font-body)' }}
-                  >
-                    <Copy size={15} strokeWidth={2} aria-hidden="true" />
-                    <span>{d.bizumCopy || 'Copiar código'}</span>
-                  </button>
-
-                  <div
-                    role="status"
-                    aria-live="polite"
-                    className={`inline-flex items-center gap-1.5 text-sm transition-all duration-200 ${
-                      bizumCopied
-                        ? 'opacity-100 translate-x-0 text-cyan-200'
-                        : bizumError
-                        ? 'opacity-100 translate-x-0 text-rose-300'
-                        : 'opacity-0 -translate-x-2 pointer-events-none'
-                    }`}
-                    style={{ fontFamily: 'var(--font-body)' }}
-                  >
-                    {bizumCopied ? (
-                      <>
-                        <Check
-                          size={15}
-                          strokeWidth={2.5}
-                          className="text-cyan-200"
-                          aria-hidden="true"
-                        />
-                        <span className="font-medium">
-                          {d.bizumCopied || 'Código copiado'}
-                        </span>
-                      </>
-                    ) : bizumError ? (
-                      <span>{d.bizumError}</span>
-                    ) : null}
-                  </div>
-                </div>
               </div>
 
               {/* QR Code sutil y elegante */}

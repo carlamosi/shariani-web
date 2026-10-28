@@ -74,13 +74,13 @@ export function MediaStrip() {
       className="relative w-full bg-[var(--ivory)] py-12 sm:py-16 border-t border-[var(--border)] overflow-hidden text-[var(--ink)]"
       aria-label={tr.media.ariaLabel}
     >
-      <div className="container-page mb-8 sm:mb-10 text-center">
+      <div className="container-page mb-8 sm:mb-10 text-center px-4">
         <h2
           style={{
             fontFamily: 'var(--font-editorial)',
-            fontSize: 'clamp(19px, 2.6vw, 32px)',
+            fontSize: 'clamp(18px, 4vw, 32px)',
           }}
-          className="text-[var(--ink)] font-normal tracking-[-0.02em] whitespace-nowrap text-center overflow-hidden text-ellipsis"
+          className="text-[var(--ink)] font-normal tracking-[-0.02em] text-balance text-center leading-snug sm:leading-normal"
         >
           {tr.media.heading}
         </h2>
