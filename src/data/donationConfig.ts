@@ -51,7 +51,7 @@ export interface DonationConfigType {
 
 export const DONATION_CONFIG: DonationConfigType = {
   bizumCode: '03367',
-  bizumQr: null,
+  bizumQr: '/images/bizum-qr.png',
   ihelpUrl: 'https://www.ihelp.org.es/causa/cada-gota-cuenta-agua-potable-para-shariani/',
   teamingUrl: 'https://www.teaming.net/unaescuela-milesdesuenosenkenia',
   deductible: {

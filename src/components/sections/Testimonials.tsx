@@ -155,17 +155,19 @@ function TestimonialCard({ name, roleLine, metaLine, quote, imageAlt, imageSrc, 
           {name}
         </p>
         <p
-          className="text-[12px] sm:text-[13px] text-[var(--text-secondary)] leading-snug mb-0.5"
+          className="text-[12px] sm:text-[13px] text-[var(--text-secondary)] leading-snug"
           style={{ fontFamily: 'var(--font-body)' }}
         >
           {roleLine}
         </p>
-        <p
-          className="text-[11px] sm:text-[12px] text-[var(--text-secondary)]/70 leading-snug"
-          style={{ fontFamily: 'var(--font-body)' }}
-        >
-          {metaLine}
-        </p>
+        {metaLine && (
+          <p
+            className="text-[11px] sm:text-[12px] text-[var(--text-secondary)]/70 leading-snug mt-0.5"
+            style={{ fontFamily: 'var(--font-body)' }}
+          >
+            {metaLine}
+          </p>
+        )}
       </div>
     </article>
   );

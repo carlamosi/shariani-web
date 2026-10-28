@@ -52,14 +52,14 @@ export function ImprovementsTeaser() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-8 w-full sm:w-auto">
               <a
                 href="#donar"
-                className="btn-primary w-full sm:w-auto h-[48px] inline-flex items-center justify-center gap-2 shadow-[0_2px_12px_rgba(24,110,215,0.28)] hover:shadow-[0_4px_18px_rgba(24,110,215,0.4)]"
+                className="btn-primary w-full sm:w-auto h-[48px] inline-flex items-center justify-center gap-2 shadow-[0_2px_12px_rgba(24,110,215,0.28)] hover:shadow-[0_4px_18px_rgba(24,110,215,0.4)] whitespace-nowrap"
               >
                 <span>{tImp.teaserCtaHelp}</span>
               </a>
 
               <Link
                 href={`/${locale}/obra-real`}
-                className="w-full sm:w-auto h-[48px] px-6 inline-flex items-center justify-center rounded-full text-sm font-semibold text-[var(--ink)] bg-white hover:bg-[var(--ink)] hover:text-white border border-[var(--border)] hover:border-[var(--ink)] shadow-xs transition-all duration-200"
+                className="w-full sm:w-auto h-[48px] px-6 inline-flex items-center justify-center rounded-full text-sm font-semibold text-[var(--ink)] bg-white hover:bg-[var(--ink)] hover:text-white border border-[var(--border)] hover:border-[var(--ink)] shadow-xs transition-all duration-200 whitespace-nowrap text-center"
               >
                 {tImp.teaserCtaWorks}
               </Link>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import {
   Copy,
   Check,
@@ -10,6 +11,7 @@ import {
   Heart,
   HeartHandshake,
   Info,
+  QrCode,
   Users,
   Building2,
 } from 'lucide-react';
@@ -179,63 +181,95 @@ export function HowToHelp() {
               {d.bizumExplanation}
             </p>
 
-            {/* Código 03367 con presencia tipográfica noble */}
-            <div className="mb-3.5">
-              <span
-                className="text-[11px] font-semibold tracking-[0.2em] text-white/70 uppercase block mb-1"
-                style={{ fontFamily: 'var(--font-body)' }}
-              >
-                CÓDIGO OFICIAL VERIFICADO · ONG
-              </span>
-              <span
-                className="text-5xl sm:text-6xl font-normal tracking-tight text-white select-all block leading-none"
-                style={{ fontFamily: 'var(--font-editorial)' }}
-              >
-                {DONATION_CONFIG.bizumCode}
-              </span>
-            </div>
+            {/* Bloque Bizum: Código principal + QR badge */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-5 sm:mb-6 max-w-lg">
+              {/* Código y botón copiar */}
+              <div className="flex-1">
+                <span
+                  className="text-[11px] font-semibold tracking-[0.2em] text-white/70 uppercase block mb-1"
+                  style={{ fontFamily: 'var(--font-body)' }}
+                >
+                  CÓDIGO OFICIAL VERIFICADO · ONG
+                </span>
+                <span
+                  className="text-5xl sm:text-6xl font-normal tracking-tight text-white select-all block leading-none mb-3.5"
+                  style={{ fontFamily: 'var(--font-editorial)' }}
+                >
+                  {DONATION_CONFIG.bizumCode}
+                </span>
 
-            {/* Fila del botón "Copiar código" y confirmación */}
-            <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap mb-5 sm:mb-6">
-              <button
-                type="button"
-                onClick={handleCopyBizum}
-                aria-label={d.copyBizumAria(DONATION_CONFIG.bizumCode)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 bg-white/10 hover:bg-white hover:text-[#186ed7] active:scale-[0.98] text-white text-sm font-semibold transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shadow-xs"
-                style={{ fontFamily: 'var(--font-body)' }}
-              >
-                <Copy size={15} strokeWidth={2} aria-hidden="true" />
-                <span>{d.bizumCopy || 'Copiar código'}</span>
-              </button>
+                <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={handleCopyBizum}
+                    aria-label={d.copyBizumAria(DONATION_CONFIG.bizumCode)}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 bg-white/10 hover:bg-white hover:text-[#186ed7] active:scale-[0.98] text-white text-sm font-semibold transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shadow-xs"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                  >
+                    <Copy size={15} strokeWidth={2} aria-hidden="true" />
+                    <span>{d.bizumCopy || 'Copiar código'}</span>
+                  </button>
 
-              <div
-                role="status"
-                aria-live="polite"
-                className={`inline-flex items-center gap-1.5 text-sm transition-all duration-200 ${
-                  bizumCopied
-                    ? 'opacity-100 translate-x-0 text-cyan-200'
-                    : bizumError
-                    ? 'opacity-100 translate-x-0 text-rose-300'
-                    : 'opacity-0 -translate-x-2 pointer-events-none'
-                }`}
-                style={{ fontFamily: 'var(--font-body)' }}
-              >
-                {bizumCopied ? (
-                  <>
-                    <Check
-                      size={15}
-                      strokeWidth={2.5}
-                      className="text-cyan-200"
-                      aria-hidden="true"
-                    />
-                    <span className="font-medium">
-                      {d.bizumCopied || 'Código copiado'}
-                    </span>
-                  </>
-                ) : bizumError ? (
-                  <span>{d.bizumError}</span>
-                ) : null}
+                  <div
+                    role="status"
+                    aria-live="polite"
+                    className={`inline-flex items-center gap-1.5 text-sm transition-all duration-200 ${
+                      bizumCopied
+                        ? 'opacity-100 translate-x-0 text-cyan-200'
+                        : bizumError
+                        ? 'opacity-100 translate-x-0 text-rose-300'
+                        : 'opacity-0 -translate-x-2 pointer-events-none'
+                    }`}
+                    style={{ fontFamily: 'var(--font-body)' }}
+                  >
+                    {bizumCopied ? (
+                      <>
+                        <Check
+                          size={15}
+                          strokeWidth={2.5}
+                          className="text-cyan-200"
+                          aria-hidden="true"
+                        />
+                        <span className="font-medium">
+                          {d.bizumCopied || 'Código copiado'}
+                        </span>
+                      </>
+                    ) : bizumError ? (
+                      <span>{d.bizumError}</span>
+                    ) : null}
+                  </div>
+                </div>
               </div>
+
+              {/* QR Code sutil y elegante */}
+              {DONATION_CONFIG.bizumQr && (
+                <div className="inline-flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-xs self-start sm:self-auto shrink-0 shadow-sm">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white p-1 rounded-xl shadow-xs shrink-0 flex items-center justify-center">
+                    <Image
+                      src={DONATION_CONFIG.bizumQr}
+                      alt="QR Bizum 03367"
+                      width={80}
+                      height={80}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="text-left pr-1">
+                    <span
+                      className="text-[10px] font-semibold text-white/90 uppercase tracking-wider flex items-center gap-1"
+                      style={{ fontFamily: 'var(--font-body)' }}
+                    >
+                      <QrCode size={12} strokeWidth={2.2} className="text-white/80" aria-hidden="true" />
+                      Bizum QR
+                    </span>
+                    <span
+                      className="text-[11px] text-white/75 block leading-tight mt-0.5"
+                      style={{ fontFamily: 'var(--font-body)' }}
+                    >
+                      {d.bizumQrHint || 'Escanea con tu cámara'}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Acordeón ¿Cómo donar por Bizum? (líneas sobrias, sin glossy) */}
