@@ -145,7 +145,7 @@ export function Navbar() {
     sections.forEach((sec) => observer.observe(sec));
 
     return () => observer.disconnect();
-  }, [isHome, currentLocale]);
+  }, [isHome, currentLocale, pathname]);
 
   // ── Sliding underline calculation (250ms) ──────────────────────────────────
   const [sliderStyle, setSliderStyle] = useState({ left: 0, width: 0, opacity: 0 });
