@@ -16,16 +16,16 @@ const MAPS_URL =
 
 function getNavHrefs(locale: string) {
   return [
-    `/${locale}#proyecto`,
+    `/${locale}/que-es-shariani`,
     `/${locale}/obra-real`,
-    `/${locale}#impacto`,
+    `/${locale}/voluntariado-kenya`,
     `/${locale}/blog`,
   ];
 }
 
 function getColaboraHrefs(locale: string) {
   return [
-    { href: `/${locale}#donar`, external: false },
+    { href: `/${locale}/donar`, external: false },
     { href: `/${locale}#obras`, external: false },
     { href: 'https://www.teaming.net/unaescuela-milesdesuenosenkenia', external: true },
     { href: `/${locale}#colabora`, external: false },

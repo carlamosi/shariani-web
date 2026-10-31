@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { images } from '@/data/images';
 import { useLang } from '@/context/LangContext';
 
 export function Story() {
-  const { tr } = useLang();
+  const { lang, tr } = useLang();
+  const locale = lang.toLowerCase();
   const chapters = tr.story.chapters;
   const [activeChapter, setActiveChapter] = useState(0);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -48,6 +50,25 @@ export function Story() {
   const imageAlts = tr.story.imageAlts;
 
   const renderBody = (ch: typeof chapters[number], i: number) => {
+    if (i === 0) {
+      return (
+        <>
+          {'body' in ch ? ch.body : null}
+          <span className="block mt-3">
+            <Link
+              href={`/${locale}/que-es-shariani`}
+              className="inline-flex items-center gap-1.5 text-[var(--forest)] font-semibold underline underline-offset-4 hover:text-[var(--forest-dark)] transition-colors text-sm"
+            >
+              {locale === 'ca'
+                ? 'Coneix la història i dades clau de Shariani →'
+                : locale === 'en'
+                ? 'Discover Shariani’s history and key facts →'
+                : 'Conoce la historia y cifras clave de Shariani →'}
+            </Link>
+          </span>
+        </>
+      );
+    }
     if (i === 1 && 'bodyPrefix' in ch) {
       return (
         <>
@@ -62,6 +83,25 @@ export function Story() {
             Volunteer Connect Kenya Foundation
           </a>{' '}
           {ch.bodySuffix}
+        </>
+      );
+    }
+    if (i === 2) {
+      return (
+        <>
+          {'body' in ch ? ch.body : null}
+          <span className="block mt-3">
+            <Link
+              href={`/${locale}/voluntariado-kenya`}
+              className="inline-flex items-center gap-1.5 text-[var(--forest)] font-semibold underline underline-offset-4 hover:text-[var(--forest-dark)] transition-colors text-sm"
+            >
+              {locale === 'ca'
+                ? 'Com funciona el voluntariat de juny a Kenya →'
+                : locale === 'en'
+                ? 'How the June volunteering trip in Kenya works →'
+                : 'Cómo funciona el voluntariado de junio en Kenia →'}
+            </Link>
+          </span>
         </>
       );
     }
@@ -115,8 +155,7 @@ export function Story() {
                   src={images[imageKeys[idx]].src}
                   alt={imageAlts[idx]}
                   fill
-                  priority={idx === 0}
-                  sizes="50vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-1000 ease-out"
                   style={{ transform: isSelected ? 'scale(1)' : 'scale(1.03)' }}
                 />

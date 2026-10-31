@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ChevronDown,
   ChevronRight,
@@ -17,7 +18,8 @@ import { useLang } from '@/context/LangContext';
 import { DONATION_CONFIG } from '@/data/donationConfig';
 
 export function HowToHelp() {
-  const { tr } = useLang();
+  const { lang, tr } = useLang();
+  const locale = lang.toLowerCase();
   const d = tr.donar;
 
   // ── Bizum Accordion State ────────────────────────────────────────────────
@@ -222,6 +224,18 @@ export function HowToHelp() {
                   {d.bizumFaqContent ||
                     'Entra en tu app bancaria, selecciona la opción Bizum, introduce el código 03367 y confirma la donación.'}
                 </p>
+                <div className="pl-7 sm:pl-9 pt-2">
+                  <Link
+                    href={`/${locale}/donar`}
+                    className="inline-flex items-center gap-1 text-xs text-white underline underline-offset-4 font-semibold hover:text-white/80"
+                  >
+                    {locale === 'ca'
+                      ? 'Guia completa de donacions i desgravació fiscal →'
+                      : locale === 'en'
+                      ? 'Full donation guide & tax deductions →'
+                      : 'Guía completa de donaciones y desgravación fiscal →'}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

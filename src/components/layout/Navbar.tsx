@@ -50,35 +50,35 @@ export function Navbar() {
   const navContainerRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  // ── Nav items in page order as in-page anchors ─────────────────────────────
-  // 1. El proyecto (#proyecto)
-  // 2. [Obras, from i18n] (#obras)
-  // 3. Impacto (#impacto)
-  // 4. Colabora (#colabora)
+  // ── Nav items in page order ─────────────────────────────────────────────
+  // 1. El proyecto (#proyecto / /que-es-shariani)
+  // 2. [Obras] (/obra-real)
+  // 3. Impacto (#impacto / /voluntariado-kenya)
+  // 4. Colabora (/donar)
   const navItems = useMemo(
     () => [
       {
         id: 'proyecto',
-        href: `/${currentLocale}#proyecto`,
+        href: isHome ? `/${currentLocale}#proyecto` : `/${currentLocale}/que-es-shariani`,
         label: tr.nav.project,
       },
       {
         id: 'obras',
-        href: `/${currentLocale}#obras`,
+        href: isHome ? `/${currentLocale}#obras` : `/${currentLocale}/obra-real`,
         label: tr.nav.obres,
       },
       {
         id: 'impacto',
-        href: `/${currentLocale}#impacto`,
+        href: isHome ? `/${currentLocale}#impacto` : `/${currentLocale}/voluntariado-kenya`,
         label: tr.nav.impact,
       },
       {
         id: 'colabora',
-        href: `/${currentLocale}#colabora`,
+        href: `/${currentLocale}/donar`,
         label: tr.nav.colabora,
       },
     ],
-    [currentLocale, tr.nav.project, tr.nav.obres, tr.nav.impact, tr.nav.colabora]
+    [currentLocale, isHome, tr.nav.project, tr.nav.obres, tr.nav.impact, tr.nav.colabora]
   );
 
   // ── Scroll & Header Height ────────────────────────────────────────────────
@@ -376,12 +376,12 @@ export function Navbar() {
           </div>
 
           {/* Donar (characteristic blue pill button with soft elevation) */}
-          <a
-            href={`/${currentLocale}#donar`}
+          <Link
+            href={`/${currentLocale}/donar`}
             className="relative inline-flex items-center justify-center text-sm font-semibold px-5 py-2 rounded-full text-white bg-[var(--forest)] hover:bg-[var(--forest-dark)] border border-white/20 shadow-[0_2px_10px_rgba(24,110,215,0.35)] hover:shadow-[0_4px_16px_rgba(24,110,215,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             {tr.nav.donate}
-          </a>
+          </Link>
         </div>
 
         {/* Mobile controls: "Donar" button stays visible outside the menu */}
@@ -426,12 +426,12 @@ export function Navbar() {
           </div>
 
           {/* Donar filled button stays visible outside mobile menu */}
-          <a
-            href={`/${currentLocale}#donar`}
+          <Link
+            href={`/${currentLocale}/donar`}
             className="relative inline-flex items-center justify-center text-xs font-semibold px-3.5 py-1.5 h-8 min-h-[32px] rounded-full text-white bg-[var(--forest)] hover:bg-[var(--forest-dark)] border border-white/20 shadow-[0_2px_8px_rgba(24,110,215,0.3)] transition-all duration-200"
           >
             {tr.nav.donate}
-          </a>
+          </Link>
 
           {/* Hamburger toggle */}
           <button
