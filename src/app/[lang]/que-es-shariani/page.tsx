@@ -50,7 +50,7 @@ const COPY: Record<Locale, PageCopy> = {
     eyebrow: 'Iniciativa educativa y solidaria',
     h1: 'Qué es Shariani y cómo nació la alianza con La Vall',
     lead:
-      'Shariani es una iniciativa solidaria y de voluntariado educativo nacida de la alianza entre el colegio La Vall (Bellaterra, Barcelona) y Shariani Primary School, ubicada en el condado de Kilifi, en la costa de Kenia. Desde 2023, cada mes de junio, alumnas de 2.º de Bachillerato viajan a Kenia para ejecutar mejoras estructurales consensuadas con la comunidad educativa local, beneficiando a más de 1.700 estudiantes.',
+      'Shariani es una iniciativa solidaria y de voluntariado educativo nacida de la alianza entre el colegio La Vall (Bellaterra, Barcelona) y Shariani Primary School, ubicada en el condado de Kilifi, en la costa de Kenia. Desde 2023, cada mes de junio, alumnas de 2.º de Bachillerato viajan a Kenia para ejecutar mejoras estructurales consensuadas con la comunidad educativa local, beneficiando a más de 1.200 estudiantes.',
     homeCrumb: 'Inicio',
     pageCrumb: 'Qué es Shariani',
     whatHeading: 'El origen del proyecto: escuchar antes de construir',
@@ -64,11 +64,11 @@ const COPY: Record<Locale, PageCopy> = {
       'Centro educativo concertado en Bellaterra (Cerdanyola del Vallès / Sabadell). Promueve la formación integral, el liderazgo de servicio y la solidaridad activa en sus alumnas de Bachillerato.',
     whoLocalTitle: 'Shariani Primary School (Kilifi)',
     whoLocalDesc:
-      'Escuela pública de educación primaria en Kilifi County, Kenia. Cuenta con un equipo docente profundamente comprometido que educa cada día a más de 1.700 niños y niñas.',
+      'Escuela pública de educación primaria en Kilifi County, Kenia. Cuenta con un equipo docente profundamente comprometido que educa cada día a más de 1.200 niños y niñas.',
     numbersHeading: 'Cifras clave del proyecto en Shariani',
     numbers: [
       {
-        value: '+1.700',
+        value: '+1.200',
         label: 'Alumnos beneficiados',
         desc: 'Estudiantes de Shariani Primary School que disfrutan de mejores condiciones escolares.',
       },
@@ -116,7 +116,7 @@ const COPY: Record<Locale, PageCopy> = {
     eyebrow: 'Iniciativa educativa i solidària',
     h1: 'Què és Shariani i com va néixer l’aliança amb La Vall',
     lead:
-      'Shariani és una iniciativa solidària i de voluntariat educatiu nascuda de l’aliança entre el col·legi La Vall (Bellaterra, Barcelona) i Shariani Primary School, situada al comtat de Kilifi, a la costa de Kenya. Des de 2023, cada mes de juny, alumnes de 2n de Batxillerat viatgen a Kenya per executar millores estructurals consensuades amb la comunitat educativa local, beneficiant més de 1.700 estudiants.',
+      'Shariani és una iniciativa solidària i de voluntariat educatiu nascuda de l’aliança entre el col·legi La Vall (Bellaterra, Barcelona) i Shariani Primary School, situada al comtat de Kilifi, a la costa de Kenya. Des de 2023, cada mes de juny, alumnes de 2n de Batxillerat viatgen a Kenya per executar millores estructurals consensuades amb la comunitat educativa local, beneficiant més de 1.200 estudiants.',
     homeCrumb: 'Inici',
     pageCrumb: 'Què és Shariani',
     whatHeading: 'L’origen del projecte: escoltar abans de construir',
@@ -130,11 +130,11 @@ const COPY: Record<Locale, PageCopy> = {
       'Centre educatiu a Bellaterra (Cerdanyola del Vallès / Sabadell). Promou la formació integral, el lideratge de servei i la solidaritat activa en les seves alumnes de Batxillerat.',
     whoLocalTitle: 'Shariani Primary School (Kilifi)',
     whoLocalDesc:
-      'Escola pública d’educació primària al comtat de Kilifi, Kenya. Compta amb un equip docent profundament compromès que educa cada dia més de 1.700 nens i nenes.',
+      'Escola pública d’educació primària al comtat de Kilifi, Kenya. Compta amb un equip docent profundament compromès que educa cada dia més de 1.200 nens i nenes.',
     numbersHeading: 'Xifres clau del projecte a Shariani',
     numbers: [
       {
-        value: '+1.700',
+        value: '+1.200',
         label: 'Alumnes beneficiats',
         desc: 'Estudiants de Shariani Primary School que gaudeixen de millors condicions escolars.',
       },
@@ -182,7 +182,7 @@ const COPY: Record<Locale, PageCopy> = {
     eyebrow: 'Educational and solidarity initiative',
     h1: 'What is Shariani and how the alliance with La Vall began',
     lead:
-      'Shariani is a school volunteering initiative born from the alliance between La Vall school (Bellaterra, Barcelona) and Shariani Primary School, located in Kilifi County on the Kenyan coast. Since 2023, every June, Year 13 students travel to Kenya to execute structural facility improvements agreed upon with the local educational community, benefiting over 1,700 pupils.',
+      'Shariani is a school volunteering initiative born from the alliance between La Vall school (Bellaterra, Barcelona) and Shariani Primary School, located in Kilifi County on the Kenyan coast. Since 2023, every June, Year 13 students travel to Kenya to execute structural facility improvements agreed upon with the local educational community, benefiting over 1,200 pupils.',
     homeCrumb: 'Home',
     pageCrumb: 'What is Shariani',
     whatHeading: 'Project origin: listening before building',
@@ -196,11 +196,11 @@ const COPY: Record<Locale, PageCopy> = {
       'A semi-private school in Bellaterra (Barcelona). It emphasizes holistic education, servant leadership and active solidarity in its senior high school students.',
     whoLocalTitle: 'Shariani Primary School (Kilifi)',
     whoLocalDesc:
-      'A public primary school in Kilifi County, Kenya. It features a deeply committed faculty educating more than 1,700 children every day.',
+      'A public primary school in Kilifi County, Kenya. It features a deeply committed faculty educating more than 1,200 children every day.',
     numbersHeading: 'Key project figures at Shariani',
     numbers: [
       {
-        value: '+1,700',
+        value: '+1,200',
         label: 'Pupils benefiting',
         desc: 'Students at Shariani Primary School enjoying safer and more dignified classrooms.',
       },

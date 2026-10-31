@@ -96,10 +96,10 @@ export const t = {
         {
           phase: 'Fase III · Juny 2026',
           tag: 'Seguretat perimetral',
-          title: 'Un refugi segur per a 1.700 nens',
+          title: 'Un refugi segur per a 1.200 nens',
           headline: 'Construcció del tancat perimetral exterior de l\'escola',
           status: 'Completat' as const,
-          story: 'Shariani Primary School limita directament amb camins rurals on circulen vehicles, bestiar i persones alienes al centre. La manca d\'un perímetre tancat generava situacions de risc constants i distraccions durant les classes. En aquesta expedició es va alçar el mur perimetral de pedra de 300 metres amb accés controlat, garantint la seguretat dels 1.700 estudiants.',
+          story: 'Shariani Primary School limita directament amb camins rurals on circulen vehicles, bestiar i persones alienes al centre. La manca d\'un perímetre tancat generava situacions de risc constants i distraccions durant les classes. En aquesta expedició es va alçar el mur perimetral de pedra de 300 metres amb accés controlat, garantint la seguretat dels 1.200 estudiants.',
         },
         {
           phase: 'Fase IV · Propera expedició',
@@ -107,7 +107,7 @@ export const t = {
           title: 'Higiene, aigua i un espai per aprendre',
           headline: 'Construcció d\'aseos dignes i una biblioteca escolar amb fons propi',
           status: 'En execució' as const,
-          story: 'La quarta expedició s\'enfronta a dues mancances estructurals que fa anys que estan a la llista de prioritats del claustre. Els lavabos actuals són insuficients i manquen d\'accés a aigua corrent, afectant especialment les nenes. Paral·lelament, construirem la primera biblioteca permanent de l\'escola: un espai tranquil, amb fons bibliogràfic propi, on els 1.700 estudiants puguin llegir i estudiar fora de l\'aula.',
+          story: 'La quarta expedició s\'enfronta a dues mancances estructurals que fa anys que estan a la llista de prioritats del claustre. Els lavabos actuals són insuficients i manquen d\'accés a aigua corrent, afectant especialment les nenes. Paral·lelament, construirem la primera biblioteca permanent de l\'escola: un espai tranquil, amb fons bibliogràfic propi, on els 1.200 estudiants puguin llegir i estudiar fora de l\'aula.',
         },
       ],
     },
@@ -364,7 +364,7 @@ export const t = {
           title: 'El mur perimetral: com un tancament de pedra garanteix la pau per aprendre.',
           excerpt: 'El terreny de l\'escola convivia amb camins de pas i animals salvatges. La construcció del tancament és la base perquè les aules siguin un santuari protegit.',
           fullText: [
-            'Aquesta obra civil ha estat un punt d\'inflexió clau per a Shariani Primary School. Fins fa poc, els 1.700 nens i nenes estaven exposats al trànsit de vehicles rurals i a distraccions constants.',
+            'Aquesta obra civil ha estat un punt d\'inflexió clau per a Shariani Primary School. Fins fa poc, els 1.200 nens i nenes estaven exposats al trànsit de vehicles rurals i a distraccions constants.',
             'L\'execució s\'ha fet exclusivament amb artesans i paletes de Kilifi. Cada metre de pedra tallada ha generat feina directa a les famílies de la zona, reforçant l\'economia local.',
             'Ara les nenes juguen i estudien en un recinte segur, amb un control d\'accés digne que protegeix tant els infants com el material pedagògic.',
             'Gràcies a les donacions a través de la Fundació Montblanc, el mur és avui una realitat sòlida que romandrà durant generacions.',
@@ -637,10 +637,10 @@ export const t = {
         {
           phase: 'Fase III · Junio 2026',
           tag: 'Seguridad perimetral',
-          title: 'Un refugio seguro para 1.700 niños',
+          title: 'Un refugio seguro para 1.200 niños',
           headline: 'Construcción del vallado perimetral exterior del colegio',
           status: 'Completado' as const,
-          story: 'Shariani Primary School linda directamente con caminos rurales por donde transitan vehículos, ganado y personas ajenas al centro. La falta de un perímetro cerrado generaba constantes situaciones de riesgo y distracciones durante las clases. En esta expedición se levantó el muro perimetral de piedra de 300 metros con acceso controlado, garantizando la seguridad de los 1.700 estudiantes.',
+          story: 'Shariani Primary School linda directamente con caminos rurales por donde transitan vehículos, ganado y personas ajenas al centro. La falta de un perímetro cerrado generaba constantes situaciones de riesgo y distracciones durante las clases. En esta expedición se levantó el muro perimetral de piedra de 300 metros con acceso controlado, garantizando la seguridad de los 1.200 estudiantes.',
         },
         {
           phase: 'Fase IV · Próxima expedición',
@@ -648,7 +648,7 @@ export const t = {
           title: 'Higiene, agua y un espacio para aprender',
           headline: 'Construcción de aseos dignos y una biblioteca escolar con fondo propio',
           status: 'En ejecución' as const,
-          story: 'La cuarta expedición afronta dos carencias estructurales que llevan años en la lista de prioridades del claustro. Los aseos actuales son insuficientes y carecen de acceso a agua corriente, afectando especialmente a las niñas. Paralelamente, construiremos la primera biblioteca permanente del colegio: un espacio tranquilo, con fondo bibliográfico propio, donde los 1.700 estudiantes puedan leer y estudiar fuera del aula.',
+          story: 'La cuarta expedición afronta dos carencias estructurales que llevan años en la lista de prioridades del claustro. Los aseos actuales son insuficientes y carecen de acceso a agua corriente, afectando especialmente a las niñas. Paralelamente, construiremos la primera biblioteca permanente del colegio: un espacio tranquilo, con fondo bibliográfico propio, donde los 1.200 estudiantes puedan leer y estudiar fuera del aula.',
         },
       ],
     },
@@ -895,7 +895,7 @@ export const t = {
           title: 'El muro perimetral: cómo un cerramiento de piedra garantiza la paz para aprender.',
           excerpt: 'El terreno de la escuela convivía con caminos de paso y animales. La construcción del cerramiento es la base para que las aulas sean un refugio protegido.',
           fullText: [
-            'Esta obra civil ha sido un punto de inflexión clave para Shariani Primary School. Hasta hace poco, los 1.700 niños y niñas estaban expuestos al tráfico rural y a distracciones continuas.',
+            'Esta obra civil ha sido un punto de inflexión clave para Shariani Primary School. Hasta hace poco, los 1.200 niños y niñas estaban expuestos al tráfico rural y a distracciones continuas.',
             'La ejecución se realizó exclusivamente con artesanos y albañiles de Kilifi. Cada metro de piedra labrada generó empleo directo en las familias de la zona, reforzando la economía local.',
             'Ahora las niñas juegan y estudien en un recinto seguro, con un control de acceso digno que protege tanto a los menores como al material pedagógico.',
             'Gracias a las donaciones a través de Fundació Montblanc, el muro es hoy una realidad sólida que perdurará durante generaciones.',
@@ -1164,10 +1164,10 @@ export const t = {
         {
           phase: 'Phase III · June 2026',
           tag: 'Perimeter security',
-          title: 'A safe refuge for 1,700 children',
+          title: 'A safe refuge for 1,200 children',
           headline: 'Construction of the school\'s external perimeter fence',
           status: 'Completado' as const,
-          story: 'Shariani Primary School borders rural paths used by vehicles, livestock and strangers. The lack of a closed perimeter created constant safety risks and classroom distractions. During this expedition a 300-metre stone perimeter wall with controlled access was built, guaranteeing the safety of the 1,700 students.',
+          story: 'Shariani Primary School borders rural paths used by vehicles, livestock and strangers. The lack of a closed perimeter created constant safety risks and classroom distractions. During this expedition a 300-metre stone perimeter wall with controlled access was built, guaranteeing the safety of the 1,200 students.',
         },
         {
           phase: 'Phase IV · Next expedition',
@@ -1175,7 +1175,7 @@ export const t = {
           title: 'Sanitation, water and a space to learn',
           headline: 'Building proper toilets and a permanent school library',
           status: 'En ejecución' as const,
-          story: 'The fourth expedition tackles two structural shortfalls that have topped the staff\'s priority list for years. The current toilets are insufficient and lack running water, disproportionately affecting girls. At the same time, we will build the school\'s first permanent library: a quiet space with its own book collection where the 1,700 students can read and study outside the classroom.',
+          story: 'The fourth expedition tackles two structural shortfalls that have topped the staff\'s priority list for years. The current toilets are insufficient and lack running water, disproportionately affecting girls. At the same time, we will build the school\'s first permanent library: a quiet space with its own book collection where the 1,200 students can read and study outside the classroom.',
         },
       ],
     },
@@ -1422,7 +1422,7 @@ export const t = {
           title: 'The perimeter wall: how a stone barrier brings peace of mind to learning.',
           excerpt: 'The school grounds used to intersect with dirt roads and wandering animals. Building this barrier creates a protected sanctuary for education.',
           fullText: [
-            'This civil engineering milestone marked a turning point for Shariani Primary School. Previously, the 1,700 pupils were constantly exposed to vehicle traffic and security risks.',
+            'This civil engineering milestone marked a turning point for Shariani Primary School. Previously, the 1,200 pupils were constantly exposed to vehicle traffic and security risks.',
             'Construction was carried out exclusively by local Kilifi masons and craftsmen, providing direct fair-wage jobs to families in the area.',
             'Today, students play and learn inside a secured compound, with controlled gates that protect both the children and the school facilities.',
             'Thanks to community donations channelled through Fundació Montblanc, the wall stands today as a permanent fixture for generations to come.',

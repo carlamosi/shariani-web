@@ -80,7 +80,7 @@ const COPY: Record<Locale, PageCopy> = {
     expeditionP1:
       'Durante la estancia en Shariani, las voluntarias combinan labores de construcción y rehabilitación física con actividades socioeducativas. Las mañanas se dedican al trabajo manual directo: lijar, barnizar y ensamblar pupitres con carpinteros de la zona, sanear y pintar aulas deterioradas o levantar tramos del muro perimetral.',
     expeditionP2:
-      'Por las tardes, se desarrollan talleres prácticos de higiene bucodental, dinámicas de lectura y convivencia con los más de 1.700 estudiantes del colegio. La convivencia estrecha fomenta un aprendizaje mutuo: las voluntarias descubren una lección imborrable de generosidad, gratitud y comunidad.',
+      'Por las tardes, se desarrollan talleres prácticos de higiene bucodental, dinámicas de lectura y convivencia con los más de 1.200 estudiantes del colegio. La convivencia estrecha fomenta un aprendizaje mutuo: las voluntarias descubren una lección imborrable de generosidad, gratitud y comunidad.',
     worksHeading: 'Proyectos tangibles ejecutados en las expediciones',
     works: [
       {
@@ -158,7 +158,7 @@ const COPY: Record<Locale, PageCopy> = {
     expeditionP1:
       'Durant l’estada a Shariani, les voluntàries combinen tasques de construcció i rehabilitació física amb activitats socioeducatives. Els matins es dediquen a la feina manual: polir, envernissar i muntar taules amb fusters de la zona, netejar i pintar aules o aixecar el mur de seguretat.',
     expeditionP2:
-      'A les tardes, s’imparteixen tallers pràctics d’higiene bucodental, dinàmiques de lectura i jocs amb els més de 1.700 infants del centre. La convivència diària genera un aprenentatge mutu inesborrable de generositat i comunitat.',
+      'A les tardes, s’imparteixen tallers pràctics d’higiene bucodental, dinàmiques de lectura i jocs amb els més de 1.200 infants del centre. La convivència diària genera un aprenentatge mutu inesborrable de generositat i comunitat.',
     worksHeading: 'Projectes tangibles executats a les expedicions',
     works: [
       {
@@ -236,7 +236,7 @@ const COPY: Record<Locale, PageCopy> = {
     expeditionP1:
       'During their stay in Shariani, volunteers combine physical construction and renovation with educational activities. Mornings are devoted to physical labor: sanding, varnishing and assembling desks with local carpenters, plastering classrooms and building sections of the security perimeter wall.',
     expeditionP2:
-      'Afternoons feature oral hygiene workshops, reading sessions and games with the school’s 1,700 pupils. The close partnership creates an enduring lesson in empathy, resilience and shared humanity.',
+      'Afternoons feature oral hygiene workshops, reading sessions and games with the school’s 1,200 pupils. The close partnership creates an enduring lesson in empathy, resilience and shared humanity.',
     worksHeading: 'Tangible projects built during expeditions',
     works: [
       {

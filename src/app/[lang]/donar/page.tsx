@@ -109,7 +109,7 @@ const COPY: Record<Locale, PageCopy> = {
       },
       {
         title: 'Valla y seguridad del centro',
-        desc: 'Materiales de construcción para el cerramiento perimetral que protege el recinto donde estudian 1.700 niños.',
+        desc: 'Materiales de construcción para el cerramiento perimetral que protege el recinto donde estudian 1.200 niños.',
       },
     ],
     companiesHeading: '¿Eres una empresa o entidad?',
@@ -169,7 +169,7 @@ const COPY: Record<Locale, PageCopy> = {
       },
       {
         title: 'Tancament i seguretat del centre',
-        desc: 'Materials per a la tanca perimetral que protegeix el recinte on estudien més de 1.700 infants.',
+        desc: 'Materials per a la tanca perimetral que protegeix el recinte on estudien més de 1.200 infants.',
       },
     ],
     companiesHeading: 'Ets una empresa o entitat?',
@@ -229,7 +229,7 @@ const COPY: Record<Locale, PageCopy> = {
       },
       {
         title: 'Perimeter school safety wall',
-        desc: 'Construction materials for the safety fence protecting the school grounds of 1,700 students.',
+        desc: 'Construction materials for the safety fence protecting the school grounds of 1,200 students.',
       },
     ],
     companiesHeading: 'Are you a company or organization?',
