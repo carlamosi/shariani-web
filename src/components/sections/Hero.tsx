@@ -67,16 +67,15 @@ export function Hero() {
         ref={bgRef}
         className="absolute inset-0 z-0 pointer-events-none"
         style={{ transform: 'translate3d(0, 0, 0) scale(1.18)', willChange: 'transform' }}
-        aria-hidden="true"
       >
         <Image
           src={images.heroSchool.src}
-          alt={images.heroSchool.alt}
+          alt={(tr.hero as { imageAlt?: string }).imageAlt || images.heroSchool.alt}
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, (max-width: 1440px) 100vw, 1440px"
+          quality={80}
           style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
-          aria-hidden="true"
         />
       </div>
 

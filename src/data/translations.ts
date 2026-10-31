@@ -31,6 +31,7 @@ export const t = {
       ctaProject: 'Coneix el viatge',
       ctaHelp: 'Com ajudar',
       ariaLabel: 'Presentació del projecte La Vall × Shariani',
+      imageAlt: 'Estudiants de Shariani Primary School a Kilifi, Kenya',
     },
 
     /* ── Story ── */
@@ -414,6 +415,10 @@ export const t = {
       hygieneLabel: 'Higiene bucal',
       fenceLabel: 'de tanca',
       skirtsLabel: 'faldilles',
+      desksAlt: 'Voluntàries i estudiants pintant noves taules escolars a Shariani',
+      hygieneAlt: "Tallers d'higiene bucodental amb els infants a Shariani",
+      fenceAlt: 'Tanca perimetral de protecció construïda a Shariani',
+      skirtsAlt: 'Alumna de Shariani amb la faldilla escolar del projecte 300 faldilles',
     },
 
     /* ── Obra Real (editorial timeline) ── */
@@ -569,6 +574,7 @@ export const t = {
       ctaProject: 'Conoce el viaje',
       ctaHelp: 'Cómo ayudar',
       ariaLabel: 'Presentación del proyecto La Vall × Shariani',
+      imageAlt: 'Estudiantes de Shariani Primary School en Kilifi, Kenia',
     },
     story: {
       ariaLabel: 'Historia del proyecto',
@@ -936,6 +942,10 @@ export const t = {
       hygieneLabel: 'Higiene bucal',
       fenceLabel: 'de valla',
       skirtsLabel: 'faldas',
+      desksAlt: 'Voluntarias y estudiantes pintando nuevas mesas escolares en Shariani',
+      hygieneAlt: 'Talleres de higiene bucodental con los niños en Shariani',
+      fenceAlt: 'Valla perimetral de protección construida en Shariani',
+      skirtsAlt: 'Alumna de Shariani con la falda escolar del proyecto 300 faldas',
     },
 
     /* ── Obra Real (editorial timeline) ── */
@@ -1089,6 +1099,7 @@ export const t = {
       ctaProject: 'Discover the journey',
       ctaHelp: 'How to help',
       ariaLabel: 'Introduction to the La Vall × Shariani project',
+      imageAlt: 'Students of Shariani Primary School in Kilifi, Kenya',
     },
     story: {
       ariaLabel: 'Project story',
@@ -1456,6 +1467,10 @@ export const t = {
       hygieneLabel: 'Oral hygiene',
       fenceLabel: 'of perimeter fence',
       skirtsLabel: 'skirts',
+      desksAlt: 'Volunteers and students painting new school desks at Shariani',
+      hygieneAlt: 'Oral hygiene workshops with pupils at Shariani Primary School',
+      fenceAlt: 'Perimeter security fence built at Shariani Primary School',
+      skirtsAlt: 'Shariani pupil wearing the school skirt from the 300 skirts project',
     },
 
     /* ── Obra Real (editorial timeline) ── */

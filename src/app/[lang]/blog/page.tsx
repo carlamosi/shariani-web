@@ -1,6 +1,8 @@
 import type { Locale } from '@/lib/site';
-import { LOCALES } from '@/lib/site';
+import { LOCALES, SITE_URL } from '@/lib/site';
 import { buildMetadata } from '@/lib/seo';
+import { buildBlogPageJsonLd } from '@/lib/jsonld';
+import { t } from '@/data/translations';
 import { notFound } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -16,19 +18,19 @@ export function generateStaticParams() {
 // Per-locale blog page strings (server-side only — no client dict needed)
 const BLOG_META: Record<Locale, { title: string; description: string }> = {
   ca: {
-    title: 'Blog',
+    title: 'Blog · Voluntariat La Vall a Kenya | Shariani',
     description:
-      'Cròniques i testimonis de les alumnes de La Vall (Bellaterra) a Shariani Primary School, Kilifi, Kenya.',
+      'Cròniques i testimonis de les alumnes de La Vall (Bellaterra) al voluntariat de Shariani Primary School, Kilifi, Kenya. Diaris des del terreny i aprenentatge mutu.',
   },
   es: {
-    title: 'Blog',
+    title: 'Blog · Voluntariado La Vall en Kenia | Shariani',
     description:
-      'Crónicas y testimonios de las alumnas de La Vall (Bellaterra) en Shariani Primary School, Kilifi, Kenia.',
+      'Crónicas y testimonios de las alumnas de La Vall (Bellaterra) en el voluntariado de Shariani Primary School, Kilifi, Kenia. Diarios desde el terreno y aprendizaje mutuo.',
   },
   en: {
-    title: 'Blog',
+    title: 'Blog · La Vall Volunteering in Kenya | Shariani',
     description:
-      'Field diaries and testimonies from La Vall (Bellaterra) students at Shariani Primary School, Kilifi, Kenya.',
+      'Field diaries and testimonies from La Vall (Bellaterra) students at Shariani Primary School, Kilifi, Kenya. Stories of mutual learning and community building.',
   },
 };
 
@@ -71,9 +73,41 @@ export default async function BlogPage({
   if (!(LOCALES as readonly string[]).includes(lang)) notFound();
   const locale = lang as Locale;
   const header = BLOG_HEADER[locale];
+  const m = BLOG_META[locale];
+
+  const langKey = locale.toUpperCase() as 'CA' | 'ES' | 'EN';
+  const journalEntries = t[langKey]?.journal?.entries ?? [];
+  const publishedDates = ['2024-07-01', '2024-05-01', '2024-02-01'];
+  const postImages = [
+    `${SITE_URL}/images/hero-school.jpeg`,
+    `${SITE_URL}/images/valla.jpg`,
+    `${SITE_URL}/images/colaborar-ongs.jpg`,
+  ];
+
+  const posts = journalEntries.map((e, idx) => ({
+    title: e.title,
+    excerpt: e.excerpt,
+    author: e.author,
+    date: e.date,
+    datePublished: publishedDates[idx] || '2024-07-01',
+    image: postImages[idx] || `${SITE_URL}/images/hero-school.jpeg`,
+  }));
+
+  const breadcrumbLabels: Record<Locale, string> = { es: 'Inicio', ca: 'Inici', en: 'Home' };
+  const jsonLd = buildBlogPageJsonLd({
+    lang: locale,
+    title: m.title,
+    description: m.description,
+    breadcrumbs: [
+      { name: breadcrumbLabels[locale], item: `${SITE_URL}/${locale}` },
+      { name: 'Blog', item: `${SITE_URL}/${locale}/blog` },
+    ],
+    posts,
+  });
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       <ScrollReveal />
       <Navbar />
       <main>

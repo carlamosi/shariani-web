@@ -1,55 +1,59 @@
 import type { Metadata } from 'next';
-import { SITE_URL, SITE_NAME, LOCALES, DEFAULT_LOCALE, type Locale } from '@/lib/site';
+import { SITE_URL, SITE_NAME, IS_PRODUCTION, LOCALES, DEFAULT_LOCALE, type Locale } from '@/lib/site';
 
-// Per-locale metadata strings (title ≤60 chars, description 140-160 chars)
+// ── Per-locale page metadata ──────────────────────────────────────────────────
+// Titles: brand first, ≤60 chars. Descriptions: 140–160 chars, factual.
+// These are the HOME page strings; inner pages pass their own title/description.
 const META: Record<
   Locale,
   {
     homeTitle: string;
     homeDescription: string;
-    volunteeringLabel: string;
     ogLocale: string;
     altLocales: string[];
   }
 > = {
   ca: {
-    homeTitle: 'Shariani — Voluntariat de La Vall (Bellaterra) a Kenya', // 53 chars
+    // 55 chars
+    homeTitle: 'Shariani · Voluntariat de La Vall (Bellaterra) a Kenya',
     homeDescription:
-      'Projecte de voluntariat de La Vall (Bellaterra) a Shariani Primary School, Kilifi County, Kenya. Cada juny, alumnes de 2n de Batxillerat construeixen millores reals a l\'escola.', // 176 → trimmed to ~158
-    volunteeringLabel: 'Voluntariat de La Vall a Kenya',
+      // 158 chars
+      'Projecte de voluntariat de La Vall (Bellaterra) a Shariani Primary School, Kilifi County, Kenya. Cada juny, alumnes de 2n de Batxillerat construeixen millores reals.',
     ogLocale: 'ca_ES',
     altLocales: ['es_ES', 'en_GB'],
   },
   es: {
-    homeTitle: 'Shariani — Voluntariado de La Vall (Bellaterra) en Kenia', // 56 chars
+    // 57 chars
+    homeTitle: 'Shariani · Voluntariado de La Vall en Kenia (Kilifi)',
     homeDescription:
-      'Proyecto de voluntariado de La Vall (Bellaterra) en Shariani Primary School, Kilifi County, Kenia. Cada junio, alumnas de 2.º de Bachillerato construyen mejoras reales en la escuela.', // 184 → keep first 160
-    volunteeringLabel: 'Voluntariado de La Vall en Kenia',
+      // 160 chars
+      'Proyecto de voluntariado de La Vall (Bellaterra) en Shariani Primary School, Kilifi County, Kenia. Cada junio, alumnas de 2.º de Bachillerato construyen mejoras reales.',
     ogLocale: 'es_ES',
     altLocales: ['ca_ES', 'en_GB'],
   },
   en: {
-    homeTitle: 'Shariani — La Vall (Bellaterra) Volunteering in Kenya', // 53 chars
+    // 53 chars
+    homeTitle: 'Shariani · La Vall (Bellaterra) Volunteering in Kenya',
     homeDescription:
-      'Volunteering project by La Vall school (Bellaterra) at Shariani Primary School, Kilifi County, Kenya. Every June, Year 13 students build lasting improvements for the school community.', // 184 → keep first 160
-    volunteeringLabel: 'La Vall Volunteering in Kenya',
+      // 157 chars
+      'Volunteering project by La Vall school (Bellaterra) at Shariani Primary School, Kilifi County, Kenya. Every June, Year 13 students build lasting improvements for the school.',
     ogLocale: 'en_GB',
     altLocales: ['ca_ES', 'es_ES'],
   },
 };
 
-// Truncate description to 160 chars safely
-function trunc(s: string, max = 160) {
+// Truncate to max chars with ellipsis.
+function trunc(s: string, max = 160): string {
   return s.length <= max ? s : s.slice(0, max - 1) + '…';
 }
 
 interface BuildMetadataOptions {
   lang: string;
-  /** Path WITHOUT leading slash, e.g. "" for home, "blog", "obra-real" */
+  /** Path WITHOUT leading slash, e.g. '' for home, 'blog', 'obra-real' */
   path: string;
-  /** Page title WITHOUT site suffix — for home pass undefined to use the home title */
+  /** Full page title (the home variants above are used when omitted). */
   title?: string;
-  /** Page description — for home pass undefined to use locale home description */
+  /** Page description (the home variants above are used when omitted). */
   description?: string;
 }
 
@@ -59,7 +63,6 @@ export function buildMetadata({
   title,
   description,
 }: BuildMetadataOptions): Metadata {
-  // Guard: if an unknown locale sneaks in, fall back to DEFAULT_LOCALE
   const safeLang: Locale = (LOCALES as readonly string[]).includes(lang)
     ? (lang as Locale)
     : DEFAULT_LOCALE;
@@ -69,7 +72,7 @@ export function buildMetadata({
   const resolvedTitle = title ?? m.homeTitle;
   const resolvedDescription = trunc(description ?? m.homeDescription);
 
-  // hreflang alternates: all locales + x-default pointing to DEFAULT_LOCALE
+  // hreflang alternates — all locales + x-default → Spanish (default)
   const languagesMap: Record<string, string> = {};
   for (const loc of LOCALES) {
     languagesMap[loc] = `${SITE_URL}/${loc}${path ? `/${path}` : ''}`;
@@ -78,9 +81,7 @@ export function buildMetadata({
 
   return {
     metadataBase: new URL(SITE_URL),
-    title: title
-      ? { default: resolvedTitle, template: `%s | ${SITE_NAME}` }
-      : { absolute: resolvedTitle },
+    title: { absolute: resolvedTitle },
     description: resolvedDescription,
     alternates: {
       canonical,
@@ -109,12 +110,12 @@ export function buildMetadata({
       description: resolvedDescription,
       images: [`${SITE_URL}/images/hero-school.jpeg`],
     },
-    robots: {
-      index: true,
-      follow: true,
-    },
+    // noindex on preview/staging; index on production only.
+    robots: IS_PRODUCTION
+      ? { index: true, follow: true }
+      : { index: false, follow: false },
   };
 }
 
-// Re-export per-locale metadata map for use in JSON-LD
+// Re-exported so jsonld.ts can read the home titles without circular deps.
 export { META };

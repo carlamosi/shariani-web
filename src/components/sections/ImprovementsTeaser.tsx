@@ -128,7 +128,7 @@ export function ImprovementsTeaser() {
               <div className="group relative sm:row-span-2 rounded-2xl overflow-hidden bg-[var(--paper)] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-black/[0.04]">
                 <Image
                   src={images.fase1Mesas.src}
-                  alt={images.fase1Mesas.alt}
+                  alt={(tImp as { desksAlt?: string }).desksAlt || images.fase1Mesas.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
@@ -149,7 +149,7 @@ export function ImprovementsTeaser() {
                 <div className="group relative col-span-2 rounded-2xl overflow-hidden bg-[var(--paper)] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-black/[0.04]">
                   <Image
                     src={images.higieneBucal.src}
-                    alt={images.higieneBucal.alt}
+                    alt={(tImp as { hygieneAlt?: string }).hygieneAlt || images.higieneBucal.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
@@ -164,7 +164,7 @@ export function ImprovementsTeaser() {
                 <div className="group relative col-span-1 rounded-2xl overflow-hidden bg-[var(--paper)] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-black/[0.04]">
                   <Image
                     src={images.fase3_1.src}
-                    alt={images.fase3_1.alt}
+                    alt={(tImp as { fenceAlt?: string }).fenceAlt || images.fase3_1.alt}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
@@ -182,7 +182,7 @@ export function ImprovementsTeaser() {
                 <div className="group relative col-span-1 rounded-2xl overflow-hidden bg-[var(--paper)] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-black/[0.04]">
                   <Image
                     src={images.ninaFalda.src}
-                    alt={images.ninaFalda.alt}
+                    alt={(tImp as { skirtsAlt?: string }).skirtsAlt || images.ninaFalda.alt}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
