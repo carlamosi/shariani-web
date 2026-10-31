@@ -40,10 +40,37 @@ export function BlogContent() {
         return true;
       });
 
+  const openEntry = (index: number) => {
+    setReadingEntryIndex(index);
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', `#entry-${index}`);
+    }
+  };
+
+  const closeEntry = () => {
+    setReadingEntryIndex(null);
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  };
+
+  // URL hash sync on load
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    const match = hash.match(/^#entry-(\d+)$/);
+    if (match) {
+      const idx = parseInt(match[1], 10);
+      if (idx >= 0 && idx < entriesWithImages.length) {
+        setReadingEntryIndex(idx);
+      }
+    }
+  }, [entriesWithImages.length]);
+
   useEffect(() => {
     if (readingEntryIndex === null) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setReadingEntryIndex(null);
+      if (e.key === 'Escape') closeEntry();
     };
     window.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
@@ -78,8 +105,17 @@ export function BlogContent() {
         {/* Lead Featured Article */}
         {filteredEntries.length > 0 && selectedCategory === 'all' && (
           <article
-            onClick={() => setReadingEntryIndex(filteredEntries[0].id)}
-            className="mb-14 rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--paper)]/50 card-interactive cursor-pointer group grid grid-cols-1 lg:grid-cols-12 gap-0"
+            role="button"
+            tabIndex={0}
+            onClick={() => openEntry(filteredEntries[0].id)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openEntry(filteredEntries[0].id);
+              }
+            }}
+            aria-label={`${filteredEntries[0].title} — ${j.readLatest}`}
+            className="mb-14 rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--paper)]/50 card-interactive cursor-pointer group grid grid-cols-1 lg:grid-cols-12 gap-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2"
           >
             <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto min-h-[300px] lg:min-h-[420px] overflow-hidden">
               <Image
@@ -132,8 +168,17 @@ export function BlogContent() {
           {(selectedCategory === 'all' ? filteredEntries.slice(1) : filteredEntries).map((entry) => (
             <article
               key={entry.id}
-              onClick={() => setReadingEntryIndex(entry.id)}
-              className="bg-[var(--ivory)] border border-[var(--border)] rounded-xl overflow-hidden card-interactive cursor-pointer group flex flex-col justify-between"
+              role="button"
+              tabIndex={0}
+              onClick={() => openEntry(entry.id)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  openEntry(entry.id);
+                }
+              }}
+              aria-label={`${entry.title} — ${entry.author}`}
+              className="bg-[var(--ivory)] border border-[var(--border)] rounded-xl overflow-hidden card-interactive cursor-pointer group flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2"
             >
               <div>
                 <div className="relative aspect-[16/10] overflow-hidden bg-[var(--paper)]">
@@ -185,7 +230,7 @@ export function BlogContent() {
           aria-modal="true"
           aria-label={activeEntry.title}
           onClick={(e) => {
-            if (e.target === e.currentTarget) setReadingEntryIndex(null);
+            if (e.target === e.currentTarget) closeEntry();
           }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--ink)]/60 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto"
         >
@@ -199,11 +244,11 @@ export function BlogContent() {
                 <span className="text-xs text-[var(--text-secondary)] font-mono">{activeEntry.date}</span>
               </div>
               <button
-                onClick={() => setReadingEntryIndex(null)}
-                className="w-9 h-9 rounded-full bg-[var(--paper)] hover:bg-[var(--border)] text-[var(--ink)] flex items-center justify-center transition-colors cursor-pointer"
+                onClick={closeEntry}
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-[var(--paper)] hover:bg-[var(--border)] text-[var(--ink)] flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)]"
                 aria-label={j.closeArticle}
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
@@ -252,8 +297,8 @@ export function BlogContent() {
               <div className="mt-10 pt-6 border-t border-[var(--border)] flex justify-between items-center">
                 <span className="text-xs text-[var(--text-secondary)]">La Vall × Shariani · Kilifi County</span>
                 <button
-                  onClick={() => setReadingEntryIndex(null)}
-                  className="btn-secondary text-xs px-4 py-2"
+                  onClick={closeEntry}
+                  className="btn-secondary text-xs px-5 py-2.5 min-h-[44px] flex items-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)]"
                 >
                   {j.closeArticle}
                 </button>
