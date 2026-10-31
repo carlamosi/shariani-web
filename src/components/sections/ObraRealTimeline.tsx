@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { Play } from 'lucide-react';
 import { useLang } from '@/context/LangContext';
 import { t } from '@/data/translations';
 import { images } from '@/data/images';
@@ -445,21 +446,21 @@ function YearRow({
             </blockquote>
           )}
 
-          {/* Video link for 2026 */}
+          {/* Video link for 2026 (300 school skirts subproject) */}
           {data.videoLink && (
-            <div className="pt-2">
+            <div className="pt-3">
               <button
                 type="button"
                 onClick={(e) => onVideoClick(e.currentTarget)}
-                className="editorial-link group inline-flex items-center gap-1.5 py-1 text-sm font-semibold text-[var(--forest)] hover:text-[var(--forest-dark)] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] rounded"
+                className="inline-flex items-center gap-3 px-4 py-2.5 rounded-full bg-[var(--paper)] hover:bg-[var(--border-light)] border border-[var(--forest)]/30 hover:border-[var(--forest)] text-[var(--ink)] shadow-xs transition-all duration-200 cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] group"
                 style={{ fontFamily: 'var(--font-body)' }}
+                aria-label={data.videoLabel || data.videoLink}
               >
-                <span className="editorial-link-text relative">
-                  {data.videoLink.replace(' →', '')}
-                  <span className="editorial-link-underline" />
+                <span className="w-8 h-8 rounded-full bg-[var(--forest)] text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-xs">
+                  <Play size={13} className="fill-current translate-x-0.5 text-white" aria-hidden="true" />
                 </span>
-                <span className="editorial-link-arrow transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
-                  →
+                <span className="text-xs sm:text-sm font-semibold text-[var(--forest-dark)] group-hover:text-[var(--forest)]">
+                  {data.videoLink.replace(' →', '')}
                 </span>
               </button>
             </div>
