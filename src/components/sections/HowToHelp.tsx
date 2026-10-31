@@ -139,7 +139,7 @@ export function HowToHelp() {
                   className="text-[11px] font-semibold tracking-[0.2em] text-white/70 uppercase block mb-1"
                   style={{ fontFamily: 'var(--font-body)' }}
                 >
-                  CÓDIGO OFICIAL VERIFICADO · ONG
+                  {d.bizumCodeLabel || (locale === 'ca' ? 'CODI BIZUM SOLIDARI' : locale === 'en' ? 'SOLIDARITY BIZUM CODE' : 'CÓDIGO BIZUM SOLIDARIO')}
                 </span>
                 <span
                   className="text-5xl sm:text-6xl font-normal tracking-tight text-white select-all block leading-none"
@@ -147,13 +147,21 @@ export function HowToHelp() {
                 >
                   {DONATION_CONFIG.bizumCode}
                 </span>
+                {d.bizumBankNotice && (
+                  <p
+                    className="text-xs text-white/80 mt-2 leading-relaxed"
+                    style={{ fontFamily: 'var(--font-body)' }}
+                  >
+                    {d.bizumBankNotice}
+                  </p>
+                )}
               </div>
 
               {/* QR Code sutil y elegante */}
               {DONATION_CONFIG.bizumQr && (
                 <div
                   className="flex flex-col items-center justify-center p-2 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-xs self-start sm:self-auto shrink-0 shadow-sm transition-transform duration-200 hover:scale-105"
-                  title="Bizum ONG 03367"
+                  title="Bizum Solidario 03367"
                 >
                   <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white p-1 rounded-xl shadow-xs shrink-0 flex items-center justify-center">
                     <Image

@@ -202,6 +202,8 @@ export const t = {
     /* ── Donar Section (Editorial Redesign) ── */
     donar: {
       tag: 'DONACIONS',
+      bizumCodeLabel: 'CODI BIZUM SOLIDARI',
+      bizumBankNotice: 'A la teva app bancària apareixerà a nom de «FUNDACIÓ MONTBLANC» (entitat col·laboradora).',
       headline: "Ajuda'ns a seguir construint.",
       supporting: 'Cada aportació ens acosta a una escola amb millors oportunitats per als seus alumnes.',
       bizumTitle: 'Bizum',
@@ -735,6 +737,8 @@ export const t = {
     /* ── Donar Section (Editorial Redesign) ── */
     donar: {
       tag: 'DONACIONES',
+      bizumCodeLabel: 'CÓDIGO BIZUM SOLIDARIO',
+      bizumBankNotice: 'En tu app bancaria aparecerá a nombre de «FUNDACIÓ MONTBLANC» (entidad colaboradora).',
       headline: 'Ayúdanos a seguir construyendo.',
       supporting: 'Cada aportación nos acerca a una escuela con mejores oportunidades para sus alumnos.',
       bizumTitle: 'Bizum',
@@ -1260,6 +1264,8 @@ export const t = {
     /* ── Donar Section (Editorial Redesign) ── */
     donar: {
       tag: 'DONATIONS',
+      bizumCodeLabel: 'SOLIDARITY BIZUM CODE',
+      bizumBankNotice: 'In your banking app, recipient will show as «FUNDACIÓ MONTBLANC» (partner entity).',
       headline: 'Help us keep building.',
       supporting: 'Every contribution brings us closer to a school with better opportunities for its students.',
       bizumTitle: 'Bizum',
