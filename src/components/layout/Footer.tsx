@@ -250,7 +250,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div
           className="py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
-          style={{ fontSize: '11px', color: 'rgba(250,248,244,0.35)' }}
+          style={{ fontSize: '12px', color: 'rgba(250,248,244,0.60)' }}
         >
           <p>{f.copyright(year)}</p>
           <div className="flex items-center gap-4">
@@ -265,12 +265,12 @@ export function Footer() {
                   <Link
                     href={item.href}
                     className="no-underline transition-colors"
-                    style={{ color: 'rgba(250,248,244,0.35)' }}
+                    style={{ color: 'rgba(250,248,244,0.60)' }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.65)';
+                      (e.currentTarget as HTMLElement).style.color = '#fff';
                     }}
                     onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.35)';
+                      (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.60)';
                     }}
                   >
                     {item.label}
@@ -282,12 +282,12 @@ export function Footer() {
                       if (item.href === '#') e.preventDefault();
                     }}
                     className="no-underline transition-colors"
-                    style={{ color: 'rgba(250,248,244,0.35)' }}
+                    style={{ color: 'rgba(250,248,244,0.60)' }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.65)';
+                      (e.currentTarget as HTMLElement).style.color = '#fff';
                     }}
                     onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.35)';
+                      (e.currentTarget as HTMLElement).style.color = 'rgba(250,248,244,0.60)';
                     }}
                   >
                     {item.label}

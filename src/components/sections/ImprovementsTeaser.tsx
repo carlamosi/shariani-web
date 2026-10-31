@@ -122,10 +122,10 @@ export function ImprovementsTeaser() {
 
           {/* Right column: Bento grid of 4 existing photos with editorial frosted capsules and subtle zoom */}
           <div className="lg:col-span-7">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-[460px] sm:h-[480px] lg:h-[500px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-auto sm:h-[480px] lg:h-[500px]">
 
               {/* School desks: large tile (spans 2 rows) */}
-              <div className="group relative sm:row-span-2 rounded-2xl overflow-hidden bg-[var(--paper)] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-black/[0.04]">
+              <div className="group relative sm:row-span-2 min-h-[220px] sm:min-h-0 rounded-2xl overflow-hidden bg-[var(--paper)] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-black/[0.04]">
                 <Image
                   src={images.fase1Mesas.src}
                   alt={(tImp as { desksAlt?: string }).desksAlt || images.fase1Mesas.alt}
@@ -143,7 +143,7 @@ export function ImprovementsTeaser() {
               </div>
 
               {/* Right half: medium tile + 2 small tiles */}
-              <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:row-span-2">
+              <div className="grid grid-cols-2 grid-rows-2 gap-3 sm:row-span-2 min-h-[240px] sm:min-h-0">
 
                 {/* Oral hygiene: medium tile (spans 2 cols) */}
                 <div className="group relative col-span-2 rounded-2xl overflow-hidden bg-[var(--paper)] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-black/[0.04]">

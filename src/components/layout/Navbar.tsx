@@ -402,14 +402,14 @@ export function Navbar() {
           <div ref={mobileLangRef} className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-[0.75rem] font-semibold transition-all duration-200 cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-2 min-h-[44px] min-w-[44px] rounded-full border text-[0.75rem] font-semibold transition-all duration-200 cursor-pointer ${
                 isScrolled || menuOpen
                   ? 'text-[var(--ink-muted)] border-[var(--border)] bg-white/70'
                   : 'text-white/90 border-white/30 bg-white/10 backdrop-blur-md'
               }`}
               aria-label={tr.nav.langLabel(lang)}
             >
-              <Globe size={12} strokeWidth={1.5} />
+              <Globe size={13} strokeWidth={1.5} />
               <span>{lang}</span>
             </button>
             {langOpen && (
@@ -424,7 +424,7 @@ export function Navbar() {
                       setLang(l.code);
                       setLangOpen(false);
                     }}
-                    className={`w-full text-left text-[0.8125rem] px-3 py-2 hover:bg-[var(--paper)] transition-colors block ${
+                    className={`w-full text-left text-[0.8125rem] px-3.5 py-2.5 min-h-[44px] flex items-center hover:bg-[var(--paper)] transition-colors ${
                       lang === l.code
                         ? 'text-[var(--forest)] font-semibold'
                         : 'text-[var(--ink-muted)]'
@@ -440,7 +440,7 @@ export function Navbar() {
           {/* Donar filled button stays visible outside mobile menu */}
           <Link
             href={`/${currentLocale}/donar`}
-            className="relative inline-flex items-center justify-center text-xs font-semibold px-3.5 py-1.5 h-8 min-h-[32px] rounded-full text-white bg-[var(--forest)] hover:bg-[var(--forest-dark)] border border-white/20 shadow-[0_2px_8px_rgba(24,110,215,0.3)] transition-all duration-200"
+            className="relative inline-flex items-center justify-center text-xs font-semibold px-4 py-2 min-h-[44px] rounded-full text-white bg-[var(--forest)] hover:bg-[var(--forest-dark)] border border-white/20 shadow-[0_2px_8px_rgba(24,110,215,0.3)] transition-all duration-200"
           >
             {tr.nav.donate}
           </Link>
@@ -449,7 +449,7 @@ export function Navbar() {
           <button
             ref={menuButtonRef}
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`p-1.5 rounded transition-colors duration-200 cursor-pointer ${
+            className={`min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded transition-colors duration-200 cursor-pointer ${
               isScrolled || menuOpen ? 'text-[var(--ink)]' : 'text-white'
             }`}
             aria-expanded={menuOpen}

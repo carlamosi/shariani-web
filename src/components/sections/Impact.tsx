@@ -51,12 +51,13 @@ interface MetricCardProps {
 }
 
 function MetricCard({ number, label, description, index, sectionActive }: MetricCardProps) {
+  const { lang } = useLang();
   const { prefix, value, suffix } = parseMetric(number);
   const count = useCounter(value, sectionActive, 1200 + index * 150);
 
-  // Format with locale thousands separator matching original (dot for ES/CA)
+  // Format with locale thousands separator matching current language
   const formatted = value >= 1000
-    ? count.toLocaleString('es-ES').replace(',', '.')
+    ? (lang === 'EN' ? count.toLocaleString('en-US') : count.toLocaleString('es-ES').replace(',', '.'))
     : String(count);
 
   const [hovered, setHovered] = useState(false);

@@ -11,11 +11,15 @@ export function Story() {
   const locale = lang.toLowerCase();
   const chapters = tr.story.chapters;
   const [activeChapter, setActiveChapter] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mq.matches) return;
+    if (mq.matches) {
+      setReducedMotion(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -177,8 +181,8 @@ export function Story() {
                 <div
                   className="transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                   style={{
-                    opacity: activeChapter === i ? 1 : 0.2,
-                    transform: activeChapter === i ? 'translateY(0)' : 'translateY(16px)',
+                    opacity: reducedMotion || activeChapter === i ? 1 : 0.2,
+                    transform: reducedMotion || activeChapter === i ? 'translateY(0)' : 'translateY(16px)',
                   }}
                 >
                   <div className="mb-4 inline-flex items-center gap-2">
