@@ -386,7 +386,7 @@ export function HowToHelp() {
             </div>
 
             <a
-              href="mailto:cmonte@la-vall.org?subject=Colaboracion%20Empresas%20-%20La%20Vall%20x%20Shariani"
+              href="#contacto"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/60 bg-white text-[#186ed7] hover:bg-white/90 active:scale-[0.98] text-xs sm:text-sm font-semibold transition-all duration-200 shrink-0 shadow-sm"
               style={{ fontFamily: 'var(--font-body)' }}
             >

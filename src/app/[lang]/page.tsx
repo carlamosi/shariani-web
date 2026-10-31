@@ -10,6 +10,7 @@ import { ImprovementsTeaser } from '@/components/sections/ImprovementsTeaser';
 import { Impact } from '@/components/sections/Impact';
 import { HowToHelp } from '@/components/sections/HowToHelp';
 import { Testimonials } from '@/components/sections/Testimonials';
+import { Contact } from '@/components/sections/Contact';
 import { MediaStrip } from '@/components/sections/MediaStrip';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
@@ -57,6 +58,7 @@ export default async function HomePage({
         <Impact />
         <HowToHelp />
         <Testimonials />
+        <Contact />
         <MediaStrip />
       </main>
       <Footer />

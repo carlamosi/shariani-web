@@ -10,7 +10,8 @@ const STATIC_ROUTES: Array<{ path: string; lastModified?: string }> = [
   { path: 'voluntariado-kenya',  lastModified: '2026-10-28' }, // June expedition details
   { path: 'donar',               lastModified: '2026-10-28' }, // donation channels (Bizum, Teaming, iHelp)
   { path: 'obra-real',           lastModified: '2026-10-24' }, // works timeline: latest content update
-  { path: 'blog',                lastModified: '2026-10-24' }, // blog index: latest content update
+  { path: 'blog',                lastModified: '2026-10-31' }, // blog index: new IX Aventura Familiar chronicle
+  { path: 'privacidad',          lastModified: '2026-10-31' }, // privacy, legal notice & cookies policy
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

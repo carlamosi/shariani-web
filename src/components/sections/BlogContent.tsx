@@ -7,6 +7,7 @@ import { images } from '@/data/images';
 import { useLang } from '@/context/LangContext';
 
 const ENTRY_IMAGES = [
+  images.abrazo.src,
   images.heroSchool.src,
   images.fase3_1.src,
   images.colaborarOngs.src,

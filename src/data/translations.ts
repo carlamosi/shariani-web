@@ -341,6 +341,23 @@ export const t = {
       filterCommunity: 'Comunitat',
       entries: [
         {
+          tag: 'Comunitat i solidaritat',
+          category: 'Comunitat',
+          date: 'Octubre 2026',
+          author: 'Comunitat La Vall & AMPA',
+          readTime: '3 min de lectura',
+          title: "IX Aventura Familiar: 2.980 euros recaptats per a l'expedició a Shariani",
+          excerpt: "Una jornada memorable de jocs, convivència familiar i solidaritat a l'escola La Vall per impulsar les obres a Shariani Primary School (Kenya).",
+          fullText: [
+            "Diumenge passat 25 d'octubre, els espais exteriors de l'escola La Vall van acollir la novena edició de la tradicional Aventura Familiar. Més enllà d'una trobada lúdica a l'aire lliure, la jornada es va consolidar com una commovedora mostra de cohesió entre alumnes, famílies i equip docent, unint l'alegria compartida amb un compromís humà autèntic.",
+            "Al llarg de tot el dia, petits i grans van gaudir d'una àmplia varietat d'activitats familiars: tirolina, circuits de karts, inflables i jocs gegants, a més de compartir el dinar comunitari organitzat amb gran dedicació per l'AMPA.",
+            "El motor de la jornada va ser la seva finalitat solidària: gràcies a la participació i generositat de les famílies, es van recaptar 2.980 euros, que es destinaran íntegrament al projecte que les alumnes de 2n de Batxillerat desenvolupen a Shariani Primary School (comtat de Kilifi, Kenya).",
+            "«Veure tantes famílies de l'escola mobilitzades, sabent que cada aportació es convertirà en pupitres, aules dignes i salut per als infants de Kilifi, omple de sentit la nostra tasca educativa».",
+            "Durant tot el curs, les estudiants de 2n de Batxillerat treballen de manera constant per finançar el projecte. En finalitzar la selectivitat al juny, agafaran el relleu per viatjar sobre el terreny, coordinar les obres de millora de les instal·lacions escolars i conviure estretament amb la comunitat educativa de Shariani.",
+            "Volem expressar el nostre més sincer agraïment a totes les famílies i a l'AMPA per la seva generosa implicació. Gestos col·lectius com aquest eduquen en l'empatia i demostren la força transformadora de la nostra comunitat.",
+          ],
+        },
+        {
           tag: 'Vivències de les alumnes',
           category: 'Vivències i persones',
           date: 'Juliol 2024',
@@ -872,6 +889,23 @@ export const t = {
       filterCommunity: 'Comunidad',
       entries: [
         {
+          tag: 'Comunidad y solidaridad',
+          category: 'Comunidad',
+          date: 'Octubre 2026',
+          author: 'Comunidad La Vall y AMPA',
+          readTime: '3 min de lectura',
+          title: 'IX Aventura Familiar: 2.980 euros recaudados para la expedición a Shariani',
+          excerpt: 'Una jornada de convivencia, juegos familiares y generosidad de toda la comunidad educativa de La Vall para impulsar las obras de Shariani Primary School en Kenia.',
+          fullText: [
+            'El pasado domingo 25 de octubre, los patios y jardines del colegio La Vall acogieron la novena edición de la tradicional Aventura Familiar. Más que un día festivo al aire libre, la jornada se convirtió en una emocionante muestra de unión entre alumnas, familias y profesorado, aunando diversión compartida y compromiso humano real.',
+            'A lo largo de toda la jornada, grandes y pequeños disfrutaron de un amplio despliegue de actividades dinamizadas: tirolina, circuitos de karts a pedales, castillos hinchables y juegos gigantes de madera, culminando en un concurrido almuerzo de hermandad organizado con dedicación por el AMPA.',
+            'El verdadero corazón del encuentro fue su propósito solidario: la implicación activa de todas las familias permitió recaudar un total de 2.980 euros, fondos que irán destinados íntegramente al proyecto que las alumnas de 2.º de Bachillerato lideran en Shariani Primary School (condado de Kilifi, Kenia).',
+            '«Ver a tantas familias unidas disfrutando y, al mismo tiempo, sabiendo que cada juego y cada aportación se transformará en pupitres, aulas dignas e higiene para niños en Kilifi, da un sentido profundo a nuestro proyecto educativo».',
+            'Durante todo el curso escolar, las estudiantes de último curso trabajan sin descanso organizando iniciativas solidarias. Una vez superadas las pruebas de las PAU en junio, tomarán el relevo viajando sobre el terreno para materializar mejoras tangibles en las infraestructuras escolares y compartir semanas de enriquecimiento mutuo con la comunidad keniana.',
+            'Un sincero agradecimiento a cada familia y al AMPA por su generosidad. Con iniciativas como esta, demostramos que la solidaridad se vive, se aprende en comunidad y es capaz de cruzar fronteras para transformar vidas.',
+          ],
+        },
+        {
           tag: 'Vivencias de las alumnas',
           category: 'Vivencias y personas',
           date: 'Julio 2024',
@@ -1398,6 +1432,23 @@ export const t = {
       filterWorks: 'Works & Progress',
       filterCommunity: 'Community',
       entries: [
+        {
+          tag: 'Community and solidarity',
+          category: 'Community',
+          date: 'October 2026',
+          author: 'La Vall Community & Parents Association',
+          readTime: '3 min read',
+          title: '9th Family Adventure Day: €2,980 Raised for the Shariani Project in Kenya',
+          excerpt: 'A vibrant day of family activities, fellowship, and heartfelt generosity from across the La Vall community to support Shariani Primary School in Kenya.',
+          fullText: [
+            'On Sunday 25 October, La Vall school hosted the 9th edition of its annual Family Adventure Day. Far more than a festive outdoor gathering, the day stood as a moving celebration of unity among students, families, and faculty, seamlessly blending community spirit with real social impact.',
+            'Throughout the day, children and adults alike took part in an array of engaging outdoor activities—including zip lines, pedal karts, inflatables, and oversized wooden lawn games—before gathering for a convivial community lunch organized by the Parents\' Association (AMPA).',
+            'At the heart of the celebration was our solidarity mission: thanks to the enthusiastic turnout, a total of €2,980 was raised. Every single euro is directly allocated to the volunteering and facility renovation project led by our Year 13 students at Shariani Primary School in Kilifi County, Kenya.',
+            '«Seeing our school community come together with such generosity—knowing that every ticket and donation turns into desks, safer classrooms, and educational resources for children in Kilifi—brings our educational values to life».',
+            'Throughout the entire academic year, Year 13 students spearhead fundraising efforts. As soon as university entrance exams (PAU) conclude in June, they travel to Kenya to oversee the construction work on site and share weeks of mutual learning and companionship with the Shariani community.',
+            'A heartfelt thank you to every family and to the AMPA for their exceptional solidarity and participation. Collective initiatives like this demonstrate how education inspires a lifelong commitment to serving others.',
+          ],
+        },
         {
           tag: 'Student experiences',
           category: 'Experiences & People',
