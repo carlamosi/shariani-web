@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Heart } from 'lucide-react';
 import { images } from '@/data/images';
+import { DONATION_CONFIG } from '@/data/donationConfig';
 import { useLang } from '@/context/LangContext';
 
 export function Hero() {
@@ -148,17 +149,20 @@ export function Hero() {
 
           <div className="flex flex-wrap items-center gap-3.5">
             <a
-              href="#proyecto"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[var(--ink)] bg-white hover:bg-[var(--ivory)] hover:text-[var(--forest)] border border-white/80 shadow-[0_4px_16px_rgba(0,0,0,0.22)] hover:shadow-[0_6px_22px_rgba(255,255,255,0.25)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group"
-            >
-              <span>{tr.hero.ctaProject}</span>
-            </a>
-            <a
               href="#donar"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white bg-white/10 hover:bg-white/20 border border-white/25 hover:border-white/50 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group"
+              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-[var(--ink)] bg-white hover:bg-[var(--ivory)] hover:text-[#186ed7] border border-white/90 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_6px_24px_rgba(255,255,255,0.3)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group cursor-pointer"
             >
               <span>{tr.hero.ctaHelp}</span>
-              <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight size={16} strokeWidth={2.2} className="text-[#186ed7] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+            </a>
+            <a
+              href={DONATION_CONFIG.teamingUrl || 'https://www.teaming.net/unaescuela-milesdesuenosenkenia'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium text-xs sm:text-sm text-white/90 bg-white/10 hover:bg-white/20 hover:text-white border border-white/20 hover:border-white/40 backdrop-blur-md transition-all duration-300 group cursor-pointer"
+            >
+              <Heart size={14} strokeWidth={2} className="text-white/80 group-hover:scale-110 transition-transform" aria-hidden="true" />
+              <span>Teaming · 1 € / mes</span>
             </a>
           </div>
         </div>

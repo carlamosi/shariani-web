@@ -73,12 +73,17 @@ export function Navbar() {
         label: tr.nav.impact,
       },
       {
+        id: 'blog',
+        href: `/${currentLocale}/blog`,
+        label: tr.nav.blog || 'Blog',
+      },
+      {
         id: 'colabora',
         href: `/${currentLocale}/donar`,
         label: tr.nav.colabora,
       },
     ],
-    [currentLocale, isHome, tr.nav.project, tr.nav.obres, tr.nav.impact, tr.nav.colabora]
+    [currentLocale, isHome, tr.nav.project, tr.nav.obres, tr.nav.impact, tr.nav.blog, tr.nav.colabora]
   );
 
   // ── Scroll & Header Height ────────────────────────────────────────────────
@@ -97,7 +102,14 @@ export function Navbar() {
 
   // ── Active section detection + URL hash update ─────────────────────────────
   useEffect(() => {
-    if (!isHome) return;
+    if (!isHome) {
+      if (pathname.includes('/blog')) setActiveSection('blog');
+      else if (pathname.includes('/obra-real')) setActiveSection('obras');
+      else if (pathname.includes('/que-es-shariani')) setActiveSection('proyecto');
+      else if (pathname.includes('/voluntariado-kenya')) setActiveSection('impacto');
+      else if (pathname.includes('/donar')) setActiveSection('colabora');
+      return;
+    }
 
     const sectionIds = ['proyecto', 'obras', 'impacto', 'donar', 'colabora'];
     const sections = sectionIds
