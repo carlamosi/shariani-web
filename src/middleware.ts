@@ -46,8 +46,10 @@ export function middleware(request: NextRequest) {
   //    Set x-lang header (read by root layout to set <html lang>)
   //    and persist NEXT_LOCALE cookie.
   if ((LOCALES as readonly string[]).includes(first)) {
-    const response = NextResponse.next();
-    response.headers.set('x-lang', first);
+    // x-lang must be a *request* header: the root layout reads it via headers().
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-lang', first);
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
     response.cookies.set('NEXT_LOCALE', first, {
       path: '/',
       maxAge: 31_536_000,
