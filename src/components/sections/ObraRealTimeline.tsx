@@ -13,14 +13,14 @@ import { images } from '@/data/images';
    2024: mesas (wooden desks & chairs built by local carpenters)
    2025: higieneBucal (oral hygiene workshops and classroom painting)
    2026: ninaFalda (300 school skirts project & entrance mural)
-   2027: valla (school grounds where well & safe water system are planned)
+   2027: valla (school grounds where the solar-powered technology classroom is planned)
    ───────────────────────────────────────────────────────────── */
 const YEAR_PHOTOS = [
   { img: images.colaborarOngs, isFirst: true,  alt: 'Reunión y escucha activa con docentes y familias de Shariani en 2023' },
   { img: images.mesas,         isFirst: false, alt: 'Pupitres y mesas de madera construidos con carpinteros locales en 2024' },
   { img: images.higieneBucal,  isFirst: false, alt: 'Talleres prácticos de higiene bucodental y aulas restauradas en 2025' },
   { img: images.ninaFalda,     isFirst: false, alt: 'Alumna con falda escolar confeccionada en el proyecto de 300 faldas en 2026' },
-  { img: images.valla,         isFirst: false, alt: 'Recinto e instalaciones de Shariani donde se proyecta el pozo y sistema de agua para 2027' },
+  { img: images.valla,         isFirst: false, alt: 'Recinto e instalaciones de Shariani donde se proyecta el aula de tecnología con energía solar para 2027' },
 ];
 
 /* ─────────────────────────────────────────────────────────────
@@ -669,7 +669,7 @@ export function ObraRealTimeline() {
             fontSize: 'clamp(32px, 4.8vw, 56px)',
             letterSpacing: '-0.025em',
             lineHeight: 1.08,
-            fontWeight: 400,
+            fontWeight: 600,
           }}
         >
           {content.h1}

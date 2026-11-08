@@ -24,7 +24,7 @@ export function GET() {
 | 2024 | Painting and refurbishment of primary classrooms |
 | 2025 | Handcrafted school desks & chairs; perimeter security fence |
 | 2026 | Roof repairs, educational murals, oral hygiene workshops, 300 school skirts |
-| 2027 | Well and safe drinking-water system (planned, ~€5,000) |
+| 2027 | Solar power system and technology classroom (planned, ~€10,000) |
 
 ## Pages
 
