@@ -2,7 +2,15 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 // Correo de destino en el servidor — COMPLETAMENTE OCULTO para el cliente
-const RECIPIENT_EMAIL = process.env.CONTACT_RECIPIENT_EMAIL || 'shariani@la-vall.org';
+const RECIPIENT_EMAIL = process.env.CONTACT_RECIPIENT_EMAIL || 'cmonte@la-vall.org';
+
+const MAX_LEN = { name: 120, email: 200, organization: 160, phone: 40, topic: 80, message: 5000 };
+
+/** Escape user input before interpolating it into the HTML email. */
+const esc = (v: string) =>
+  v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+const str = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
 
 interface ContactRequestBody {
   name: string;
@@ -25,10 +33,15 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-    const { name, email, topic, organization, phone, message, botCheck } = body;
+    const name = str(body?.name);
+    const email = str(body?.email);
+    const topic = str(body?.topic);
+    const organization = str(body?.organization);
+    const phone = str(body?.phone);
+    const message = str(body?.message);
 
     // 1. Detección silenciosa de bots (Honeypot)
-    if (botCheck && botCheck.trim() !== '') {
+    if (str(body?.botCheck) !== '') {
       // Si el bot rellenó el campo trampa, devolvemos 200 sin enviar nada
       return NextResponse.json({ success: true, message: 'Recibido' });
     }
@@ -56,6 +69,14 @@ export async function POST(req: Request) {
       );
     }
 
+    const fields = { name, email, organization, phone, topic, message };
+    if ((Object.keys(MAX_LEN) as (keyof typeof MAX_LEN)[]).some((k) => fields[k].length > MAX_LEN[k])) {
+      return NextResponse.json(
+        { success: false, error: 'Alguno de los campos es demasiado largo.' },
+        { status: 400 }
+      );
+    }
+
     const cleanTopic = topic || 'Consulta general';
     const dateFormatted = new Date().toLocaleString('es-ES', {
       timeZone: 'Europe/Madrid',
@@ -64,7 +85,15 @@ export async function POST(req: Request) {
     });
 
     // 3. Preparación de contenido HTML elegante para el email que recibirá cmonte@la-vall.org
-    const emailSubject = `[La Vall x Shariani] ${cleanTopic} — ${name.trim()}${organization ? ` (${organization.trim()})` : ''}`;
+    const emailSubject = `[La Vall x Shariani] ${cleanTopic} — ${name}${organization ? ` (${organization})` : ''}`;
+    const h = {
+      topic: esc(cleanTopic),
+      name: esc(name),
+      email: esc(email),
+      organization: esc(organization),
+      phone: esc(phone),
+      message: esc(message),
+    };
 
     const emailHtml = `
       <!DOCTYPE html>
@@ -93,15 +122,15 @@ export async function POST(req: Request) {
             </div>
             <div class="content">
               <div class="meta-grid">
-                <div class="meta-item"><span class="meta-label">Motivo / Categoría:</span> <strong>${cleanTopic}</strong></div>
-                <div class="meta-item"><span class="meta-label">Remitente:</span> ${name.trim()}</div>
-                <div class="meta-item"><span class="meta-label">Email de contacto:</span> <a href="mailto:${email.trim()}">${email.trim()}</a></div>
-                ${organization ? `<div class="meta-item"><span class="meta-label">Organización / Empresa:</span> ${organization.trim()}</div>` : ''}
-                ${phone ? `<div class="meta-item"><span class="meta-label">Teléfono:</span> <a href="tel:${phone.trim()}">${phone.trim()}</a></div>` : ''}
+                <div class="meta-item"><span class="meta-label">Motivo / Categoría:</span> <strong>${h.topic}</strong></div>
+                <div class="meta-item"><span class="meta-label">Remitente:</span> ${h.name}</div>
+                <div class="meta-item"><span class="meta-label">Email de contacto:</span> <a href="mailto:${h.email}">${h.email}</a></div>
+                ${organization ? `<div class="meta-item"><span class="meta-label">Organización / Empresa:</span> ${h.organization}</div>` : ''}
+                ${phone ? `<div class="meta-item"><span class="meta-label">Teléfono:</span> <a href="tel:${h.phone}">${h.phone}</a></div>` : ''}
               </div>
 
               <p style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #656e68; margin-bottom: 8px;">Mensaje:</p>
-              <div class="message-box">${message.trim()}</div>
+              <div class="message-box">${h.message}</div>
             </div>
             <div class="footer">
               Este correo fue enviado desde el sitio web oficial de la iniciativa La Vall × Shariani.<br>
@@ -126,9 +155,10 @@ export async function POST(req: Request) {
       });
 
       await transporter.sendMail({
-        from: `"${name.trim()} (vía La Vall x Shariani)" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+        // Object form lets nodemailer quote the display name safely.
+        from: { name: `${name} (vía La Vall x Shariani)`, address: process.env.SMTP_FROM || process.env.SMTP_USER },
         to: RECIPIENT_EMAIL,
-        replyTo: email.trim(),
+        replyTo: email,
         subject: emailSubject,
         html: emailHtml,
         text: `Nuevo mensaje de ${name} (${email})\nMotivo: ${cleanTopic}\nOrganización: ${organization || 'N/A'}\n\n${message}`,
@@ -151,33 +181,43 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           from: process.env.RESEND_FROM || 'La Vall x Shariani <onboarding@resend.dev>',
           to: [RECIPIENT_EMAIL],
-          reply_to: email.trim(),
+          reply_to: email,
           subject: emailSubject,
           html: emailHtml,
         }),
       });
 
       if (!resendRes.ok) {
-        const errorData = await resendRes.text();
-        console.error('Error al enviar con Resend:', errorData);
-      } else {
-        return NextResponse.json({
-          success: true,
-          message: 'Tu mensaje ha sido enviado con éxito.',
-        });
+        console.error('Error al enviar con Resend:', await resendRes.text());
+        return NextResponse.json(
+          { success: false, error: 'No se ha podido enviar el mensaje. Inténtalo de nuevo más tarde.' },
+          { status: 502 }
+        );
       }
+      return NextResponse.json({
+        success: true,
+        message: 'Tu mensaje ha sido enviado con éxito.',
+      });
     }
 
-    // C) Entorno sin credenciales SMTP configuradas en local/preview
-    // Registramos en el log del servidor de Vercel de forma segura para no perder ningún mensaje
+    // C) Sin proveedor de correo: en producción es un error (el mensaje no llegaría a nadie)
+    if (process.env.NODE_ENV === 'production') {
+      console.error('[api/contact] Sin SMTP_* ni RESEND_API_KEY: el mensaje no se ha enviado.');
+      return NextResponse.json(
+        { success: false, error: 'El formulario no está disponible ahora mismo.' },
+        { status: 503 }
+      );
+    }
+
+    // Desarrollo local: se registra en consola para poder probar el formulario
     console.log(`[Formulario Contacto Web -> ${RECIPIENT_EMAIL}]`, {
       date: dateFormatted,
-      sender: name.trim(),
-      email: email.trim(),
+      sender: name,
+      email,
       topic: cleanTopic,
       organization: organization || 'N/A',
       phone: phone || 'N/A',
-      message: message.trim(),
+      message,
     });
 
     return NextResponse.json({
