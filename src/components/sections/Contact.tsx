@@ -90,7 +90,8 @@ export function Contact() {
         setStatus('success');
       } else {
         setStatus('error');
-        setErrorMessage(data.error || c.errGeneric || 'Error al enviar el mensaje.');
+        // Server messages are Spanish-only; client validation already covers field errors.
+        setErrorMessage(c.errGeneric || 'Error al enviar el mensaje.');
       }
     } catch {
       setStatus('error');
@@ -115,9 +116,6 @@ export function Contact() {
       className="relative w-full bg-[var(--ivory)] py-14 sm:py-18 lg:py-20 text-[var(--ink)] border-t border-[var(--border)] overflow-hidden"
       aria-labelledby="contacto-heading"
     >
-      {/* Legacy anchor compatibility */}
-      <span id="colabora" className="absolute -top-24" aria-hidden="true" />
-
       <div className="container-page max-w-5xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           

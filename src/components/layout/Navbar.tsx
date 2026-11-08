@@ -51,15 +51,12 @@ export function Navbar() {
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   // ── Nav items in page order ─────────────────────────────────────────────
-  // 1. El proyecto (#proyecto / /que-es-shariani)
-  // 2. [Obras] (/obra-real)
-  // 3. Impacto (#impacto / /voluntariado-kenya)
-  // 4. Colabora (/donar)
+  // Proyecto, Impacto and Colabora always jump to their home section (no thin subpages).
   const navItems = useMemo(
     () => [
       {
         id: 'proyecto',
-        href: isHome ? `/${currentLocale}#proyecto` : `/${currentLocale}/que-es-shariani`,
+        href: `/${currentLocale}#proyecto`,
         label: tr.nav.project,
       },
       {
@@ -69,7 +66,7 @@ export function Navbar() {
       },
       {
         id: 'impacto',
-        href: isHome ? `/${currentLocale}#impacto` : `/${currentLocale}/voluntariado-kenya`,
+        href: `/${currentLocale}#impacto`,
         label: tr.nav.impact,
       },
       {
@@ -79,7 +76,7 @@ export function Navbar() {
       },
       {
         id: 'colabora',
-        href: `/${currentLocale}/donar`,
+        href: `/${currentLocale}#colabora`,
         label: tr.nav.colabora,
       },
     ],
@@ -105,13 +102,13 @@ export function Navbar() {
     if (!isHome) {
       if (pathname.includes('/blog')) setActiveSection('blog');
       else if (pathname.includes('/obra-real')) setActiveSection('obras');
-      else if (pathname.includes('/que-es-shariani')) setActiveSection('proyecto');
-      else if (pathname.includes('/voluntariado-kenya')) setActiveSection('impacto');
       else if (pathname.includes('/donar')) setActiveSection('colabora');
       return;
     }
 
-    const sectionIds = ['proyecto', 'obras', 'impacto', 'donar', 'colabora'];
+    // HowToHelp's <section id="donar"> is the "Colabora" block (it holds the #colabora anchor).
+    const sectionIds = ['proyecto', 'obras', 'impacto', 'donar'];
+    const toNavId = (id: string) => (id === 'donar' ? 'colabora' : id);
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -119,15 +116,15 @@ export function Navbar() {
     if (sections.length === 0) return;
 
     const currentHash = window.location.hash.replace('#', '');
-    if (currentHash && sectionIds.includes(currentHash)) {
-      setActiveSection(currentHash);
+    if (currentHash && [...sectionIds, 'colabora'].includes(currentHash)) {
+      setActiveSection(toNavId(currentHash));
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const id = entry.target.id;
+            const id = toNavId(entry.target.id);
             setActiveSection(id);
             // Update URL hash smoothly without jump
             if (window.location.hash !== `#${id}`) {
