@@ -347,7 +347,7 @@ export default async function VoluntariadoKenyaPage({
                 fontSize: 'clamp(32px, 4.8vw, 54px)',
                 letterSpacing: '-0.025em',
                 lineHeight: 1.1,
-                fontWeight: 400,
+                fontWeight: 600,
               }}
             >
               {copy.h1}
@@ -372,7 +372,7 @@ export default async function VoluntariadoKenyaPage({
             <div className="mb-16">
               <h2
                 className="text-[var(--ink)] text-2xl md:text-3xl mb-8"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.cycleHeading}
               </h2>
@@ -410,7 +410,7 @@ export default async function VoluntariadoKenyaPage({
             <div className="mb-16">
               <h2
                 className="text-[var(--ink)] text-2xl md:text-3xl mb-5"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.expeditionHeading}
               </h2>
@@ -427,7 +427,7 @@ export default async function VoluntariadoKenyaPage({
             <div className="mb-16">
               <h2
                 className="text-[var(--ink)] text-2xl md:text-3xl mb-8"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.worksHeading}
               </h2>
@@ -462,7 +462,7 @@ export default async function VoluntariadoKenyaPage({
             <div className="mb-16">
               <h2
                 className="text-[var(--ink)] text-2xl md:text-3xl mb-8"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.testimonialsHeading}
               </h2>
@@ -504,7 +504,7 @@ export default async function VoluntariadoKenyaPage({
             >
               <h2
                 className="text-2xl sm:text-3xl mb-3"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.ctaHeading}
               </h2>

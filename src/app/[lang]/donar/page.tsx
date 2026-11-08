@@ -307,7 +307,7 @@ export default async function DonarPage({
                 fontSize: 'clamp(32px, 4.8vw, 54px)',
                 letterSpacing: '-0.025em',
                 lineHeight: 1.1,
-                fontWeight: 400,
+                fontWeight: 600,
               }}
             >
               {copy.h1}
@@ -346,7 +346,7 @@ export default async function DonarPage({
 
               <h2
                 className="text-2xl sm:text-3xl mb-6 text-white"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.bizumHeading}
               </h2>

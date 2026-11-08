@@ -127,7 +127,7 @@ export default async function BlogPage({
                 fontSize: 'clamp(34px, 5vw, 56px)',
                 letterSpacing: '-0.025em',
                 lineHeight: 1.08,
-                fontWeight: 400,
+                fontWeight: 600,
               }}
             >
               {header.h1}

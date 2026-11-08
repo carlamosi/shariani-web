@@ -94,7 +94,7 @@ export function Project() {
           <h2
             id="cronica-heading"
             className="font-editorial text-3xl sm:text-4xl md:text-5xl text-[var(--ink)] leading-[1.08] tracking-[-0.025em]"
-            style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+            style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
           >
             {tr.project.sectionHeading1}<br />
             {tr.project.sectionHeading2}

@@ -311,7 +311,7 @@ export default async function QueEsSharianiPage({
                 fontSize: 'clamp(32px, 4.8vw, 54px)',
                 letterSpacing: '-0.025em',
                 lineHeight: 1.1,
-                fontWeight: 400,
+                fontWeight: 600,
               }}
             >
               {copy.h1}
@@ -336,7 +336,7 @@ export default async function QueEsSharianiPage({
             <div className="mb-14">
               <h2
                 className="text-[var(--ink)] text-2xl md:text-3xl mb-5"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.whatHeading}
               </h2>
@@ -353,7 +353,7 @@ export default async function QueEsSharianiPage({
             <div className="mb-16">
               <h2
                 className="text-[var(--ink)] text-2xl md:text-3xl mb-6"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.whoHeading}
               </h2>
@@ -406,7 +406,7 @@ export default async function QueEsSharianiPage({
             <div className="mb-16">
               <h2
                 className="text-[var(--ink)] text-2xl md:text-3xl mb-8"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.numbersHeading}
               </h2>
@@ -446,7 +446,7 @@ export default async function QueEsSharianiPage({
             <div className="mb-16">
               <h2
                 className="text-[var(--ink)] text-2xl md:text-3xl mb-6"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.principlesHeading}
               </h2>
@@ -485,7 +485,7 @@ export default async function QueEsSharianiPage({
             >
               <h2
                 className="text-2xl sm:text-3xl mb-3"
-                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400 }}
+                style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600 }}
               >
                 {copy.ctaHeading}
               </h2>

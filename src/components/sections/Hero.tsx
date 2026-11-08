@@ -134,7 +134,7 @@ export function Hero() {
 
           <h1
             className="text-[var(--ivory)] leading-[1.08] mb-6 drop-shadow-[0_2px_14px_rgba(0,0,0,0.38)]"
-            style={{ fontFamily: 'var(--font-editorial)', fontWeight: 400, fontSize: 'clamp(34px, 4.6vw, 60px)', letterSpacing: '-0.02em' }}
+            style={{ fontFamily: 'var(--font-editorial)', fontWeight: 600, fontSize: 'clamp(34px, 4.6vw, 60px)', letterSpacing: '-0.02em' }}
           >
             <span className="sm:whitespace-nowrap">{tr.hero.headline1}</span><br />
             <span className="md:whitespace-nowrap">{tr.hero.headline2}</span>

@@ -59,7 +59,7 @@ export function Footer() {
           className="block text-right"
           style={{
             fontFamily: 'var(--font-editorial)',
-            fontWeight: 400,
+            fontWeight: 600,
             fontSize: 'clamp(80px, 14vw, 200px)',
             color: 'rgba(250,248,244,0.035)',
             letterSpacing: '-0.05em',

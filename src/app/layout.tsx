@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { Manrope, Young_Serif } from 'next/font/google';
+import { Manrope, Familjen_Grotesk } from 'next/font/google';
 import './globals.css';
 import { DEFAULT_LOCALE, LOCALES, type Locale } from '@/lib/site';
 
@@ -8,14 +8,13 @@ import { DEFAULT_LOCALE, LOCALES, type Locale } from '@/lib/site';
 const manrope = Manrope({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
-  variable: '--font-body',
+  variable: '--font-manrope',
 });
 
-const youngSerif = Young_Serif({
-  weight: '400',
+const familjen = Familjen_Grotesk({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
-  variable: '--font-editorial',
+  variable: '--font-familjen',
 });
 
 // Force dynamic so headers() works and html[lang] is set correctly per request.
@@ -57,7 +56,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const lang = await detectLang();
 
   return (
-    <html lang={lang} className={`scroll-smooth ${manrope.variable} ${youngSerif.variable}`}>
+    <html lang={lang} className={`scroll-smooth ${manrope.variable} ${familjen.variable}`}>
       <head>
         <link rel="icon" href="/favicon.png?v=4" type="image/png" sizes="any" />
         <link rel="icon" href="/favicon.ico?v=4" sizes="any" />

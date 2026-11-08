@@ -1,5 +1,5 @@
 /*
- * Typography: Manrope (body/UI) + Young Serif (headings/editorial)
+ * Typography: Manrope (body/UI) + Familjen Grotesk (headings)
  * Self-hosted locally via next/font in layout.tsx (zero layout shift, no external FOIT)
  */
 @import "tailwindcss";
@@ -19,9 +19,10 @@
   --border: #E2DFD7;
   --border-light: #EDEBE5;
 
-  /* Global Typography Tokens — Manrope + Young Serif */
-  --font-editorial: 'Young Serif', 'Georgia', 'Times New Roman', serif;
-  --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+  /* Global Typography Tokens — Manrope + Familjen Grotesk.
+     Point at the next/font variables: redefining the same names here would race them. */
+  --font-editorial: var(--font-familjen), system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-manrope), system-ui, -apple-system, sans-serif;
   /* Aliases for backwards compat with existing heading/serif classes */
   --font-heading: var(--font-editorial);
   --font-sans: var(--font-body);
@@ -64,15 +65,14 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Typography — Young Serif (editorial) + Manrope (body/UI) */
+/* Typography — Familjen Grotesk (headings) + Manrope (body/UI) */
 h1, h2, h3, h4, h5, h6,
 .font-heading,
 .font-serif,
 .font-editorial {
   font-family: var(--font-editorial);
   text-rendering: optimizeLegibility;
-  /* Young Serif is a regular-weight serif; bold has no effect — use weight 400 */
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .font-sans,
@@ -80,24 +80,24 @@ h1, h2, h3, h4, h5, h6,
   font-family: var(--font-body);
 }
 
-/* Editorial headings — Young Serif at regular weight, controlled leading */
+/* Headings — Familjen Grotesk semibold, controlled leading */
 h1, .hero-title {
   font-family: var(--font-editorial);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.08;
 }
 
 h2, .section-title {
   font-family: var(--font-editorial);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.015em;
   line-height: 1.15;
 }
 
 h3, .card-title {
   font-family: var(--font-editorial);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.25;
 }
